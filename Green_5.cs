@@ -1,5 +1,9 @@
-using System;
-using System.Linq;
+ using System;
+ using System.Collections.Generic;
+ using System.Linq;
+ using System.Text;
+ using System.Text.RegularExpressions;
+ using System.Threading.Tasks;
 
 namespace Lab_6
 {
@@ -29,10 +33,13 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_marks == null || _marks.Length == 0) return 0;
-                    var validMarks = _marks.Where(mark => mark != -1).ToArray();
-                    if (validMarks.Length == 0) return 0;
-                    return validMarks.Average();
+                    if (_marks == null || _marks.Length == 0){return 0;}
+                    double sum = 0;
+                    for (int i = 0; i < _marks.Length; i++)
+                    {
+                        sum += _marks[i];
+                    }
+                    return sum / _marks.Length;
                 }
             }
 
@@ -41,16 +48,13 @@ namespace Lab_6
             {
                 _name = name;
                 _surname = surname;
-                _marks = new int[5];
-                for (int i = 0; i < _marks.Length; i++)
-                {
-                    _marks[i] = -1;
-                }
+                _marks = new int[5]{-1, -1, -1, -1, -1};
             }
 
             // Методы
             public void Exam(int mark)
             {
+                if (_marks == null || _marks.Length == 0){return;}
                 if (mark < 2 || mark > 5) return;
                 for (int i = 0; i < _marks.Length; i++)
                 {
@@ -75,8 +79,6 @@ namespace Lab_6
             private Student[] _students;
             private int _studentCount;
 
-            private const int MaxStudents = 30;
-
             // Свойства
             public string Name => _name;
             public Student[] Students => _students;
@@ -84,7 +86,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_studentCount == 0) return 0;
+                    if (_students == null || _studentCount == 0) return 0;
                     double totalAvg = 0;
                     int validStudents = 0;
                     for (int i = 0; i < _studentCount; i++)
@@ -103,26 +105,34 @@ namespace Lab_6
             public Group(string name)
             {
                 _name = name;
-                _students = new Student[MaxStudents];
+                _students = new Student[0];
                 _studentCount = 0;
             }
 
             // Методы
             public void Add(Student student)
             {
-                if (_studentCount < _students.Length)
-                {
-                    _students[_studentCount] = student;
-                    _studentCount++;
-                }
+                if (_students == null)
+                    _students = new Student[0];
+                Array.Resize(ref _students, _studentCount + 1);
+                _students[_studentCount] = student;
+                _studentCount++;
             }
 
-            public void Add(params Student[] students)
+            public void Add(Student[] students)
             {
-                foreach (var student in students)
-                {
-                    Add(student);
-                }
+                if (students == null)
+                     return;
+                 if (_students == null)
+                     _students = new Green_5.Student[0];
+
+                 int newLength = _studentCount + students.Length;
+                 Array.Resize(ref _students, newLength);
+                 for (int i = 0; i < students.Length; i++)
+                 {
+                     _students[_studentCount + i] = students[i];
+                 }
+                 _studentCount = newLength;
             }
 
             public static void SortByAvgMark(Group[] groups)

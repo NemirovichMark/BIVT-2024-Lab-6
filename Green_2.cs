@@ -18,14 +18,23 @@ namespace Lab_6
             //свойства
             public string Name  => _name;
             public string Surname  => _surname;
-            public int[] Marks  => _marks;
+            public int[] Marks
+            {
+                get
+                {
+                    if (_marks == null) return null;
+                    int[] copy = new int[_marks.Length];
+                    Array.Copy(_marks, copy, _marks.Length);
+                    return copy;
+                }
+            }
             public double AvgMark
             {
                 get
                 {
                     if (_marks == null || _marks.Length == 0) return 0;
 
-                    int sum = 0;
+                    double sum = 0;
                     int count = 0;
                     foreach (int mark in _marks)
                     {
@@ -36,14 +45,14 @@ namespace Lab_6
                         }
                     }
                     if (count == 0) return 0;
-                    return (double)sum / count;
+                    return sum / count;
                 }
             }
             public bool IsExcellent
             {
                 get
                 {
-                    if (_marks == null) return false;
+                    if (_marks == null || _marks.Length == 0) return false;
                     foreach (int mark in _marks)
                     {
                         if (mark < 4)
@@ -64,7 +73,7 @@ namespace Lab_6
             //остальные методы
             public void Exam(int mark)
             {
-                if (_marks == null) return;
+                if (_marks == null || _marks.Length == 0) return;
                 if (mark < 2 || mark > 5) return;
                 for (int i = 0; i < _marks.Length; i++)
                 {
@@ -78,14 +87,21 @@ namespace Lab_6
 
             public static void SortByAvgMark(Student [] array)
             {
-                if (array == null) return;
-                for (int i = 0; i < array.Length - 1; i++)
+                if (array == null || array.Length == 0)
+                    return;
+
+                bool swapped = true;
+                while (swapped)
                 {
-                    for (int j = 0; j < array.Length - 1 - i; j++)
+                    swapped = false;
+                    for (int i = 0; i < array.Length - 1; i++)
                     {
-                        if (array[j].AvgMark < array[j+1].AvgMark)
+                        if (array[i].AvgMark < array[i + 1].AvgMark)
                         {
-                            (array[j],array[j+1])=(array[j+1],array[j]);
+                            Student temp = array[i];
+                            array[i] = array[i + 1];
+                            array[i + 1] = temp;
+                            swapped = true;
                         }
                     }
                 }

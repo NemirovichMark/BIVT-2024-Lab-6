@@ -14,6 +14,7 @@ namespace Lab_6
             private string _surname;
             private int[] _marks;
             private bool _isExpelled;
+            private int _examCount;
 
             //свойства
             public string Name => _name;
@@ -28,14 +29,31 @@ namespace Lab_6
                     return copy;
                 }
             }
-            public bool IsExpelled => _isExpelled;
+            public bool IsExpelled
+            {
+                get
+                {
+                    if (_examCount == 0)
+                    {
+                        return false;
+                    }
+                    for (int i = 0; i < _examCount; i++)
+                    {
+                        if (_marks[i] <= 2)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            }
             public double AvgMark
             {
                 get
                 {
                     if (_marks == null || _marks.Length == 0) return 0;
 
-                    int sum = 0;
+                    double sum = 0;
                     int count = 0;
                     foreach (int mark in _marks)
                     {
@@ -46,7 +64,7 @@ namespace Lab_6
                         }
                     }
                     if (count == 0) return 0;
-                    return (double)sum / count;
+                    return sum / count;
                 }
             }
 
@@ -57,19 +75,24 @@ namespace Lab_6
                 _surname = surname;
                 _marks = new int[3];
                 _isExpelled = false;
+                _examCount = 0;
             }
             public void Exam(int mark)
             {
+                if (_marks == null || _marks.Length == 0) return;
+                if (_examCount >= 3){return;}
                 if (_isExpelled) return;
-                if (mark < 2 || mark > 5) return;
-                for (int i = 0; i < _marks.Length; i++)
-                {
-                    if (_marks[i] == 0)
+                if (mark >= 2 && mark <= 5)
                     {
-                        _marks[i] = mark;
-                        break;
+                        _marks[_examCount] = mark;
+                        _examCount++;
                     }
-                }
+                else
+                    {
+                        _marks[_examCount] = mark;
+                        _examCount++;
+                        _isExpelled = true;
+                    }
                 if (mark <= 2)
                 {
                     _isExpelled = true;

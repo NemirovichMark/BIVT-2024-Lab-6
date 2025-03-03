@@ -14,6 +14,7 @@ namespace Lab_6
             private string _name;
             private string _surname;
             private double[] _jumps;
+            private int _index = 0;
 
 
             //свойства
@@ -55,15 +56,12 @@ namespace Lab_6
             //остальные методы
             public void Jump(double result)
             {
-                if (_jumps == null) return;
-                for (int i = 0; i < _jumps.Length; i++)
-                {
-                    if (_jumps[i] == -1)
-                    {
-                        _jumps[i] = result;
-                        return;
-                    }
-                }
+                if (_jumps == null || _jumps.Length == 0) return;
+                 if (_index < 3 && result >= 0)
+                 {
+                     _jumps[_index] = result;
+                     _index++;
+                 }
             }
 
             public static void Sort(Participant[] array)

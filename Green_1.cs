@@ -15,6 +15,7 @@ namespace Lab_6
             private string _group;
             private string _trainer;
             private double _result;
+            private bool _resultFilled;
             private static readonly double _standard;
             private static int _passedCounter;
 
@@ -24,7 +25,7 @@ namespace Lab_6
             public string Trainer  => _trainer;
             public double Result  => _result;
             public static int PassedTheStandard => _passedCounter;
-            public bool HasPassed => (Result <= _standard);
+            public bool HasPassed => _resultFilled && _result <= _standard && _result > 0;
 
             // статический конструктор
             static Participant()
@@ -39,15 +40,21 @@ namespace Lab_6
                 _surname = surname;
                 _group = group;
                 _trainer = trainer;
-                _result = double.MaxValue;;
+                _result = 0;
+                _resultFilled = false;
             }
 
             //остальные методы
             public void Run(double result)
             {
-                if (_result == double.MaxValue)
+                if (result <= 0)
+                {
+                    return;
+                }
+                if (!_resultFilled)
                 {
                     _result = result;
+                    _resultFilled = true;
                     if (result <= _standard)
                     {
                         _passedCounter++;
