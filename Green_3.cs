@@ -32,7 +32,7 @@ namespace Lab_6
             {
                 get
                 {
-                    return (int[])_marks.Clone(); 
+                    return (int[])_marks?.Clone(); // ? предотвращает ошибку, тк вмето вызова Clone возвращается null
                 }
             }
 
@@ -51,7 +51,7 @@ namespace Lab_6
                     {
                         sum += mark;
                     }
-                    return sum / _marks.Length;
+                    return sum / (double)_marks.Length;
                 }
             }
 
@@ -67,7 +67,7 @@ namespace Lab_6
             {
                 _name = name;
                 _surname = surname;
-                _marks = new int[] { 0, 0, 0 }; // инициализируем массив нулями
+                _marks = new int[3]; // инициализируем массив нулями
                 _session_outcome = false;
             }
 
@@ -75,11 +75,7 @@ namespace Lab_6
             {
                 if (_session_outcome || _marks == null) return;
                 if (mark < 2 || mark > 5) return;
-                if (mark == 0)
-                {
-                    _session_outcome = true;
-                    return;
-                }
+
                 for (int i = 0; i < _marks.Length; i++)
                 {
                     if (_marks[i] == 0)
@@ -87,6 +83,12 @@ namespace Lab_6
                         _marks[i] = mark;
                         return;
                     }
+                }
+                
+                if (mark == 2) //Проверка на наличие хотя бы одной двойки
+                {
+                    _session_outcome = true;
+                    return;
                 }
             }
 
