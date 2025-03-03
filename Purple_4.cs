@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -46,15 +47,26 @@ namespace Lab_6
             private Sportsman[] _sportsmen;
 
             public string Name => _name;
-            public Sportsman[] Sportsmen
+            public Sportsman[] Sportsmen => _sportsmen;
+            
+
+            public Group(string name)
             {
-                get
-                {
-                    var copy = new Sportsman[ _sportsmen.Length ];
-                    Array.Copy(_sportsmen, copy, _sportsmen.Length );
-                    return copy;
-                }
+                _name = name;
+                _sportsmen = new Sportsman[0];
             }
+            public Group(Group group)
+            {
+                _name = group.Name;
+                if (group.Sportsmen == null) _sportsmen = null;
+                else Array.Copy(_sportsmen,group._sportsmen, _sportsmen.Length);
+            }
+            
+            public void Sort()
+            {   
+                Array.Copy(_sportsmen.OrderBy(x => x.Time).ToArray(), _sportsmen, _sportsmen.OrderBy(x => x.Time).ToArray().Length);
+            }
+
 
         }
     }
