@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace Lab_6
 {
     public class Blue_5
-        {public struct Sportsman
+    {
+        public struct Sportsman
         {
             //поля
             private string name;
             private string surname;
             private int place;
-                private bool is_setted;
+            private bool is_setted;
 
             // свойства 
             public string Name => name;
@@ -58,7 +59,7 @@ namespace Lab_6
             //свойства 
             public string Name => name;
             public Sportsman[] Sportsmen
-                {
+            {
                 get
                 {
                     if (sportsmen == null) return null;
@@ -68,7 +69,7 @@ namespace Lab_6
                 }
             }
 
-                public int SummaryScore
+            public int SummaryScore
             {
                 get
                 {
@@ -93,10 +94,11 @@ namespace Lab_6
             {
                 get
                 {
+                    if (sportsmen==null) return 0;
                     int top = 18;
                     foreach (var sportsman in sportsmen)
                     {
-                        if (sportsman.Place < top && sportsman.Place != 0)
+                        if (sportsman.Place < top)
                         {
                             top = sportsman.Place;
                         }
@@ -109,11 +111,12 @@ namespace Lab_6
             public Team(string name)
             {
                 this.name = name;
-                this.sportsmen = new Sportsman[0]; 
+                this.sportsmen = new Sportsman[6]; 
             }
             // Метод
             public void Add(Sportsman sportsman)
             {
+                if (sportsmen==null) return;
                 Array.Resize(ref sportsmen, sportsmen.Length + 1);
                 sportsmen[sportsmen.Length - 1] = sportsman;
             }
@@ -128,6 +131,7 @@ namespace Lab_6
 
             public static void Sort(Team[] teams)
             {
+                if (teams==null) return;
                 for (int i = 0; i < teams.Length - 1; i++)
                 {
                     for (int j = i + 1; j < teams.Length; j++)
