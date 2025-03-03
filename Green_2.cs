@@ -25,7 +25,6 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_name == null) return default;
                     return _name;
                 }
             }
@@ -33,7 +32,6 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_surname == null) return default;
                     return _surname;
                 }
             }
@@ -50,14 +48,14 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_exams_taken_count == 0) return 0; 
+                    if (_exams_taken_count < 4) return 0; 
 
                     double sum = 0;
                     for (int i = 0; i < _exams_taken_count; i++)
                     {
                         sum += _marks[i];
                     }
-                    return sum / _exams_taken_count;
+                    return sum / (double)_exams_taken_count;
                 }
             }
 
@@ -85,9 +83,7 @@ namespace Lab_6
             {
                 get
                 {
-
-                    if (_marks == null || _marks.Length == 0) return false;
-                    if (_exams_taken_count != _marks.Length) return false;
+                    if (_exams_taken_count == 0) return false;
                     for (int i = 0; i < _exams_taken_count; i++)
                     {
                         if (_marks[i] < 4)
@@ -95,23 +91,19 @@ namespace Lab_6
                             return false;
                         }
                     }
-                    return true; 
+                    return true;
                 }
             }
             public void Exam(int mark)
             {
+                if (mark < 2 || mark > 5) return;
+
+                if (_exams_taken_count < _marks.Length) 
                 {
-                    if (_marks == null) return;
-                    if (mark < 2 || mark > 5) return;
-                    for (int i = 0; i < _marks.Length; i++)
-                    {
-                        if (_marks[i] == 0)
-                        {
-                            _marks[i] = mark;
-                            break;
-                        }
-                    }
+                    _marks[_exams_taken_count] = mark;
+                    _exams_taken_count++;
                 }
+
             }
 
             public void Print()
