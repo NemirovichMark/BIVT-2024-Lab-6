@@ -78,7 +78,7 @@ namespace Lab_6
                         participants_sort[i]._places[j] = i+1;
                     }
                 }
-                participants_sort = participants_sort.Concat(participants_sort.Where(r => r._marks != null && r._places != null)).ToArray();
+                //participants_sort = participants_sort.Concat(participants_sort.Where(r => r._marks != null && r._places != null)).ToArray();
                 Array.Copy(participants_sort, participants, participants_sort.Length);
 
 
