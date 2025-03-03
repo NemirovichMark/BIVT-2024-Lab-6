@@ -31,7 +31,7 @@ namespace Lab_6
             {
                 get
                 {
-                    return (double[])_jumps.Clone(); 
+                    return (double[])_jumps?.Clone(); 
                 }
             }
 
