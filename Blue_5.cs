@@ -82,7 +82,7 @@ namespace Lab_6
                     if (_sportsmen == null || _count == 0)
                         return 0; 
 
-                    int topPlace = int.MaxValue;
+                    int topPlace = 18;
                     for (int i = 0; i < _count; i++)
                     {
                         if (_sportsmen[i].Place < topPlace && _sportsmen[i].Place != 0)

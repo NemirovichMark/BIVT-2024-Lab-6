@@ -14,10 +14,19 @@ namespace Lab_6
             private string _name;
             private string _surname;
             private int[,] _marks;
+            private int k;
 
             public string Name => _name;
             public string Surname => _surname;
-            public int[,] Marks => _marks;
+            public int[,] Mark
+            {
+                get 
+                {
+                    int[,] copy = new int[2, 5];
+                    Array.Copy(_marks, copy, _marks.Length);
+                    return copy;
+                }
+            }
 
             public int TotalScore
             {
@@ -40,35 +49,26 @@ namespace Lab_6
                 _name = name;
                 _surname = surname;
                 _marks = new int[2, 5];
+                k = 0; 
             }
 
             public void Jump(int[] result)
             {
-                if (result == null || result.Length != 5)
+                if (result == null || _marks == null || _marks.GetLength(0) != 2 || _marks.GetLength(1) != 5 || result.Length != 5)
                 {
                     return;
                 }
 
-                for (int i = 0; i < 2; i++)
+                
+                
+                if (k > 1) return;
+                else
                 {
-                    bool isJumpEmpty = true;
                     for (int j = 0; j < 5; j++)
                     {
-                        if (_marks[i, j] != 0)
-                        {
-                            isJumpEmpty = false;
-                            break;
-                        }
+                        _marks[k, j] = result[j];
                     }
-
-                    if (isJumpEmpty)
-                    {
-                        for (int j = 0; j < 5; j++)
-                        {
-                            _marks[i, j] = result[j];
-                        }
-                        break;
-                    }
+                    k++;
                 }
             }
 
