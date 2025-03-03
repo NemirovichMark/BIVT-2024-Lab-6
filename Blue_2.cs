@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lab_6
 {
-    public class Blue_2
+    internal class Blue_2
     {
         public struct Participant
         {
@@ -64,31 +64,31 @@ namespace Lab_6
             public void Jump(int[] result)
             {
                 if (_marks == null || result == null) return;
-                int jump = 0;
-                for(int i = 0; i < 5; i++)
+                int jump = -1;
+                for(int i = 0; i < 2; i++)
                 {
-                    if (_marks[jump,i] != 0)
+                    for(int j = 0; j < 5; j++)
                     {
-                        jump = 1;
-                        break;
-                    }
-                }
-                if(jump == 1)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        if (_marks[jump, i] != 0)
+                        if (_marks[i,j] != 0)
                         {
-                            jump = -1;
+                            jump=i;
                             break;
                         }
                     }
                 }
-                if (jump != -1 && result.Length == 5)
+                if (jump == 1 || jump == -1)
                 {
-                    for(int i = 0; i < 5; i++)
+                    for (int j = 0; j < 5; j++)
                     {
-                        _marks[jump, i] = result[i];                    }
+                        _marks[0, j] = result[j];
+                    }
+                }
+                else if(jump == 0)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        _marks[1, j] = result[j];
+                    }
                 }
                 else
                 {
