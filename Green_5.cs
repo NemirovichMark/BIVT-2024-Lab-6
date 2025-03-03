@@ -48,7 +48,7 @@ namespace Lab_6
             {
                 _name = name;
                 _surname = surname;
-                _marks = new int[5]{-1, -1, -1, -1, -1};
+                _marks = new int[5];
             }
 
             // Методы
@@ -58,7 +58,7 @@ namespace Lab_6
                 if (mark < 2 || mark > 5) return;
                 for (int i = 0; i < _marks.Length; i++)
                 {
-                    if (_marks[i] == -1)
+                    if (_marks[i] == 0)
                     {
                         _marks[i] = mark;
                         break;

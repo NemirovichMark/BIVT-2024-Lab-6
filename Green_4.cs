@@ -14,18 +14,16 @@ namespace Lab_6
             private string _name;
             private string _surname;
             private double[] _jumps;
-            private int _index = 0;
-
 
             //свойства
             public string Name  => _name;
             public string Surname  => _surname;
-            public int[] Jumps
+            public float[] Jumps
             {
                 get
                 {
                     if (_jumps == null) return null;
-                    int[] copy = new int[_jumps.Length];
+                    float[] copy = new float[_jumps.Length];
                     Array.Copy(_jumps, copy, _jumps.Length);
                     return copy;
                 }
@@ -35,13 +33,7 @@ namespace Lab_6
                 get
                 {
                     if (_jumps == null || _jumps.Length == 0) return 0;
-                    double best = -1;
-                    foreach (double jump in _jumps)
-                    {
-                        if (jump > best && jump != -1)
-                            best = jump;
-                    }
-                    return best;
+                    return _jumps.Max();
                 }
             }
 
@@ -50,18 +42,21 @@ namespace Lab_6
             {
                 _name = name;
                 _surname = surname;
-                _jumps = new double[3] { -1, -1, -1 };
+                _jumps = new double[3];
             }
 
             //остальные методы
             public void Jump(double result)
             {
-                if (_jumps == null || _jumps.Length == 0) return;
-                 if (_index < 3 && result >= 0)
-                 {
-                     _jumps[_index] = result;
-                     _index++;
-                 }
+                if (_jumps == null) return;
+                for (int i = 0; i < _jumps.Length; i++)
+                {
+                    if (_jumps[i] == 0)
+                    {
+                        _jumps[i] = result;
+                        return;
+                    }
+                }
             }
 
             public static void Sort(Participant[] array)
@@ -83,7 +78,7 @@ namespace Lab_6
             {
                 Console.WriteLine($"{Name} {Surname} {BestJump}");
             }
-            
+
         }
     }
 }
