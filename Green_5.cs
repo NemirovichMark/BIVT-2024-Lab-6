@@ -40,7 +40,8 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_marks == null || _marks.Length == 0) return 0; 
+                    if (_marks == null || _marks.Length == 0) return 0;
+                    
                     double sum = 0;
                     for (int i = 0; i < _marks.Length; i++)
                     {
@@ -112,11 +113,11 @@ namespace Lab_6
                 }
             }
 
-            public Student[] Students
+            private Student[] Students
             {
                 get
                 {
-                    if (_students == null || _studentCount == 0) return default;
+                    if (_students == null || _studentCount == 0) return null;
                     Student[] result = new Student[_studentCount];
                     Array.Copy(_students, result, _studentCount);
                     return result;
@@ -136,7 +137,7 @@ namespace Lab_6
                     {
                         totalMark += _students[i].AvgMark;
                     }
-                    double averageMark = totalMark / _studentCount;
+                    double averageMark = totalMark / (double)_studentCount;
 
                     return averageMark;
                 }
