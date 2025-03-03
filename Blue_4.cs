@@ -69,6 +69,7 @@ namespace Lab_6
         {
             private string _name;
             private Team[] _teams;
+            private int _teamsCount;
 
             public string Name => _name;
             public Team[] Teams => _teams;
@@ -76,27 +77,23 @@ namespace Lab_6
             {
                 _name = name;
                 _teams = new Team[12];
+                _teamsCount = 0;
             }
 
             public void Add(Team team)
             {
                 if (_teams == null || _teams.Length == 0) return;
-                if(_teams.Length < 12)
+                if (_teamsCount < _teams.Length)
                 {
-                    Team[] arr = new Team[_teams.Length + 1];
-                    for (int i = 0; i < _teams.Length; i++)
-                    {
-                        arr[i] = _teams[i];
-                    }
-                    arr[arr.Length - 1] = team;
-                    _teams = arr;
+                    _teams[_teamsCount] = team; 
+                    _teamsCount++; 
                 }
             }
 
             public void Add(Team[] team)
             {
-                if (_teams == null || team == null) return;
-                 for(int i = 0; i < team.Length; i++)
+                if (_teams == null || team.Length == 0 || team == null) return;
+                for(int i = 0; i < team.Length; i++)
                 {
                     Add(team[i]);
                 }
@@ -128,17 +125,17 @@ namespace Lab_6
 
                 int halfSize = size / 2;
 
-                for (int i = 0; i < halfSize && i < group1.Teams.Length; i++)
+                for (int i = 0; i < halfSize && i < group1.Teams.Length && finals._teamsCount < 12; i++)
                 {
                     finals.Add(group1.Teams[i]);
                 }
 
-                for (int i = 0; i < halfSize && i < group2.Teams.Length; i++)
+                for (int i = 0; i < halfSize && i < group2.Teams.Length && finals._teamsCount < 12; i++)
                 {
                     finals.Add(group2.Teams[i]);
                 }
 
-                if (size % 2 != 0)
+                if (size % 2 != 0 && finals._teamsCount < 12)
                 {
                     if (group1.Teams.Length > halfSize && group2.Teams.Length > halfSize)
                     {
@@ -167,13 +164,13 @@ namespace Lab_6
             public void Print()
             {
                 Console.WriteLine($"Группа: {_name}");
-                foreach (var team in _teams)
+                for (int i = 0; i < _teamsCount; i++)
                 {
-                    team.Print();
+                    _teams[i].Print();
                 }
             }
 
-        
+
         }
     }
 }
