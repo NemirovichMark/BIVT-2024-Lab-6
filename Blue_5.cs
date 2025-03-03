@@ -38,7 +38,7 @@ namespace Lab_6
 
             public void Print()
             {
-                Console.WriteLine($"Спортсмен: {Name} {Surname}, Место: {Place}");
+                Console.WriteLine($"{Name} {Surname} {Place} место");
             }
         }
 
@@ -80,9 +80,9 @@ namespace Lab_6
                 get
                 {
                     if (_sportsmen == null || _count == 0)
-                        return 18;
+                        return 0; 
 
-                    int topPlace = 18;
+                    int topPlace = int.MaxValue;
                     for (int i = 0; i < _count; i++)
                     {
                         if (_sportsmen[i].Place < topPlace && _sportsmen[i].Place != 0)
@@ -139,12 +139,9 @@ namespace Lab_6
                 }
             }
 
-            public static void Print(Team[] teams)
+            public void Print()
             {
-                foreach (var team in teams)
-                {
-                    Console.WriteLine($"{team.Name} {team.SummaryScore} {team.TopPlace}");
-                }
+                Console.WriteLine($"{Name} {SummaryScore} {TopPlace}");
             }
 
             public static void Sort(Team[] teams)

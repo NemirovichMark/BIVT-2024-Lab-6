@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Lab_6;
 
-
 namespace Lab_6
 {
     public class Blue_4
@@ -16,14 +15,13 @@ namespace Lab_6
             private int[] _scores;
 
             public string Name => _name;
-
             public int[] Scores
             {
                 get
                 {
-                    if (_scores == null) return Array.Empty<int>();
+                    if (_scores == null) return null;
                     int[] copy = new int[_scores.Length];
-                    Array.Copy(_scores, copy, _scores.Length);
+                    Array.Copy(_scores, copy, copy.Length);
                     return copy;
                 }
             }
@@ -51,6 +49,8 @@ namespace Lab_6
 
             public void PlayMatch(int result)
             {
+                if (_scores == null) return;
+
                 int[] newScores = new int[_scores.Length + 1];
                 for (int i = 0; i < _scores.Length; i++)
                 {
@@ -73,16 +73,7 @@ namespace Lab_6
             private int _ind;
 
             public string Name => _name;
-
-            public Team[] Teams
-            {
-                get
-                {
-                    Team[] filledTeams = new Team[_ind];
-                    Array.Copy(_teams, filledTeams, _ind);
-                    return filledTeams;
-                }
-            }
+            public Team[] Teams => _teams;
 
             public Group(string name)
             {
@@ -93,6 +84,8 @@ namespace Lab_6
 
             public void Add(Team team)
             {
+                if (_teams == null) return;
+
                 if (_ind < _teams.Length)
                 {
                     _teams[_ind] = team;
@@ -102,7 +95,7 @@ namespace Lab_6
 
             public void Add(Team[] teams)
             {
-                if (teams == null || teams.Length == 0) return;
+                if (_teams == null || teams.Length == 0 || teams == null) return;
 
                 for (int i = 0; i < teams.Length; i++)
                 {
@@ -112,11 +105,11 @@ namespace Lab_6
 
             public void Sort()
             {
-                if (_ind <= 1) return;
+                if (_teams == null || _teams.Length == 0) return;
 
-                for (int i = 0; i < _ind - 1; i++)
+                for (int i = 0; i < _teams.Length - 1; i++)
                 {
-                    for (int j = 0; j < _ind - i - 1; j++)
+                    for (int j = 0; j < _teams.Length - 1 - i; j++)
                     {
                         if (_teams[j].TotalScore < _teams[j + 1].TotalScore)
                         {
@@ -131,41 +124,43 @@ namespace Lab_6
             public static Group Merge(Group group1, Group group2, int size)
             {
                 Group result = new Group("Финалисты");
-                int i = 0, j = 0;
-
-                while (i < group1._ind && j < group2._ind && result._ind < size)
+                int i = 0; int j = 0;
+                while (i < size / 2 && j < size / 2)
                 {
-                    if (group1._teams[i].TotalScore > group2._teams[j].TotalScore ||
-                        (group1._teams[i].TotalScore == group2._teams[j].TotalScore &&
-                         string.Compare(group1._teams[i].Name, group2._teams[j].Name, StringComparison.Ordinal) < 0))
+                    if (group1.Teams[i].TotalScore >= group2.Teams[j].TotalScore)
                     {
-                        result.Add(group1._teams[i++]);
+                        result.Add(group1.Teams[i++]);
                     }
                     else
                     {
-                        result.Add(group2._teams[j++]);
+                        result.Add(group2.Teams[j++]);
                     }
                 }
-
-                while (i < group1._ind && result._ind < size)
+                while (i < size / 2)
                 {
-                    result.Add(group1._teams[i++]);
+                    result.Add(group1.Teams[i++]);
                 }
-
-                while (j < group2._ind && result._ind < size)
+                while (j < size / 2)
                 {
-                    result.Add(group2._teams[j++]);
+                    result.Add(group2.Teams[j++]);
                 }
-
                 return result;
             }
 
             public void Print()
             {
-                for (int i = 0; i < _ind; i++)
+                Console.WriteLine($"{_name}");
+
+                if (_teams != null && _teams.Length > 0)
                 {
-                    Console.WriteLine($"Команда {i + 1}:");
-                    _teams[i].Print();
+                    for (int i = 0; i < _teams.Length; i++)
+                    {
+                        _teams[i].Print();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Нет данных");
                 }
             }
         }

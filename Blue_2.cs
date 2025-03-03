@@ -44,11 +44,23 @@ namespace Lab_6
 
             public void Jump(int[] result)
             {
-                if (result == null || result.Length != 5) return;
+                if (result == null || result.Length != 5)
+                {
+                    return;
+                }
 
                 for (int i = 0; i < 2; i++)
                 {
-                    bool isJumpEmpty = _marks[i, 0] == 0;
+                    bool isJumpEmpty = true;
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (_marks[i, j] != 0)
+                        {
+                            isJumpEmpty = false;
+                            break;
+                        }
+                    }
+
                     if (isJumpEmpty)
                     {
                         for (int j = 0; j < 5; j++)
@@ -62,33 +74,29 @@ namespace Lab_6
 
             public static void Sort(Participant[] array)
             {
-                if (array == null || array.Length == 0) return;
-
-                int index = 1;
-                int lastSorted = 0;
-
-                while (index < array.Length)
+                if (array == null || array.Length == 0)
                 {
-                    if (index == 0 || array[index - 1].TotalScore >= array[index].TotalScore)
-                    {
-                        lastSorted = index;
-                        index++;
-                    }
-                    else
-                    {
-                        var temp = array[index];
-                        array[index] = array[index - 1];
-                        array[index - 1] = temp;
+                    return;
+                }
 
-                        index = lastSorted;
-                        lastSorted--;
+                
+                for (int i = 0; i < array.Length - 1; i++)
+                {
+                    for (int j = 0; j < array.Length - 1 - i; j++)
+                    {
+                        if (array[j].TotalScore < array[j + 1].TotalScore)
+                        {
+                            var temp = array[j];
+                            array[j] = array[j + 1];
+                            array[j + 1] = temp;
+                        }
                     }
                 }
             }
 
             public void Print()
             {
-                Console.WriteLine($"Name: {Name}, Surname: {Surname}, Total_score: {TotalScore}");
+                Console.WriteLine($"{Name} {Surname} {TotalScore}");
             }
         }
     }
