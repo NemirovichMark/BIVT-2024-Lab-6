@@ -55,6 +55,7 @@ namespace Lab_6
             //поля
             private string name;
             private Sportsman[] sportsmen;
+            private int count;
 
             //свойства 
             public string Name => name;
@@ -73,6 +74,7 @@ namespace Lab_6
             {
                 get
                 {
+                    if (sportsmen == null) return 0;
                     int total = 0;
                     foreach (var sportsman in sportsmen)
                     {
@@ -98,7 +100,7 @@ namespace Lab_6
                     int top = 18;
                     foreach (var sportsman in sportsmen)
                     {
-                        if (sportsman.Place < top)
+                        if (sportsman.Place < top && sportsman.Place!=0)
                         {
                             top = sportsman.Place;
                         }
@@ -111,18 +113,19 @@ namespace Lab_6
             public Team(string name)
             {
                 this.name = name;
-                this.sportsmen = new Sportsman[6]; 
+                this.sportsmen = new Sportsman[6];
+                this.count = 0;
             }
             // Метод
             public void Add(Sportsman sportsman)
             {
                 if (sportsmen==null) return;
-                Array.Resize(ref sportsmen, sportsmen.Length + 1);
-                sportsmen[sportsmen.Length - 1] = sportsman;
+                sportsmen[count++] = sportsman;
             }
 
             public void Add(params Sportsman[] newSportsmen)
             {
+                if (sportsmen == null) return;
                 foreach (var sportsman in newSportsmen)
                 {
                     Add(sportsman);
