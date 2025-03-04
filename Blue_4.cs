@@ -7,17 +7,20 @@ using System.Xml.Linq;
 
 namespace Lab_6
 {
+    
     public class Blue_4
     {
+        
         public Blue_4()
         {
+            
         }
     }
 
     public class Team
     {
         private string name;
-        private int[] scores;
+        private List<int> scores;  
 
         public string Name
         {
@@ -33,7 +36,7 @@ namespace Lab_6
         {
             get
             {
-                return scores.Length == 0 ? null : scores;
+                return scores.ToArray();  
             }
         }
 
@@ -41,27 +44,21 @@ namespace Lab_6
         {
             get
             {
-                if (scores == null || scores.Length == 0)
+                if (scores == null || scores.Count == 0)
                     return 0;
-                int sum = 0;
-                foreach (int v in scores)
-                {
-                    sum += v;
-                }
-                return sum;
+                return scores.Sum();  
             }
         }
 
         public Team(string name)
         {
             this.name = name;
-            this.scores = new int[0];
+            this.scores = new List<int>();  
         }
 
         public void PlayMatch(int result)
         {
-            Array.Resize(ref scores, scores.Length + 1);
-            scores[scores.Length - 1] = result;
+            scores.Add(result);  
         }
 
         public void Print()
@@ -69,18 +66,19 @@ namespace Lab_6
             Console.Write("Name: ");
             Console.WriteLine(name);
 
-            for (int i = 0; i < scores.Length; i++)
+            foreach (var score in scores)
             {
-                Console.Write(scores[i]);
+                Console.Write(score);
                 Console.Write(" ");
             }
+            Console.WriteLine();
         }
     }
 
     public struct Group
     {
         private string name;
-        private Team[] teams;
+        private List<Team> teams;  
 
         public string Name
         {
@@ -96,62 +94,39 @@ namespace Lab_6
         {
             get
             {
-                if (teams == null)
-                    return new Team[0];
-                return teams;
+                return teams.ToArray();  
             }
         }
 
         public Group(string name)
         {
             this.name = name;
-            this.teams = new Team[0];
+            this.teams = new List<Team>();  
         }
 
         public void Add(Team team)
         {
-            if (teams == null)
+            if (team == null)
                 return;
 
-            for (int i = 0; i < teams.Length; i++)
-            {
-                if (teams[i].Name == null)
-                {
-                    teams[i] = team;
-                    break;
-                }
-            }
+            teams.Add(team);  
         }
 
         public void Add(params Team[] newTeams)
         {
-            if (teams == null)
+            if (newTeams == null)
                 return;
 
-            for (int i = 0; i < newTeams.Length; i++)
+            foreach (var team in newTeams)
             {
-                Add(newTeams[i]);
+                Add(team);
             }
         }
 
         public void Sort()
         {
-            if (teams == null)
-                return;
-
-            int n = teams.Length;
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = 0; j < n - i - 1; j++)
-                {
-                    if (teams[j].TotalScore < teams[j + 1].TotalScore)
-                    {
-                        Team temp = teams[j];
-                        teams[j] = teams[j + 1];
-                        teams[j + 1] = temp;
-                    }
-                }
-            }
+            
+            teams.Sort((x, y) => y.TotalScore.CompareTo(x.TotalScore));
         }
 
         public static Group Merge(Group group1, Group group2, int size)
