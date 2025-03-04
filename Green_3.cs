@@ -73,6 +73,7 @@ namespace Lab_6
 
             public void Exam(int mark)
             {
+                if (_session_outcome) return;
                 if (_session_outcome || _marks == null) return;
                 if (mark < 2 || mark > 5) return;
 
@@ -84,11 +85,13 @@ namespace Lab_6
                         return;
                     }
                 }
-                
-                if (mark == 2) //Проверка на наличие хотя бы одной двойки
+                for (int i = 0; i < _marks.Length; i++)
                 {
-                    _session_outcome = true;
-                    return;
+                    if (mark == 2) //Проверка на наличие хотя бы одной двойки
+                    {
+                        _session_outcome = true;
+                        return;
+                    }
                 }
             }
 
