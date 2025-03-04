@@ -47,28 +47,10 @@ namespace Lab_6
                     {
                         sum += _marks[i];
                     }
-                    return sum / _marks.Length;
+                    return sum / (double)_marks.Length;
                 }
             }
-            public static void SortByAvgMark(Student[] array)
-            {
-                if (array == null) return;
-                for (int i = 1, j = 2; i < array.Length;)
-                {
-                    if (i == 0 || array[i].AvgMark <= array[i - 1].AvgMark)
-                    {
-                        i = j;
-                        j++;
-                    }
-                    else
-                    {
-                        Student temp = array[i];
-                        array[i] = array[i - 1];
-                        array[i - 1] = temp;
-                        i--;
-                    }
-                }
-            }
+            
             public Student(string name, string surname)
             {
                 _name = name;
@@ -108,12 +90,11 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_name == null) return default;
                     return _name;
                 }
             }
 
-            private Student[] Students
+            public Student[] Students
             {
                 get
                 {
@@ -152,7 +133,7 @@ namespace Lab_6
             public Group(string name)
             {
                 _name = name;
-                _capacity = 30;
+                _capacity = 100;
                 _students = new Student[_capacity];
                 _studentCount = 0;
             }
