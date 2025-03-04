@@ -40,7 +40,7 @@ namespace Lab_6
                 {
                     if (marks == null)
                     {
-                        return null;
+                        return null; 
                     }
                     int[,] marksCopy = new int[marks.GetLength(0), marks.GetLength(1)];
                     Array.Copy(marks, marksCopy, marks.Length);
@@ -58,6 +58,7 @@ namespace Lab_6
                         return 0;
                     }
 
+                    // Перебор массива marks с учетом реальных размеров
                     for (int i = 0; i < marks.GetLength(0); i++)
                     {
                         for (int j = 0; j < marks.GetLength(1); j++)
@@ -73,7 +74,7 @@ namespace Lab_6
             {
                 this.name = name;
                 this.surname = surname;
-                this.marks = new int[2, 5];  
+                this.marks = new int[2, 5];  // 2 строки, 5 столбцов
             }
 
             public void Jump(int[] result)
@@ -83,11 +84,11 @@ namespace Lab_6
                     return;
                 }
 
-                int jump = -1; 
+                int jump = -1; // Изначально jump равен -1
                 for (int i = 0; i < marks.GetLength(0); i++)
                 {
-                
-                    if (marks[i, 0] != 0)
+                    // Проверка на пустые значения в marks для выявления первого ненулевого значения
+                    if (marks[i, 0] == 0) 
                     {
                         jump = 0;
                         break;
@@ -98,8 +99,8 @@ namespace Lab_6
                 {
                     for (int i = 0; i < marks.GetLength(0); i++)
                     {
-                        
-                        if (marks[i, 1] != 0)
+                        // Проверка второго столбца для замены
+                        if (marks[i, 1] == 0)
                         {
                             jump = 1;
                             break;
@@ -107,19 +108,28 @@ namespace Lab_6
                     }
                 }
 
-                
+                // Если нашли подходящий столбец (jump = 0 или 1) и результат имеет нужную длину
                 if (jump != -1 && result.Length == marks.GetLength(1))
                 {
                     for (int i = 0; i < marks.GetLength(0); i++)
                     {
-                        marks[i, jump] = result[i];  
+                        marks[i, jump] = result[i];  // Заполнение marks на найденной позиции
                     }
                 }
             }
 
             public static void Sort(Participant[] array)
             {
-                Array.Sort(array, (x, y) => y.TotalScore.CompareTo(x.TotalScore));
+                // Исправление сортировки, чтобы она корректно сортировала по TotalScore, затем по имени
+                Array.Sort(array, (x, y) =>
+                {
+                    int scoreComparison = y.TotalScore.CompareTo(x.TotalScore);
+                    if (scoreComparison == 0)
+                    {
+                        return string.Compare(x.Name, y.Name);
+                    }
+                    return scoreComparison;
+                });
             }
 
             public void Print()
@@ -140,12 +150,12 @@ namespace Lab_6
                     for (int j = 0; j < columns; j++)
                     {
                         Console.Write(marks[i, j]);
-                        if (j < columns - 1)
+                        if (j < columns - 1) 
                         {
                             Console.Write(" ");
                         }
                     }
-                    Console.WriteLine();
+                    Console.WriteLine(); 
                 }
             }
         }
