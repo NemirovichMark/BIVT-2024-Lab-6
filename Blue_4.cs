@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -124,40 +125,32 @@ namespace Lab_6
                 Group finals = new Group("Финалисты");
 
                 int halfSize = size / 2;
+                int i = 0;
+                int j = 0;
 
-                for (int i = 0; i < halfSize && i < group1.Teams.Length && finals._teamsCount < 12; i++)
+                while (i < halfSize && j < halfSize)
                 {
-                    finals.Add(group1.Teams[i]);
-                }
-
-                for (int i = 0; i < halfSize && i < group2.Teams.Length && finals._teamsCount < 12; i++)
-                {
-                    finals.Add(group2.Teams[i]);
-                }
-
-                if (size % 2 != 0 && finals._teamsCount < 12)
-                {
-                    if (group1.Teams.Length > halfSize && group2.Teams.Length > halfSize)
+                    if (group1._teams[i].TotalScore >= group2._teams[j].TotalScore)
                     {
-                        if (group1.Teams[halfSize].TotalScore > group2.Teams[halfSize].TotalScore)
-                        {
-                            finals.Add(group1.Teams[halfSize]);
-                        }
-                        else
-                        {
-                            finals.Add(group2.Teams[halfSize]);
-                        }
+                        finals.Add(group1._teams[i]);
+                        i++;
                     }
-                    else if (group1.Teams.Length > halfSize)
+                    else
                     {
-                        finals.Add(group1.Teams[halfSize]);
-                    }
-                    else if (group2.Teams.Length > halfSize)
-                    {
-                        finals.Add(group2.Teams[halfSize]);
+                        finals.Add(group2._teams[j]);
+                        j++;
                     }
                 }
-
+                while (i < halfSize)
+                {
+                    finals.Add(group1._teams[i]);
+                    i++;
+                }
+                while (j < halfSize)
+                {
+                    finals.Add(group2._teams[j]);
+                    j++;
+                }
                 return finals;
             }
 
