@@ -81,13 +81,13 @@ namespace Lab_6
                 {
                     switch (question)
                     {
-                        case 0:
+                        case 1:
                             resp[i] = _responce[i].Animal;
                             break;
-                        case 1:
+                        case 2:
                             resp[i] = _responce[i].CharacterTrait;
                             break;
-                        case 2:
+                        case 3:
                             resp[i] = _responce[i].Concept;
                             break;
                     }

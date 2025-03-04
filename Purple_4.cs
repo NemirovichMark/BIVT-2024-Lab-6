@@ -55,7 +55,8 @@ namespace Lab_6
             }
             public Group(Group other)
             {
-                this = other;
+                this._name = other._name;
+                this._sportsmen = (Sportsman[])other._sportsmen.Clone();
             }
             public void Add(Sportsman s)
             {

@@ -64,9 +64,9 @@ namespace Lab_6
                 int n = array.Length;
                 for (int i = 0; i < n; i++)
                 {
-                    for (int j = 1; j<n-1; j++)
+                    for (int j = 1; j<n-i; j++)
                     {
-                        if (array[j].Result < array[j - 1].Result)
+                        if (array[j].Result > array[j - 1].Result)
                         {
                             (array[j], array[j - 1]) = (array[j - 1], array[j]);
                         }

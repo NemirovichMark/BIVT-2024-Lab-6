@@ -48,18 +48,20 @@ namespace Lab_6
                 get
                 {
                     if (_marks == null || _coefs == null) return 0;
-                    int mn = 1000000, mx = -100000000;
                     double totalsum = 0;
                     for (int jump = 0; jump<4; jump++)
                     {
                         int sum = 0;
+                        int mn = 1000000, mx = -100000000;
                         for (int i = 0; i<7; i++) {
                             mn = Math.Min(mn, _marks[jump,i]);
                             mx = Math.Max(mx, _marks[jump,i]);
                             sum += _marks[jump, i];
                         }
+                        //Console.Write("{0:d}, {1:f4}, {2:d}, {3:d}    ", sum, _coefs[jump], mx, mn);
                         sum -= mx; sum -= mn;
                         totalsum += (double)sum * _coefs[jump];
+                        //Console.WriteLine("{0:d}, {1:f4}", sum, _coefs[jump]);
                     }
 
                     return totalsum;
@@ -73,10 +75,7 @@ namespace Lab_6
                     return;
                 }
                 for (int i = 0; i < 4; i++) if (coefs[i] > 3.5 || coefs[i] < 2.5) return;
-                for (int i = 0; i<4; i++)
-                {
-                    _coefs[i] = coefs[i];
-                }
+                Array.Copy(coefs, _coefs, 4);
             }
             public void Jump(int[] marks)
             {
@@ -89,7 +88,7 @@ namespace Lab_6
                 {
                     return;
                 }
-                for (int i = 0; i<7; i++) if (marks[i] > 6 || marks[i] < 0) return;
+                for (int i = 0; i<7; i++) if (marks[i] > 6 || marks[i] < 1) return;
                 for (int i = 0; i<7; i++)
                 {
                     _marks[_jumpIndex, i] = marks[i];
@@ -119,11 +118,12 @@ namespace Lab_6
                     Console.Write("{0}, ", c);
                 }
                 Console.WriteLine();
+                Console.WriteLine(TotalScore);
                 for (int i = 0; i < _marks.GetLength(0); i++)
                 {
                     for (int j = 0; j< _marks.GetLength(1); j++)
                     {
-                        Console.Write("{0:d}", _marks[i, j]);
+                        Console.Write("{0:d} ", _marks[i, j]);
                     }
                     Console.WriteLine();
                 }

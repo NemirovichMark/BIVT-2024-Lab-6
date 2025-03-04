@@ -33,6 +33,16 @@ namespace Lab_6
                     return (int[])_places.Clone();
                 }
             }
+            public int Score
+            {
+                get
+                {
+                    if (_places is null) return 0;
+                    int s = 0;
+                    for (int i = 0; i < _places.Length; i++) s += _places[i];
+                    return s;
+                }
+            }
             public Participant(string name, string surname) {
                 _name = name;
                 _surname = surname;
@@ -46,22 +56,11 @@ namespace Lab_6
                 if (_marks == null) return;
                 _marks[_indexJudge++] = result;
             }
-            public int Score
-            {
-                get
-                {
-                    if (_places is null) return 0;
-                    int s = 0;
-                    for (int i = 0; i < _places.Length; i++) s += _places[i];
-                    return s;
-                }
-            }
-
             private double TotalMark
             {
                 get
                 {
-                    if (_marks is null) return 0;
+                    if (_marks == null) return 0;
 
                     double s = 0;
                     for (int i = 0; i < _marks.Length; i++) s += _marks[i];
@@ -200,9 +199,9 @@ namespace Lab_6
                     }
                 }
             }
-            void Print()
+            public void Print()
             {
-                Console.WriteLine("{0}, {1}", _name, _surname);
+                Console.WriteLine("{0}, {1}, {2:f}, {3:f}, {4:f}", _name, _surname, Score, TopPlace, TotalMark);
                 foreach (double c in _places)
                 {
                     Console.Write("{0}, ", c);
@@ -212,6 +211,7 @@ namespace Lab_6
                 {
                     Console.Write("{0}, ", c);
                 }
+                Console.WriteLine();
             }
         }
     }
