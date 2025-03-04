@@ -79,13 +79,13 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null || _count == 0)
+                    if (_sportsmen == null)
                         return 0; 
 
                     int topPlace = 18;
                     for (int i = 0; i < _count; i++)
                     {
-                        if (_sportsmen[i].Place < topPlace && _sportsmen[i].Place != 0)
+                        if (_sportsmen[i].Place < topPlace)
                         {
                             topPlace = _sportsmen[i].Place;
                         }

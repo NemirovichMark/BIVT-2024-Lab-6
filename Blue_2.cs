@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Lab_6;
 
+
 namespace Lab_6
 {
     public class Blue_2
@@ -14,16 +15,23 @@ namespace Lab_6
             private string _name;
             private string _surname;
             private int[,] _marks;
-            private int k;
+            private int _count;
 
             public string Name => _name;
             public string Surname => _surname;
-            public int[,] Mark
+            public int[,] Marks
             {
-                get 
+                get
                 {
-                    int[,] copy = new int[2, 5];
-                    Array.Copy(_marks, copy, _marks.Length);
+                    if (_marks == null) return null;
+                    int[,] copy = new int[_marks.GetLength(0), _marks.GetLength(1)];
+                    for (int i = 0; i < _marks.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < _marks.GetLength(1); j++)
+                        {
+                            copy[i, j] = _marks[i, j];
+                        }
+                    }
                     return copy;
                 }
             }
@@ -32,10 +40,11 @@ namespace Lab_6
             {
                 get
                 {
+                    if (_marks == null) return 0;
                     int sum = 0;
-                    for (int i = 0; i < 2; i++)
+                    for (int i = 0; i < _marks.GetLength(0); i++)
                     {
-                        for (int j = 0; j < 5; j++)
+                        for (int j = 0; j < _marks.GetLength(1); j++)
                         {
                             sum += _marks[i, j];
                         }
@@ -49,46 +58,31 @@ namespace Lab_6
                 _name = name;
                 _surname = surname;
                 _marks = new int[2, 5];
-                k = 0; 
+                _count = 0;
             }
 
             public void Jump(int[] result)
             {
-                if (result == null || _marks == null || _marks.GetLength(0) != 2 || _marks.GetLength(1) != 5 || result.Length != 5)
-                {
-                    return;
-                }
+                if (result == null || _marks == null || _count > 1) return;
 
-                
-                
-                if (k > 1) return;
-                else
+                for (int j = 0; j < _marks.GetLength(1); j++)
                 {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        _marks[k, j] = result[j];
-                    }
-                    k++;
+                    _marks[_count, j] = result[j];
                 }
+                _count++;
             }
 
             public static void Sort(Participant[] array)
             {
-                if (array == null || array.Length == 0)
-                {
-                    return;
-                }
+                if (array == null) return;
 
-                
                 for (int i = 0; i < array.Length - 1; i++)
                 {
-                    for (int j = 0; j < array.Length - 1 - i; j++)
+                    for (int j = 0; j < array.Length - i - 1; j++)
                     {
                         if (array[j].TotalScore < array[j + 1].TotalScore)
                         {
-                            var temp = array[j];
-                            array[j] = array[j + 1];
-                            array[j + 1] = temp;
+                            (array[j], array[j + 1]) = (array[j + 1], array[j]);
                         }
                     }
                 }
