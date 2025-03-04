@@ -57,6 +57,7 @@ namespace Lab_6
                     {
                         return 0;
                     }
+
                     for (int i = 0; i < marks.GetLength(0); i++)
                     {
                         for (int j = 0; j < marks.GetLength(1); j++)
@@ -72,46 +73,55 @@ namespace Lab_6
             {
                 this.name = name;
                 this.surname = surname;
-                this.marks = new int[2, 5];  
+                this.marks = new int[5, 2];  
             }
 
             public void Jump(int[] result)
             {
-                if (marks == null || result.Length != marks.GetLength(1))
+                if (marks == null || result == null || result.Length != marks.GetLength(0))
                 {
                     return;
                 }
 
-                int jump = -1; 
+                int jump = -1;
+            
+                bool firstColumnEmpty = true;
                 for (int i = 0; i < marks.GetLength(0); i++)
                 {
-                    
-                    if (marks[i, 0] == 0) 
+                    if (marks[i, 0] != 0)
                     {
-                        jump = 0;
+                        firstColumnEmpty = false;
                         break;
                     }
                 }
-
-                if (jump == -1)
+                
+                if (firstColumnEmpty)
                 {
+                    jump = 0; 
+                }
+                else
+                {
+                    bool secondColumnEmpty = true;
                     for (int i = 0; i < marks.GetLength(0); i++)
                     {
-                        
-                        if (marks[i, 1] == 0)
+                        if (marks[i, 1] != 0)
                         {
-                            jump = 1;
+                            secondColumnEmpty = false;
                             break;
                         }
                     }
+                    
+                    if (secondColumnEmpty)
+                    {
+                        jump = 1; 
+                    }
                 }
 
-                
-                if (jump != -1 && result.Length == marks.GetLength(1))
+                if (jump != -1)
                 {
                     for (int i = 0; i < marks.GetLength(0); i++)
                     {
-                        marks[i, jump] = result[i];  
+                        marks[i, jump] = result[i];
                     }
                 }
             }
@@ -119,15 +129,7 @@ namespace Lab_6
             public static void Sort(Participant[] array)
             {
                 
-                Array.Sort(array, (x, y) =>
-                {
-                    int scoreComparison = y.TotalScore.CompareTo(x.TotalScore);
-                    if (scoreComparison == 0)
-                    {
-                        return string.Compare(x.Name, y.Name);
-                    }
-                    return scoreComparison;
-                });
+                Array.Sort(array, (x, y) => y.TotalScore.CompareTo(x.TotalScore));
             }
 
             public void Print()
