@@ -107,14 +107,14 @@ namespace Lab_6
                 if (array == null) return;
                 for (int i = 0; i < array.Length - 1; i++)
                 {
-                    for (int j = i + 1; j < array.Length; j++)
+                    for (int j = 0; j < array.Length-i-1; j++)
                     {
-                        if (array[i].TotalScore < array[j].TotalScore)
+                        if (array[j].TotalScore < array[j+1].TotalScore)
                         {
                             // Меняем местами участников
-                            Participant temp = array[i];
-                            array[i] = array[j];
-                            array[j] = temp;
+                            Participant temp = array[j];
+                            array[j] = array[j+1];
+                            array[j+1] = temp;
                         }
                     }
                 }

@@ -126,41 +126,38 @@ namespace Lab_6
             {
                 Group finalists = new Group("Финалисты");
 
-                Team[] allTeams = new Team[group1.Teams.Length + group2.Teams.Length];
-                int index = 0;
+                int index1 = 0, index2 = 0;
+                int halfSize = size / 2;
 
-                for (int i = 0; i < group1.Teams.Length; i++)
+                while (index1 < halfSize && index2 < halfSize)
                 {
-                    allTeams[index] = group1.Teams[i];
-                    index++;
-                }
-
-                for (int i = 0; i < group2.Teams.Length; i++)
-                {
-                    allTeams[index] = group2.Teams[i];
-                    index++;
-                }
-
-                for (int i = 0; i < allTeams.Length - 1; i++)
-                {
-                    for (int j = 0; j < allTeams.Length - 1 - i; j++)
+                    if (group1.teams[index1].TotalScore >= group2.teams[index2].TotalScore)
                     {
-                        if (allTeams[j].TotalScore < allTeams[j + 1].TotalScore)
-                        {
-                            Team temp = allTeams[j];
-                            allTeams[j] = allTeams[j + 1];
-                            allTeams[j + 1] = temp;
-                        }
+                        finalists.Add(group1.teams[index1]);
+                        index1++;
+                    }
+                    else
+                    {
+                        finalists.Add(group2.teams[index2]);
+                        index2++;
                     }
                 }
 
-                for (int i = 0; i < size && i < allTeams.Length; i++)
+                while (index1 < halfSize)
                 {
-                    finalists.Add(allTeams[i]);
+                    finalists.Add(group1.teams[index1]);
+                    index1++;
+                }
+
+                while (index2 < halfSize)
+                {
+                    finalists.Add(group2.teams[index2]);
+                    index2++;
                 }
 
                 return finalists;
             }
+
 
             // Метод
             public void Print()
