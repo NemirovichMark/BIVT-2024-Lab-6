@@ -113,11 +113,11 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null || _sportsmen.Length == 0) return 18;
+                    if (_sportsmen == null || _sportsmen.Length == 0) return 0;
                     int top = 18;
                     foreach(var sportsman in _sportsmen)
                     {
-                        int place = sportsman.Place == 0 ? 18 : sportsman.Place;
+                        int place = sportsman.Place == 0 ? 18: sportsman.Place;
                         if (place < top)
                         {
                             top = place;
