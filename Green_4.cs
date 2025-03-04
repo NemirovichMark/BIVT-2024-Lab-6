@@ -18,12 +18,12 @@ namespace Lab_6
             //свойства
             public string Name  => _name;
             public string Surname  => _surname;
-            public float[] Jumps
+            public double[] Jumps
             {
                 get
                 {
                     if (_jumps == null) return null;
-                    float[] copy = new float[_jumps.Length];
+                    double[] copy = new double[_jumps.Length];
                     Array.Copy(_jumps, copy, _jumps.Length);
                     return copy;
                 }
