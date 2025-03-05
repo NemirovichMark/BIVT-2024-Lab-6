@@ -19,9 +19,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (name == null)
-                        return null;
-                    return name;
+                    return name ?? string.Empty; 
                 }
             }
 
@@ -29,9 +27,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (surname == null)
-                        return string.Empty;
-                    return surname;
+                    return surname ?? string.Empty; 
                 }
             }
 
@@ -39,9 +35,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (place == 0)
-                        return 0;
-                    return place;
+                    return place == 0 ? 0 : place; 
                 }
             }
 
@@ -49,7 +43,7 @@ namespace Lab_6
             {
                 this.name = name;
                 this.surname = surname;
-                this.place = 0;  
+                this.place = 0;
             }
 
             public void SetPlace(int place)
@@ -73,15 +67,13 @@ namespace Lab_6
         public struct Team
         {
             private string name;
-            private List<Sportsman> sportsmen; 
+            private List<Sportsman> sportsmen;
 
             public string Name
             {
                 get
                 {
-                    if (name == null)
-                        return null;
-                    return name;
+                    return name ?? string.Empty; 
                 }
             }
 
@@ -89,9 +81,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (sportsmen == null)
-                        return new Sportsman[0]; 
-                    return sportsmen.ToArray(); 
+                    return sportsmen?.ToArray() ?? new Sportsman[0]; 
                 }
             }
 
@@ -124,32 +114,32 @@ namespace Lab_6
                 get
                 {
                     if (sportsmen == null || sportsmen.Count == 0)
-                        return 18;  
+                        return 18;
 
                     int top = int.MaxValue;
                     foreach (var sportsman in sportsmen)
                     {
-                        if (sportsman.Place > 0 && sportsman.Place < top) 
+                        if (sportsman.Place > 0 && sportsman.Place < top)
                         {
                             top = sportsman.Place;
                         }
                     }
-                    return top == int.MaxValue ? 18 : top;  
+                    return top == int.MaxValue ? 18 : top;
                 }
             }
 
             public Team(string name)
             {
                 this.name = name;
-                this.sportsmen = new List<Sportsman>();  
+                this.sportsmen = new List<Sportsman>();
             }
 
             public void Add(Sportsman sportsman)
             {
-                if (sportsman == null)
+                if (sportsman.Name == string.Empty) 
                     return;
 
-                sportsmen.Add(sportsman);  
+                sportsmen.Add(sportsman);
             }
 
             public void Add(params Sportsman[] newSportsmen)
@@ -159,7 +149,7 @@ namespace Lab_6
 
                 foreach (var sportsman in newSportsmen)
                 {
-                    Add(sportsman);  
+                    Add(sportsman);
                 }
             }
 
