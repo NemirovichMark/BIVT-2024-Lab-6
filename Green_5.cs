@@ -98,10 +98,8 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_students == null || _studentCount == 0) return null;
-                    Student[] result = new Student[_studentCount];
-                    Array.Copy(_students, result, _studentCount);
-                    return result;
+                    if (_students == null || _studentCount == 0) return default(Student[]);
+                    return _students;
                 }
             }
             public double AvgMark
