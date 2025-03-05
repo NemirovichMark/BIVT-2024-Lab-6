@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Lab_6
 {
-    internal class Purple_2
+    public class Purple_2
     {
         public struct Participant
         {
