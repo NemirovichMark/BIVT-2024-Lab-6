@@ -45,7 +45,6 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null) return null;
                     return _sportsmen;
                 }
             }
