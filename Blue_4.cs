@@ -133,7 +133,7 @@ namespace Lab_6
                 {
                     teams[i].Print();
                 }
-            } // <-- Добавлена недостающая закрывающая скобка для метода Print()
+            } 
         }
 
         public class Team
