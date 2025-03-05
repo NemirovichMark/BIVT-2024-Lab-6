@@ -28,8 +28,8 @@ namespace Lab_6
             }
 
             // свойства
-            private string Name => _name;
-            private string Surname => _surname;
+            public string Name => _name;
+            public string Surname => _surname;
             public int[] PenaltyTimes
             {
                 get
