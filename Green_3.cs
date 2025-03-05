@@ -11,6 +11,7 @@ namespace Lab_6
             private string _name;
             private string _surname;
             private int[] _marks;
+            private int _count_exams;
             private bool _session_outcome;
 
             public string Name
@@ -69,30 +70,32 @@ namespace Lab_6
                 _surname = surname;
                 _marks = new int[3]; // инициализируем массив нулями
                 _session_outcome = false;
+                _count_exams = 0;
             }
 
             public void Exam(int mark)
             {
-                if (_session_outcome) return;
+                
                 if (_session_outcome || _marks == null) return;
                 if (mark < 2 || mark > 5) return;
 
-                for (int i = 0; i < _marks.Length; i++)
+                if (_count_exams <= 2)
                 {
-                    if (_marks[i] == 0)
+                    if (_marks[_count_exams] == 0)
                     {
-                        _marks[i] = mark;
-                        return;
+                        _marks[_count_exams] = mark;
+
+                        if (mark == 2) //Проверка на наличие хотя бы одной двойки
+                        {
+                            _session_outcome = true;
+                        }
+
                     }
+                    _count_exams++;
+
+                    return;
                 }
-                for (int i = 0; i < _marks.Length; i++)
-                {
-                    if (mark == 2) //Проверка на наличие хотя бы одной двойки
-                    {
-                        _session_outcome = true;
-                        return;
-                    }
-                }
+                
             }
 
             public static void SortByAvgMark(Student[] array)
