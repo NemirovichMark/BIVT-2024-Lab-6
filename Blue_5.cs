@@ -76,7 +76,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if ((_sportsmen == null) || (_sportsmen.Length == 0)) return 0;
+                    if (_sportsmen == null) return 0;
                     int mn = 18;
                     for (int i = 0; i < _sportsmen.Length; i++) if (_sportsmen[i].Place < mn) mn = _sportsmen[i].Place;
                     return mn;
@@ -92,17 +92,17 @@ namespace Lab_6
 
             public void Add(Sportsman sportsman)
             {
-                if ((_sportsmen == null) || (sportsman.Place == 0) || (_sportsmenID >= 6)) return;
+                if ((_sportsmen == null) || (_sportsmenID >= 6)) return;
                 _sportsmen[_sportsmenID] = sportsman;
                 _sportsmenID++;
             }
 
             public void Add(Sportsman[] sportsmen)
             {
-                if ((_sportsmen == null) || (sportsmen == null)) return;
+                if (_sportsmen == null) return;
                 for (int i = 0; i < sportsmen.Length; i++)
                 {
-                    if ((sportsmen[i].Place == 0) || (_sportsmenID >= 6)) return;
+                    if (_sportsmenID >= 6) return;
                     _sportsmen[_sportsmenID] = sportsmen[i];
                     _sportsmenID++;
                 }
