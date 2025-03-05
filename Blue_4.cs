@@ -95,6 +95,7 @@ namespace Lab_6
 
             public void Sort()
             {
+                if (_teams == null) return;
                 for (int i = 0; i < _teams.Length; i++)
                 {
                     for (int j = 0; j < _teams.Length - i - 1; j++)

@@ -27,7 +27,7 @@ namespace Lab_6
             {
                 _name = name;
                 _surname = surname;
-                _place = 18;
+                _place = 0;
                 _placechanged = false;
             }
 
@@ -63,7 +63,7 @@ namespace Lab_6
                     for (int i = 0; i < _sportsmen.Length; i++)
                     {
                         score = 6 - _sportsmen[i].Place;
-                        if (score > 0)
+                        if ((score > 0) && (score < 6))
                         {
                             scoresum += score;
                         }
