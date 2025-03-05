@@ -26,7 +26,8 @@ namespace Lab_6
             public string Concept { get { return _concept; } }
             public int CountVotes(Response[] responses, int questionNumber)
             {
-                if (questionNumber < 0 || questionNumber > 3)
+                if (responses == null) return 0;
+                if (questionNumber < 1 || questionNumber > 3)
                 {
                     return 0;
                 }
@@ -36,13 +37,13 @@ namespace Lab_6
                     switch (questionNumber)
                     {
                         case 1:
-                            ans += ((response.Animal == "" || response.Animal == null) ? 0 : 1);
+                            ans += ((response.Animal != null) ? 0 : 1);
                             break;
                         case 2:
-                            ans += ((response.CharacterTrait == "" || response.CharacterTrait == null) ? 0 : 1);
+                            ans += ((response.CharacterTrait != null) ? 0 : 1);
                             break;
                         case 3:
-                            ans += ((response.Concept == "" || response.Concept == null) ? 0 : 1);
+                            ans += ((response.Concept != null) ? 0 : 1);
                             break;
                     }
                 }
@@ -59,7 +60,7 @@ namespace Lab_6
             Response[] _responce;
 
             public string Name { get { return _name; } }
-            public Response[] Responses { get { return (Response[])_responce.Clone(); } }
+            public Response[] Responses { get { return (_responce == null ? null : (Response[])_responce.Clone()); } }
             public Research(string name)
             {
                 _name = name;
@@ -76,6 +77,10 @@ namespace Lab_6
             public string[] GetTopResponses(int question)
             {
                 if (_responce == null) return null;
+                if (question < 1 || question > 3 || _responce == null)
+                {
+                    return null;
+                }
                 string[] resp = new string[_responce.Length];
                 for (int i = 0; i<_responce.Length; i++)
                 {

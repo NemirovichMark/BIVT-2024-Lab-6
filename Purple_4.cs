@@ -45,6 +45,7 @@ namespace Lab_6
             {
                 get
                 {
+                    if (_sportsmen == null) return null;
                     return (Sportsman[])_sportsmen.Clone();
                 }
             }
@@ -54,9 +55,10 @@ namespace Lab_6
                 _sportsmen = new Sportsman[0];
             }
             public Group(Group other)
-            {
+            { 
                 this._name = other._name;
-                this._sportsmen = (Sportsman[])other._sportsmen.Clone();
+                if (other.Sportsmen == null) this._sportsmen = null;
+                else this._sportsmen = (Sportsman[])other._sportsmen.Clone();
             }
             public void Add(Sportsman s)
             {
@@ -73,16 +75,19 @@ namespace Lab_6
             }
             public void Add(Group g)
             {
-                if (g.Sportsmen == null || _sportsmen == null) return;
+                if (g.Sportsmen == null) return;
+                if (_sportsmen == null) {
+                    _sportsmen = new Sportsman[0];
+                }
                 int l = _sportsmen.Length;
                 this.Add(g.Sportsmen);
             }
             public void Sort()
             {
                 int n = _sportsmen.Length;
-                for (int i = 0; i<n; i++)
+                for (int i = 0; i < n; i++)
                 {
-                    for (int j = 1; j<n - i; j++)
+                    for (int j = 1; j < n - i; j++)
                     {
                         if (_sportsmen[j].Time < _sportsmen[j - 1].Time)
                         {

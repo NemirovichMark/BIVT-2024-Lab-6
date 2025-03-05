@@ -14,10 +14,10 @@ namespace BIVT_2024_Lab_6
         {
             //Test_Purple_1();
             //Test_Purple_2();
-            //Test_Purple_3();
+            Test_Purple_3();
             //Test_Purple_4_1();
             //Test_Purple_4_2();
-            Test_Purple_5();
+            //Test_Purple_5();
         }
         static void Test_Purple_1()
         {

@@ -37,7 +37,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_places is null) return 0;
+                    if (_places == null) return 0;
                     int s = 0;
                     for (int i = 0; i < _places.Length; i++) s += _places[i];
                     return s;
@@ -122,83 +122,37 @@ namespace Lab_6
 
             public static void Sort(Participant[] array)
             {
-                if (array == null || array.Length < 2) return;
-
-                for (int i = 1, j = 2; i < array.Length;)
+                if (array == null) return;
+                int n = array.Length;
+                for (int i = 0; i<n; i++)
                 {
-                    if (i == 0)
+                    for (int j = 1; j<n; j++)
                     {
-                        i = j;
-                        j++;
-                        continue;
-                    }
-                    int score1 = array[i].Score, score2 = array[i - 1].Score;
-                    if (score1 > score2)
-                    {
-                        i = j;
-                        j++;
-                    }
-                    else if (score1 < score2)
-                    {
-                        Participant tmp = array[i];
-                        array[i] = array[i - 1];
-                        array[i - 1] = tmp;
-                        i--;
-                    }
-                    else
-                    {
-                        if (score1 == score2 && score1 == 0)
+                        int s1 = array[j].Score, s2 = array[j-1].Score;
+                        if (s1 < s2)
                         {
-                            i = j;
-                            j++;
-                            continue;
+                            (array[j], array[j - 1]) = (array[j - 1], array[j]);
                         }
-                        int isHigher = 0;
-                        int[] places1 = array[i].Places, places2 = array[i - 1].Places;
-                        for (int k = 0; k < 7; k++)
+                        else if (s1 == s2)
                         {
-                            if (places1[k] < places2[k])
+                            int pt1 = array[j].TopPlace, pt2 = array[j - 1].TopPlace;
+                            if (pt1 < pt2)
                             {
-                                isHigher = 1;
-                                break;
+                                (array[j], array[j - 1]) = (array[j - 1], array[j]);
                             }
-                            else if (places1[k] < places2[k])
+                            else if (pt1 == pt2)
                             {
-                                isHigher = -1;
-                                break;
+                                double m1 = array[j].TotalMark, m2 = array[j - 1].TotalMark;
+                                if (m1 > m2)
+                                {
+                                    (array[j], array[j - 1]) = (array[j - 1], array[j]);
+                                }
                             }
-                        }
-                        if (isHigher == 1)
-                        {
-                            Participant tmp = array[i];
-                            array[i] = array[i - 1];
-                            array[i - 1] = tmp;
-                            i--;
-                            continue;
-                        }
-                        else if (isHigher == -1)
-                        {
-                            i = j;
-                            j++;
-                            continue;
-                        }
-
-                        double totalMark1 = array[i].TotalMark, totalMark2 = array[i - 1].TotalMark;
-                        if (totalMark1 < totalMark2)
-                        {
-                            i = j;
-                            j++;
-                        }
-                        else
-                        {
-                            Participant tmp = array[i];
-                            array[i] = array[i - 1];
-                            array[i - 1] = tmp;
-                            i--;
                         }
                     }
                 }
             }
+            
             public void Print()
             {
                 Console.WriteLine("{0}, {1}, {2:f}, {3:f}, {4:f}", _name, _surname, Score, TopPlace, TotalMark);
