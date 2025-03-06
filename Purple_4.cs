@@ -1,182 +1,155 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Lab_6
 {
-    public class Purple_5
+    public class Purple_4
     {
-        public struct Response
-        {
-            private string _animal;
-            private string _characterTrait;
-            private string _concept;
-
-
-            public string Animal => _animal;
-            public string CharacterTrait => _characterTrait;
-            public string Concept => _concept;
-
-            public Response(string animal, string charactertrait, string concept)
-            {
-                _animal = animal;
-                _characterTrait = charactertrait;
-                _concept = concept;
-            }
-            public int CountVotes(Response[] responses, int questionNumber)
-            {
-                if (questionNumber < 1 || questionNumber > 3 || responses == null) return 0;
-
-                switch (questionNumber)
-                {
-                    case 1:
-                        string answer = _animal;
-                        return responses.Count(ans => ans.Animal == answer && ans.Animal != null);
-                    case 2:
-                        string answer2 = _characterTrait;
-                        return responses.Count(ans => ans.CharacterTrait == answer2 && ans.CharacterTrait != null);
-                    case 3:
-                        string answer3 = _concept;
-                        return responses.Count(ans => ans.Concept == answer3 && ans.Concept != null);
-                    default:
-                        return 0;
-                }
-            }
-            public void Print()
-            {
-                Console.WriteLine($"Животное: {_animal} \t черта: {_characterTrait} \tВещь: {_concept} \t");
-            }
-        }
-        public struct Research
+        public struct Sportsman
         {
             private string _name;
-            private Response[] _responses;
+            private string _surname;
+            private double _time;
 
 
             public string Name => _name;
+            public string Surname => _surname;
+            public double Time => _time;
 
-            public Response[] Responses 
+            public Sportsman(string name, string surname)
+            {
+                _name = name;
+                _surname = surname;
+                _time = 0;
+            }
+
+            public void Run(double time)
+            {
+                if (time > 0 && _time == 0)
+                {
+                    _time = time;
+                }
+            }
+
+            public void Print()
+            {
+                Console.WriteLine($"Имя: {_name}    Фамилия: {_surname}    время: {_time}");
+                Console.WriteLine();
+            }
+        }
+        public struct Group
+        {
+            private string _name;
+            private Sportsman[] _sportsmen;
+
+            public string Name => _name;
+            public Sportsman[] Sportsmen
             {
                 get
                 {
-                    return _responses;
+                    return _sportsmen;
                 }
             }
-            
 
-            public Research(string name)
+            public Group(string name)
             {
                 _name = name;
-                _responses = new Response[0];
+                _sportsmen = new Sportsman[0];
+            }
+            public Group(Group group)
+            {
+                _name=group.Name;
+                var copy = group.Sportsmen;
+                _sportsmen = new Sportsman[0];
+                if (group.Sportsmen == null) _sportsmen = null;
+                Array.Copy(copy, _sportsmen, _sportsmen.Length);
 
             }
 
-            public void Add(string[] answers)
+            public void Add(Sportsman sportsman)
             {
-                if (answers == null || answers.Length <= 2 || _responses==null) return;
+                if (_sportsmen == null) return;
+                Array.Resize(ref _sportsmen,_sportsmen.Length+1);
+                _sportsmen[_sportsmen.Length-1] = sportsman;
 
-                var copy = new Response(answers[0], answers[1], answers[2]);
-
-                Array.Resize(ref _responses, _responses.Length+1);
-                _responses[_responses.Length-1] = copy;
             }
-
-            public string[] GetTopResponses(int question)
+            public void Add(Sportsman[] sportsman)
             {
-                if (_responses == null || (question <1  || question > 3)) return null;
-                string[] Ans = new string[_responses.Length];
-                int[] amount = new int[_responses.Length];
-                int index = 0;
-                for (int i = 0; i < _responses.Length; i++)
+                if (_sportsmen == null || sportsman.Length==0) return;
+                int index = _sportsmen.Length;
+                Array.Resize(ref _sportsmen,_sportsmen.Length+sportsman.Length);
+                int a = 0;
+                for (int i = index;i < _sportsmen.Length; i++)
                 {
-                    string Answer = GetAnswer(_responses[i], question);
-                    if (Ans.Count(r => r == Answer) == 0) 
-                    { 
-                        Ans[index] = Answer;
-                        amount[index++] = Ans.Count(r => r == Answer);
+                    _sportsmen[i] = sportsman[a++];
+                }
+
+            }
+            public void Add(Group group)
+            {
+                if (_sportsmen == null || group.Sportsmen == null)
+                    return;
+                Add(group.Sportsmen);
+            }
+
+            public void Sort()
+            {
+                if (_sportsmen != null)
+                    _sportsmen = _sportsmen.OrderBy(r => r.Time).ToArray();
+            }
+            public static Group Merge(Group group1, Group group2)
+            {
+                var group = new Group();
+                if (group1.Sportsmen == null || group2.Sportsmen == null)
+                {
+                    if (group1.Sportsmen != null)
+                    {
+                        Array.Copy(group1._sportsmen, group.Sportsmen, group1._sportsmen.Length);
                     }
+                    else if (group2.Sportsmen != null)
+                    {
+                        Array.Copy(group2._sportsmen, group.Sportsmen, group2._sportsmen.Length);
+                    }
+
+                    return group;
+                }
+                Array.Resize(ref group._sportsmen, group1._sportsmen.Length+ group2._sportsmen.Length);
+                int i = 0, j = 0, k = 0;
+                while (i < group1._sportsmen.Length && j < group2._sportsmen.Length)
+                {
+                    if (group1._sportsmen[i].Time <= group2._sportsmen[j].Time)
+                        group._sportsmen[k++] = group1._sportsmen[i++];
                     else
-                    {
-                        Ans[index] = "||";
-                        amount[index++] = int.MinValue;
-                    }
+                        group._sportsmen[k++] = group2._sportsmen[j++];
+                }
+                while (i < group1._sportsmen.Length)
+                    group._sportsmen[k++] = group1._sportsmen[i++];
+                while (j < group2._sportsmen.Length)
+                    group._sportsmen[k++] = group2._sportsmen[j++];
+                return group;
 
-                }
-                Sort(ref Ans,ref amount);
-                int count = 0;
-                for (int i = 0; i < Ans.Length; i++)
-                {
-                    if (Ans[i] == "||")
-                    {
-                        count++;
-                    }
-                }
-                Array.Resize(ref Ans, Ans.Length-count);
-                Array.Resize(ref amount, amount.Length-count);
-                if (Ans.Length >= 5)
-                {
-                    Array.Resize(ref Ans, 5);
-                }
 
-                return Ans;
+
             }
-            public string GetAnswer(Response A, int question)
-            {
-                string ans;
-                switch (question)
-                {
-                    case 1:
-                        ans = A.Animal;
-                        return ans;
-                    case 2:
-                        ans = A.CharacterTrait;
-                        return ans;
-                    case 3:
-                        ans = A.Concept;
-                        return ans;
-                    default:
-                        return null;
-                }
-            }
-            public void Sort(ref string[] resp,ref int[] number)
-            {
-                for (int i = 0, j=1;i < number.Length; i++)
-                {
-                    if (i==0 || number[i] <= number[i - 1])
-                    {
-                        i = j;
-                        j++;
-                    }
-                    else
-                    {
-                        int temp = number[i];
-                        number[i] = number[i-1];
-                        number[i-1] = temp;
-                        string temp2 = resp[i];
-                        resp[i] = resp[i-1];
-                        resp[i-1] = temp2;
-                        i--;
-                    }
-                }
-            }
+
             public void Print()
             {
-                for (int i = 1; i <= 3; i++)
+                Console.WriteLine($"Name: {_name}");
+
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Console.WriteLine("Sportsmen");
+
+                foreach(var sportsman in _sportsmen)
                 {
-                    string[] result = GetTopResponses(i);
-
-                    for (int j = 0; j < result.Length; j++)
-                    {
-                        Console.Write(result[j] +" ");
-                    }
-                    Console.WriteLine();
+                    sportsman.Print();
                 }
-                
             }
-
         }
     }
 }
