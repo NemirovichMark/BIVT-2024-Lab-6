@@ -126,7 +126,7 @@ namespace Lab_6
                     else
                         group._sportsmen[k++] = group2._sportsmen[j++];
                 }
-                while (i < group._sportsmen.Length)
+                while (i < group1._sportsmen.Length)
                     group._sportsmen[k++] = group1._sportsmen[i++];
                 while (j < group2._sportsmen.Length)
                     group._sportsmen[k++] = group2._sportsmen[j++];
