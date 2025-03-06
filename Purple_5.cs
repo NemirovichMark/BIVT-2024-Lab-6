@@ -37,13 +37,13 @@ namespace Lab_6
                     switch (questionNumber)
                     {
                         case 1:
-                            ans += ((response.Animal != null && response.Animal == _animal) ? 0 : 1);
+                            ans += ((response.Animal == null || response.Animal != _animal) ? 0 : 1);
                             break;
                         case 2:
-                            ans += ((response.CharacterTrait != null && response.CharacterTrait == _characterTrait) ? 0 : 1);
+                            ans += ((response.CharacterTrait == null || response.CharacterTrait != _characterTrait) ? 0 : 1);
                             break;
                         case 3:
-                            ans += ((response.Concept != null && response.Concept == _concept) ? 0 : 1);
+                            ans += ((response.Concept == null || response.Concept != _concept) ? 0 : 1);
                             break;
                     }
                 }
