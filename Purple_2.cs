@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -52,14 +52,14 @@ namespace Lab_6
                 if (distance == null || marks == null || marks.Length != 5 || distance < 0 || _marks == null)
                     return;
                 _distance = distance;
-                Array.Copy(marks, _marks, _marks.Length);
+                Array.Copy(marks, _marks, marks.Length);
                 int Points = 60 + (_distance - 120) * 2;
                 if (Points < 0) Points = 0;
                 Result += marks.Sum() - marks.Max() - marks.Min() + Points;
 
             }
 
-            public void Sort(Participant[] array)
+            public static void Sort(Participant[] array)
             {
                 if (array == null || array.Length <= 1) return;
                 //for (int i = 0, j = 1;i< array.Length;)
