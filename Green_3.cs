@@ -56,11 +56,22 @@ namespace Lab_6
                 }
             }
 
-            public bool IsExpelled
+            public bool IsExpelled 
             {
                 get
                 {
-                    return _session_outcome;
+                    if (_count_exams == 0)
+                    {
+                        return false;
+                    }
+                    for (int i = 0; i < _count_exams; i++)
+                    {
+                        if (_marks[i] <= 2)
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
                 }
             }
 
@@ -73,27 +84,26 @@ namespace Lab_6
                 _count_exams = 0;
             }
 
-            public void Exam(int mark)
+            public void Exam(int mark) 
             {
                 
-                if (_session_outcome || _marks == null) return;
-                if (mark < 2 || mark > 5) return;
-
-                if (_count_exams <= 2)
+                if (_marks.Length == 0 || _marks == null) return;
+                
+                if (_count_exams >= 3) return;
+                
+                if (!_session_outcome)
                 {
-                    if (_marks[_count_exams] == 0)
+                    if (mark > 2)
                     {
                         _marks[_count_exams] = mark;
-
-                        if (mark == 2) //Проверка на наличие хотя бы одной двойки
-                        {
-                            _session_outcome = true;
-                        }
-
+                        _count_exams++;
                     }
-                    _count_exams++;
-
-                    return;
+                    else
+                    {
+                        _marks[_count_exams] = mark;
+                        _count_exams++;
+                        _session_outcome = true;
+                    }
                 }
                 
             }
