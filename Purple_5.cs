@@ -58,7 +58,13 @@ namespace Lab_6
 
             public string Name => _name;
 
-            public Response[] Responses => _responses;
+            public Response[] Responses 
+            {
+                get
+                {
+                    return _responses;
+                }
+            }
             
 
             public Research(string name)
@@ -70,7 +76,7 @@ namespace Lab_6
 
             public void Add(string[] answers)
             {
-                if (answers == null || answers.Length < 2) return;
+                if (answers == null || answers.Length <= 2 || _responses==null) return;
 
                 var copy = new Response(answers[0], answers[1], answers[2]);
 
