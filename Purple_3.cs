@@ -69,17 +69,18 @@ namespace Lab_6
             public static void SetPlaces(Participant[] participants)
             {
                 if (participants == null || participants.Length == 0) return;
-                var participants_sort = participants.Where(r => r._marks != null && r._places != null).ToArray();
+                var participants_sort = new Participant[participants.Length];
+                participants_sort = participants.Where(r => r._marks != null && r._places != null).ToArray();
                 for (int j = 0; j < 7; j++)
                 {
-                    participants_sort = participants_sort.OrderByDescending(r => r._marks[j]).ToArray();
+                    participants_sort = participants.OrderByDescending(r => r._marks[j]).ToArray();
                     for (int i = 0; i < participants_sort.Length; i++)
                     {
                         participants_sort[i]._places[j] = i+1;
                     }
                 }
-                participants_sort = participants_sort.Concat(participants_sort.Where(r => r._marks != null && r._places != null)).ToArray();
-                Array.Copy(participants_sort, participants, participants_sort.Length);
+                participants_sort = participants_sort.Concat(participants.Where(r => r._marks != null && r._places != null)).ToArray();
+                Array.Copy(participants_sort, participants, participants.Length);
 
 
 
