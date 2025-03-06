@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -54,7 +54,7 @@ namespace Lab_6
                 _name = name;
                 _surname = surname;
                 _coefs = new double[4] { 2.5, 2.5, 2.5, 2.5 };
-                _marks = new int[4, 6];
+                _marks = new int[4, 7];
                 TotalScore = 0;
                 _numJump = 0;
 
@@ -62,7 +62,7 @@ namespace Lab_6
 
             public void SetCriterias(double[] coefs)
             {
-                if (coefs.Length == 4)
+                if (coefs.Length == 4 && coefs != null)
                 {
                     Array.Copy(coefs, _coefs, _coefs.Length);
                 }
@@ -73,22 +73,24 @@ namespace Lab_6
             }
             public void Jump(int[] marks)
             {
-                if (marks.Length == 7)
+                if (marks.Length == 7 && _numJump < 4 && marks != null && _marks != null && _coefs != null)
                 {
                     for (int i = 0; i < marks.Length; i++)
                     {
-                        marks[i] = _marks[_numJump,i];
-                        
-                        
-
+                        _marks[_numJump, i] = marks[i];
                     }
-                    TotalScore += (marks[1] + marks[2] + marks[3]) * Coefs[_numJump];
-                    
+                    TotalScore += (marks[1] + marks[2] + marks[3]) * _coefs[_numJump];
+
                     _numJump++;
                 }
+                else
+                    return;
             }
             public static void Sort(Participant[] array)
             {
+                if (array == null || array.Length <=1)
+                    return;
+                
                 int i = 0, j = 2;
                 while (i < array.Length)
                 {
