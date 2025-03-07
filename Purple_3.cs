@@ -96,9 +96,7 @@ namespace Lab_6
                         i = j;
                         j++;
                     }
-                    else if (res[i - 1].Score == res[i].Score &&
-                             res[i - 1]._places.Min() <= res[i]._places.Min() &&
-                             res[i - 1]._marks.Sum() >= res[i]._marks.Sum())
+                    else if (res[i - 1]._places.Min() <= res[i]._places.Min() && res[i - 1]._marks.Sum() >= res[i]._marks.Sum() &&res[i - 1].Score == res[i].Score)
                     {
                         i = j;
                         j++;
