@@ -62,9 +62,9 @@ namespace Lab_6
 
             public void SetCriterias(double[] coefs)
             {
-                if (coefs.Length == 4 && coefs != null)
+                if (coefs.Length == 4 && coefs != null && _coefs != null)
                 {
-                    Array.Copy(coefs, _coefs, _coefs.Length);
+                    Array.Copy(coefs, _coefs, coefs.Length);
                 }
                 else
                 {
@@ -79,7 +79,7 @@ namespace Lab_6
                     {
                         _marks[_numJump, i] = marks[i];
                     }
-                    TotalScore += (marks[1] + marks[2] + marks[3]) * _coefs[_numJump];
+                    TotalScore += (marks.Sum() - marks.Min() - marks.Max()) * _coefs[_numJump];
 
                     _numJump++;
                 }
@@ -91,12 +91,12 @@ namespace Lab_6
                 if (array == null || array.Length <=1)
                     return;
                 
-                int i = 0, j = 2;
-                while (i < array.Length)
+                for(int i = 0, j=1;i < array.Length;)
                 {
                     if (i == 0 || array[i].TotalScore <= array[i - 1].TotalScore) 
                     {
-                        i = j; j++;
+                        i = j; 
+                        j++;
                     }
                     else
                     {
