@@ -42,7 +42,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_marks == null || _marks.Length == 0)
+                    if (_marks.Length == 0 || _marks == null)
                     {
                         return 0; 
                     }
@@ -52,7 +52,7 @@ namespace Lab_6
                     {
                         sum += mark;
                     }
-                    return sum / (double)_marks.Length;
+                    if (_count_exams != 0) return sum / (double)_count_exams;
                 }
             }
 
