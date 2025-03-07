@@ -62,6 +62,7 @@ namespace Lab_6
             {
                 get
                 {
+                    if (_responses == null) return null;
                     return _responses;
                 }
             }
@@ -143,7 +144,7 @@ namespace Lab_6
             }
             public void Sort(ref string[] resp,ref int[] number)
             {
-                for (int i = 0, j=1;i < number.Length; i++)
+                for (int i = 0, j=1;i < number.Length;)
                 {
                     if (i==0 || number[i] <= number[i - 1])
                     {
@@ -158,6 +159,7 @@ namespace Lab_6
                         string temp2 = resp[i];
                         resp[i] = resp[i-1];
                         resp[i-1] = temp2;
+                        
                         i--;
                     }
                 }
