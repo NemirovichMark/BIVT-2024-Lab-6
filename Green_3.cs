@@ -53,6 +53,7 @@ namespace Lab_6
                         sum += mark;
                     }
                     if (_count_exams != 0) return sum / (double)_count_exams;
+                    else return 0;
                 }
             }
 
