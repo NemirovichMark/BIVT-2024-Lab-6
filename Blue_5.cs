@@ -7,10 +7,12 @@ using static Lab_6.Blue_5;
 
 namespace Lab_6
 {
+
     public class Blue_5
     {
         public struct Sportsman
         {
+
             private string name;
             private string surname;
             private int place;
@@ -19,7 +21,9 @@ namespace Lab_6
             {
                 get
                 {
-                    return name ?? string.Empty; 
+                    if (name == null)
+                        return null;
+                    return name;
                 }
             }
 
@@ -27,7 +31,9 @@ namespace Lab_6
             {
                 get
                 {
-                    return surname ?? string.Empty; 
+                    if (surname == null)
+                        return string.Empty;
+                    return surname;
                 }
             }
 
@@ -35,9 +41,12 @@ namespace Lab_6
             {
                 get
                 {
-                    return place == 0 ? 0 : place; 
+                    if (place == 0)
+                        return 0;
+                    return place;
                 }
             }
+
 
             public Sportsman(string name, string surname)
             {
@@ -46,11 +55,11 @@ namespace Lab_6
                 this.place = 0;
             }
 
+
             public void SetPlace(int place)
             {
                 this.place = place;
             }
-
             public void Print()
             {
                 Console.Write("Name: ");
@@ -66,14 +75,18 @@ namespace Lab_6
 
         public struct Team
         {
+
             private string name;
-            private List<Sportsman> sportsmen;
+            private Sportsman[] sportsmen;
+
 
             public string Name
             {
                 get
                 {
-                    return name ?? string.Empty; 
+                    if (name == null)
+                        return null;
+                    return name;
                 }
             }
 
@@ -81,9 +94,12 @@ namespace Lab_6
             {
                 get
                 {
-                    return sportsmen?.ToArray() ?? new Sportsman[0]; 
+                    if (sportsmen == null)
+                        return null;
+                    return sportsmen;
                 }
             }
+
 
             public int SummaryScore
             {
@@ -113,40 +129,45 @@ namespace Lab_6
             {
                 get
                 {
-                    if (sportsmen == null || sportsmen.Count == 0)
+                    if (sportsmen == null)
                         return 18;
 
                     int top = int.MaxValue;
                     foreach (var sportsman in sportsmen)
                     {
-                        if (sportsman.Place > 0 && sportsman.Place < top)
+                        if (sportsman.Place < top && sportsman.Place != 0)
                         {
                             top = sportsman.Place;
                         }
                     }
-                    return top == int.MaxValue ? 18 : top;
+                    return top;
                 }
             }
 
             public Team(string name)
             {
                 this.name = name;
-                this.sportsmen = new List<Sportsman>();
+                this.sportsmen = new Sportsman[6];
             }
 
             public void Add(Sportsman sportsman)
             {
-                if (sportsman.Name == string.Empty) 
+                if (sportsmen == null)
                     return;
-
-                sportsmen.Add(sportsman);
+                for (int i = 0; i < sportsmen.Length; i++)
+                {
+                    if (sportsmen[i].Name == null)
+                    {
+                        sportsmen[i] = sportsman;
+                        break;
+                    }
+                }
             }
 
             public void Add(params Sportsman[] newSportsmen)
             {
-                if (newSportsmen == null || newSportsmen.Length == 0)
+                if (sportsmen == null)
                     return;
-
                 foreach (var sportsman in newSportsmen)
                 {
                     Add(sportsman);
@@ -155,7 +176,7 @@ namespace Lab_6
 
             public static void Sort(Team[] teams)
             {
-                if (teams == null || teams.Length == 0)
+                if (teams == null)
                     return;
 
                 for (int i = 0; i < teams.Length - 1; i++)
@@ -172,7 +193,6 @@ namespace Lab_6
                     }
                 }
             }
-
             public void Print()
             {
                 Console.WriteLine($"Команда: {Name}");
