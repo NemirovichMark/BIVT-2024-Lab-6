@@ -37,10 +37,9 @@ namespace Lab_6{
 
             public void SetPlace(int place){
                 if (_place != 0) return;
-                if (_status == false){
+
                 _place = place;
                 _status = true;
-                }
             }
             public void Print()
             {
@@ -84,7 +83,7 @@ namespace Lab_6{
                 get
                 {
                     if (_sportsmen == null) return 0;
-                    int top = _sportsmen[0].Place;
+                    int top = 18;
                     for (int i = 0; i < _sportsmen.Length; i++){
                         if (_sportsmen[i].Place < top && _sportsmen[i].Place != 0){
                             top = _sportsmen[i].Place;

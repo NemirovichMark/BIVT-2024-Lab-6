@@ -16,6 +16,7 @@ namespace Lab_6{
             private string _surname;
 
             private int[,] _marks;
+            private int _ind;
 
             public string Name => _name;
 
@@ -54,34 +55,31 @@ namespace Lab_6{
             public Participant(string name, string surname) {
                 this._name = name;
                 this._surname = surname;
-                this._marks = new int[5,2];
+                this._marks = new int[2,5];
+                this._ind = 0;
                 }
 
             public void Jump(int[] result)
             {
-                if (_marks == null || _marks.GetLength(0) == 0 || _marks.GetLength(1) == 0 || result == null || result.Length == 0) return;            
-                if (result.Length != 5) return;
-                for (int jump = 0; jump < 2; jump++)
+                if (_marks == null || _marks.GetLength(0) == 0 || _marks.GetLength(1) == 0 || result == null || result.Length == 0 || _ind > 1) return;            
+                if (_ind == 0)
                 {
-                    bool emptyJump = true;
-                    for (int judge = 0; judge < 5; judge++)
+                    for (int i = 0; i < 5; i++)
                     {
-                        if (_marks[judge, jump] != 0)
-                        {
-                            emptyJump = false;
-                            break;
-                        }
+                        _marks[0, i] = result[i];
                     }
-                    if (emptyJump)
+                    _ind++;
+                }
+                else if (_ind == 1)
+                {
+                    for (int i = 0; i < 5; i++)
                     {
-                        for (int judge = 0; judge < 5; judge++)
-                        {
-                            _marks[judge, jump] = result[judge];
-                        }
-                        break;
+                        _marks[1, i] = result[i];
                     }
+                    _ind++;
                 }
             }
+    
             
             public static void Sort(Participant[] array)
             {

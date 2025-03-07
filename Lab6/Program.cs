@@ -28,57 +28,57 @@ class Program
 
         //TASK 2
 
-        // Blue_2.Participant[] participants =
-        // {
-        //     new Blue_2.Participant("Иван", "Иванов"),
-        //     new Blue_2.Participant("Петр", "Петров"),
-        //     new Blue_2.Participant("Анна", "Смирнова")
-        // };
-
-        // participants[0].Jump(new int[] { 8, 9, 7, 8, 9 });
-        // participants[0].Jump(new int[] { 9, 9, 8, 9, 10 });
-        
-        // participants[1].Jump(new int[] { 7, 8, 7, 7, 8 });
-        // participants[1].Jump(new int[] { 8, 8, 8, 8, 9 });
-        
-        // participants[2].Jump(new int[] { 9, 9, 9, 8, 9 });
-        // participants[2].Jump(new int[] { 10, 10, 9, 9, 10 });
-        
-        // Blue_2.Participant.Sort(participants);
-        
-        // foreach (var participant in participants)
-        // {
-        //     participant.Print();
-        // }
-
-        //TASK 3
-
-        Blue_3.Participant[] participants =
+        Blue_2.Participant[] participants =
         {
-            new Blue_3.Participant("Иван", "Иванов"),
-            new Blue_3.Participant("Петр", "Петров"),
-            new Blue_3.Participant("Анна", "Смирнова"),
-            new Blue_3.Participant("Сергей", "Кузнецов")
+            new Blue_2.Participant("Иван", "Иванов"),
+            new Blue_2.Participant("Петр", "Петров"),
+            new Blue_2.Participant("Анна", "Смирнова")
         };
 
-        participants[0].PlayMatch(2);
-        participants[0].PlayMatch(5);
+        participants[0].Jump(new int[] { 8, 9, 7, 8, 9 });
+        participants[0].Jump(new int[] { 9, 9, 8, 9, 10 });
         
-        participants[1].PlayMatch(0);
-        participants[1].PlayMatch(2);
+        participants[1].Jump(new int[] { 7, 8, 7, 7, 8 });
+        participants[1].Jump(new int[] { 8, 8, 8, 8, 9 });
         
-        participants[2].PlayMatch(10);
+        participants[2].Jump(new int[] { 9, 9, 9, 8, 9 });
+        participants[2].Jump(new int[] { 10, 10, 9, 9, 10 });
         
-        participants[3].PlayMatch(5);
-        participants[3].PlayMatch(5);
-        
-        Blue_3.Participant.Sort(participants);
+        Blue_2.Participant.Sort(participants);
         
         foreach (var participant in participants)
         {
-            if (!participant.IsExpelled)
-                participant.Print();
+            participant.Print();
         }
+
+        //TASK 3
+
+        // Blue_3.Participant[] participants =
+        // {
+        //     new Blue_3.Participant("Иван", "Иванов"),
+        //     new Blue_3.Participant("Петр", "Петров"),
+        //     new Blue_3.Participant("Анна", "Смирнова"),
+        //     new Blue_3.Participant("Сергей", "Кузнецов")
+        // };
+
+        // participants[0].PlayMatch(2);
+        // participants[0].PlayMatch(5);
+        
+        // participants[1].PlayMatch(0);
+        // participants[1].PlayMatch(2);
+        
+        // participants[2].PlayMatch(10);
+        
+        // participants[3].PlayMatch(5);
+        // participants[3].PlayMatch(5);
+        
+        // Blue_3.Participant.Sort(participants);
+        
+        // foreach (var participant in participants)
+        // {
+        //     if (!participant.IsExpelled)
+        //         participant.Print();
+        // }
 
         ///TASK 4
 

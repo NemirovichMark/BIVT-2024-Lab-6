@@ -22,12 +22,12 @@ namespace Lab_6{
 
            public string Surname => _surname;
 
-           public int[] penaltyTimes{
+           public int[] PenaltyTimes{
             get 
             {
-                if (penaltyTimes == null) return null;
-                int[] copy = new int[penaltyTimes.Length];
-                Array.Copy(penaltyTimes, copy, penaltyTimes.Length);
+                if (_penaltyTimes == null) return null;
+                int[] copy = new int[_penaltyTimes.Length];
+                Array.Copy(_penaltyTimes, copy, _penaltyTimes.Length);
                 return copy;
             }
            }
