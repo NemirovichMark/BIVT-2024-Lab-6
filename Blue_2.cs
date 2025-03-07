@@ -40,7 +40,7 @@ namespace Lab_6
                 {
                     if (marks == null)
                     {
-                        return null; 
+                        return null;
                     }
                     int[,] marksCopy = new int[marks.GetLength(0), marks.GetLength(1)];
                     Array.Copy(marks, marksCopy, marks.Length);
@@ -73,7 +73,7 @@ namespace Lab_6
             {
                 this.name = name;
                 this.surname = surname;
-                this.marks = new int[5, 2];  
+                this.marks = new int[2, 5];
             }
 
             public void Jump(int[] result)
@@ -84,7 +84,7 @@ namespace Lab_6
                 }
 
                 int jump = -1;
-            
+
                 bool firstColumnEmpty = true;
                 for (int i = 0; i < marks.GetLength(0); i++)
                 {
@@ -94,10 +94,10 @@ namespace Lab_6
                         break;
                     }
                 }
-                
+
                 if (firstColumnEmpty)
                 {
-                    jump = 0; 
+                    jump = 0;
                 }
                 else
                 {
@@ -110,10 +110,10 @@ namespace Lab_6
                             break;
                         }
                     }
-                    
+
                     if (secondColumnEmpty)
                     {
-                        jump = 1; 
+                        jump = 1;
                     }
                 }
 
@@ -128,7 +128,7 @@ namespace Lab_6
 
             public static void Sort(Participant[] array)
             {
-                
+
                 Array.Sort(array, (x, y) => y.TotalScore.CompareTo(x.TotalScore));
             }
 
@@ -150,12 +150,12 @@ namespace Lab_6
                     for (int j = 0; j < columns; j++)
                     {
                         Console.Write(marks[i, j]);
-                        if (j < columns - 1) 
+                        if (j < columns - 1)
                         {
                             Console.Write(" ");
                         }
                     }
-                    Console.WriteLine(); 
+                    Console.WriteLine();
                 }
             }
         }
