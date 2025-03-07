@@ -88,28 +88,31 @@ namespace Lab_6
             public static void Sort(Participant[] array)
             {
                 if (array == null || array.Length == 0) return;
-                for (int i = 0, j=1; i< array.Length;)
+                var res = array.Where(r => r._marks != null && r._places != null).ToArray();
+                for (int i = 0, j=1; i< res.Length;)
                 {
-                    if (i==0 || array[i].Score >= array[i - 1].Score)
+                    if (i==0 || res[i].Score > res[i - 1].Score)
                     {
                         i = j;
                         j++;
                     }
-                    else if (array[i - 1].Score == array[i].Score &&
-                             array[i - 1]._places.Min() <= array[i]._places.Min() &&
-                             array[i - 1]._marks.Sum() >= array[i]._marks.Sum())
+                    else if (res[i - 1].Score == res[i].Score &&
+                             res[i - 1]._places.Min() <= res[i]._places.Min() &&
+                             res[i - 1]._marks.Sum() >= res[i]._marks.Sum())
                     {
                         i = j;
                         j++;
                     }
                     else
                     {
-                        var temp = array[i];
-                        array[i] = array[i - 1];
-                        array[i - 1] = temp;
+                        var temp = res[i];
+                        res[i] = res[i - 1];
+                        res[i - 1] = temp;
                         i--;
                     }
                 }
+
+                Array.Copy(res, array, array.Length);
             }
 
             public void Print()
