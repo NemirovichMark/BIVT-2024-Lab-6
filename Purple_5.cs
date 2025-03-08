@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -94,15 +95,17 @@ namespace Lab_6
                 for (int i = 0; i < _responses.Length; i++)
                 {
                     string Answer = GetAnswer(_responses[i], question);
-                    if (Ans.Count(r => r == Answer) == 0) 
+                    
+                    if (Ans.Count(r => r == Answer) == 0 && Answer!="") 
                     { 
-                        Ans[index] = Answer;
-                        amount[index++] = Ans.Count(r => r == Answer);
+                        Ans[index++] = Answer;
+                        //amount[index++] = Ans.Count(r => r == Answer);
+                        amount[Array.IndexOf(Ans, Answer)]++;
                     }
-                    else
+                    else if(Ans.Count(r => r == Answer) != 0 && Answer != "")
                     {
-                        Ans[index] = "||";
-                        amount[index++] = int.MinValue;
+                        Ans[index++] = "||";
+                        amount[Array.IndexOf(Ans, Answer)]++;
                     }
 
                 }
@@ -121,7 +124,16 @@ namespace Lab_6
                 {
                     Array.Resize(ref Ans, 5);
                 }
-
+                for (int i = 0; i < Ans.Length; i++)
+                {
+                    Console.Write(Ans[i]+" ");
+                }
+                Console.WriteLine();
+                for (int i = 0; i < Ans.Length; i++)
+                {
+                    Console.Write(amount[i] + " ");
+                }
+                Console.WriteLine();
                 return Ans;
             }
             public string GetAnswer(Response A, int question)
@@ -169,7 +181,7 @@ namespace Lab_6
                 for (int i = 1; i <= 3; i++)
                 {
                     string[] result = GetTopResponses(i);
-
+                    
                     for (int j = 0; j < result.Length; j++)
                     {
                         Console.Write(result[j] +" ");
