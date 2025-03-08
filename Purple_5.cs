@@ -48,6 +48,7 @@ namespace Lab_6
                     }
                 }
                 return ans;
+                // Тут изменение есть)
             }
             public void Print()
             {
