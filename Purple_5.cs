@@ -90,53 +90,33 @@ namespace Lab_6
             {
                 if (_responses == null || (question <1  || question > 3)) return null;
                 string[] Ans = new string[_responses.Length];
-                int[] amount = new int[_responses.Length];
                 int index = 0;
-                for (int i = 0; i < _responses.Length; i++)
+                foreach (var answers in _responses)
                 {
-                    string Answer = GetAnswer(_responses[i], question);
-                    
-                    if (Ans.Count(r => r == Answer) == 0 && Answer!="") 
-                    { 
-                        Ans[index++] = Answer;
-                        //amount[index++] = Ans.Count(r => r == Answer);
-                        amount[Array.IndexOf(Ans, Answer)]++;
-                    }
-                    else if(Ans.Count(r => r == Answer) != 0 && Answer != "")
+                    string A = GetAnswer(answers, question);
+                    if (A != null && A!="") 
                     {
-                        Ans[index++] = "||";
-                        amount[Array.IndexOf(Ans, Answer)]++;
+
+                        Ans[index++] = A;
                     }
+                    else Array.Resize(ref Ans, Ans.Length-1);
+                    
 
                 }
-                Sort(ref Ans,ref amount);
-                int count = 0;
-                for (int i = 0; i < Ans.Length; i++)
+                string[] Unique_ans = Ans.Distinct().ToArray();
+                int[] Amount = new int[Unique_ans.Length];
+                for (int i = 0;i< Unique_ans.Length; i++)
                 {
-                    if (Ans[i] == "||")
-                    {
-                        count++;
-                    }
+                    Amount[i] = Ans.Count(r => r == Unique_ans[i]);
                 }
-                Array.Resize(ref Ans, Ans.Length-count);
-                Array.Resize(ref amount, amount.Length-count);
-                if (Ans.Length >= 5)
+                Sort(ref Unique_ans, ref Amount);
+                if (Unique_ans.Length > 5)
                 {
-                    Array.Resize(ref Ans, 5);
+                    Array.Resize(ref Unique_ans,5);
                 }
-                for (int i = 0; i < Ans.Length; i++)
-                {
-                    Console.Write(Ans[i]+" ");
-                }
-                Console.WriteLine();
-                for (int i = 0; i < Ans.Length; i++)
-                {
-                    Console.Write(amount[i] + " ");
-                }
-                Console.WriteLine();
-                return Ans;
+                return Unique_ans;
             }
-            public string GetAnswer(Response A, int question)
+            private string GetAnswer(Response A, int question)
             {
                 string ans;
                 switch (question)
@@ -154,11 +134,11 @@ namespace Lab_6
                         return null;
                 }
             }
-            public void Sort(ref string[] resp,ref int[] number)
+            private void Sort(ref string[] resp,ref int[] number)
             {
                 for (int i = 0, j=1;i < number.Length;)
                 {
-                    if (i==0 || number[i] <= number[i - 1])
+                    if (i==0 || number[i-1] >= number[i])
                     {
                         i = j;
                         j++;
