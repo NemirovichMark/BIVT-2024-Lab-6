@@ -42,7 +42,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_marks.Length == 0 || _marks == null)
+                    if (_marks == null || _marks.Length == 0)
                     {
                         return 0; 
                     }
