@@ -96,10 +96,35 @@ namespace Lab_6
                         i = j;
                         j++;
                     }
-                    else if (res[i - 1]._places.Min() <= res[i]._places.Min() && res[i - 1]._marks.Sum() >= res[i]._marks.Sum() &&res[i - 1].Score == res[i].Score)
+                    else if(res[i].Score == res[i - 1].Score)
                     {
-                        i = j;
-                        j++;
+                        if (i == 0 || res[i].TopPlace(res[i]) > res[i - 1].TopPlace(res[i - 1]))
+                        {
+                            i = j;
+                            j++;
+                        }
+                        else if(res[i].TopPlace(res[i]) == res[i - 1].TopPlace(res[i - 1]))
+                        {
+                            if (i == 0 || res[i]._marks.Sum() > res[i - 1]._marks.Sum())
+                            {
+                                i = j;
+                                j++;
+                            }
+                            else
+                            {
+                                var temp = res[i];
+                                res[i] = res[i - 1];
+                                res[i - 1] = temp;
+                                i--;
+                            }
+                        }
+                        else
+                        {
+                            var temp = res[i];
+                            res[i] = res[i - 1];
+                            res[i - 1] = temp;
+                            i--;
+                        }
                     }
                     else
                     {
@@ -109,13 +134,17 @@ namespace Lab_6
                         i--;
                     }
                 }
-
+               
                 Array.Copy(res, array, array.Length);
             }
-
+            private int TopPlace(Participant participant)
+            {
+                int[] places = participant.Places;
+                return places.Max();
+            }
             public void Print()
             {
-                Console.WriteLine($"name: {_name}\tsurname:{_surname}\tScore: {Score}\tbest place: {_places.Min()}, marks_sum:{Math.Round(_marks.Sum(),2)}");
+                Console.WriteLine($"name: {_name}\tsurname:{_surname}\tScore: {Score}\tbest place: {_places.Min()}\t marks_sum:{Math.Round(_marks.Sum(),2)}");
             }
 
         }
