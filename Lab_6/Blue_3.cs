@@ -9,7 +9,7 @@ public class Blue_3
         private int[] _minutes;
         
         public readonly string Name => _name;
-        public readonly string Lastname => _lastname;
+        public readonly string Surname => _lastname;
 
         public Participant(string name, string lastname)
         {
@@ -90,7 +90,7 @@ public class Blue_3
 
         public void Print()
         {
-            Console.WriteLine("{0} {1} {2}", this.Name, this.Lastname, this.TotalTime);
+            Console.WriteLine("{0} {1} {2}", this.Name, this.Surname, this.TotalTime);
         }
     }
 }

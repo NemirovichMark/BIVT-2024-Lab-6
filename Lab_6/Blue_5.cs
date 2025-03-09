@@ -29,11 +29,12 @@ public class Blue_5
         {
             Console.WriteLine("{0} {1} {2}", Name, Surname, Place);
         }
-
-        public struct Team
+    }
+    public struct Team
         {
             private string _name;
             private Sportsman[] _sportsmen;
+            private int _count;
             
             public readonly string Name => _name;
 
@@ -96,8 +97,29 @@ public class Blue_5
             {
                 this._name = name;
                 this._sportsmen = new Sportsman[1];
+                this._count = 0;
             }
 
+            public void Add(Sportsman sportsman)
+            {
+                if (this._sportsmen == null) return;
+                if (this._count < 6)
+                {
+                    this._sportsmen[this._count + 1] = sportsman;
+                    this._count++;   
+                }
+            }
+            public void Add(Sportsman[] sportsmen)
+            {
+                if (this._sportsmen == null) return;
+
+                for (int i = 0; i < sportsmen.Length; i++)
+                { 
+                    Add(sportsmen[i]);
+                }
+
+            }
+            
             public static void Sort(Team[] teams)
             {
                 for (int i = 0; i < teams.Length; i++)
@@ -120,5 +142,4 @@ public class Blue_5
                 Console.WriteLine(Name);
             }
         }
-    }
 }

@@ -1,5 +1,4 @@
-using System;
-
+namespace Lab_6;
 public class Blue_1
 {
     public struct Response
