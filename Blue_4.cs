@@ -4,18 +4,18 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using static lab6.Blue_4;
+using static Lab_6.Blue_4;
 
-namespace lab6
+namespace Lab_6
 {
-    internal class Blue_4
+    public class Blue_4
     {
         public struct Team
         {
             private string _name;
             private int[] _scores;
             public string Name => _name;
-            private int[] Scores
+            public int[] Scores
             {
                 get
                 {

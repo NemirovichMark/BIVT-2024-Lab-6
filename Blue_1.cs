@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static lab6.Blue_1;
+using static Lab_6.Blue_1;
 
-namespace lab6
+namespace Lab_6
 {
     public class Blue_1
     {

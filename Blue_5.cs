@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static lab6.Blue_5;
+using static Lab_6.Blue_5;
 
-namespace lab6
+namespace Lab_6
 {
-    internal class Blue_5
+    public class Blue_5
     {
         public struct Sportsman
         {

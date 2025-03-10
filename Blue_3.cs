@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static lab6.Blue_3;
+using static Lab_6.Blue_3;
 
-namespace lab6
+namespace Lab_6
 {
     public class Blue_3
     {
@@ -37,11 +37,16 @@ namespace lab6
             {
                 get
                 {
-                    if (_penaltytimes.Length == 0 || _penaltytimes == null)
+                    if (_penaltytimes == null || _penaltytimes.Length == 0)
                     {
                         return 0;
                     }
-                    return _penaltytimes.Sum();                       
+                    int sum = 0;
+                    for (int i = 0; i < _penaltytimes.Length; i++)
+                    {
+                        sum += _penaltytimes[i];
+                    }
+                    return sum;
                 }
             }
 
@@ -90,11 +95,11 @@ namespace lab6
 
                 for (int i = 0; i < participants.Length; i++)
                 {
-                    for (int j = i; j < participants.Length; j++)
+                    for (int j = 0; j < participants.Length - i - 1; j++)
                     {
-                        if (participants[i].TotalTime > participants[j].TotalTime)
+                        if (participants[j + 1].TotalTime < participants[j].TotalTime)
                         {
-                            (participants[i], participants[j]) = (participants[j], participants[i]);
+                            (participants[j], participants[j + 1]) = (participants[j + 1], participants[j]);
                         }
                     }
                 }
