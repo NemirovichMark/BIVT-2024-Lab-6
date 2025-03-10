@@ -7,17 +7,12 @@ using System.Xml.Linq;
 
 namespace Lab_6
 {
-    
     public class Blue_4
     {
-        
-        public Blue_4()
-        {
-            
-        }
+        public Blue_4() { }
     }
 
-    public class Team
+    public struct Team 
     {
         private string name;
         private int[] scores;
@@ -26,8 +21,6 @@ namespace Lab_6
         {
             get
             {
-                if (name == null)
-                    return null;
                 return name;
             }
         }
@@ -38,7 +31,8 @@ namespace Lab_6
             {
                 if (scores == null || scores.Length == 0)
                     return null;
-                return (int[])scores.Clone(); 
+
+                return (int[])scores.Clone();
             }
         }
 
@@ -48,6 +42,7 @@ namespace Lab_6
             {
                 if (scores == null || scores.Length == 0)
                     return 0;
+
                 int sum = 0;
                 foreach (int v in scores)
                 {
@@ -57,7 +52,7 @@ namespace Lab_6
             }
         }
 
-        public Team(string name)
+        public Team(string name) 
         {
             this.name = name;
             this.scores = new int[0];
@@ -91,8 +86,6 @@ namespace Lab_6
         {
             get
             {
-                if (name == null)
-                    return null;
                 return name;
             }
         }
