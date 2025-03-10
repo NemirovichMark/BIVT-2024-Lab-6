@@ -79,8 +79,8 @@ namespace Lab_6
                         participants_sort[i]._places[j] = i+1;
                     }
                 }
-                participants_sort = participants_sort.Concat(participants.Where(r => r._marks != null && r._places != null)).ToArray();
-                Array.Copy(participants_sort, participants, participants.Length);
+                participants_sort = participants_sort.Concat(participants.Where(r => r._marks == null && r._places == null)).ToArray();
+                Array.Copy(participants_sort, participants, participants_sort.Length);
 
 
 
@@ -134,8 +134,8 @@ namespace Lab_6
                         i--;
                     }
                 }
-               
-                Array.Copy(res, array, array.Length);
+               res = res.Concat(array.Where(r => r._marks == null || r._places == null)).ToArray();
+               Array.Copy(res, array, res.Length);
             }
             private int TopPlace(Participant participant)
             {
