@@ -12,7 +12,7 @@ namespace Lab_6
         {
             private string _surname;
             private string _group;
-            private string _teacher;
+            private string _trainer;
             private double _result;
 
             private static readonly double standart;
@@ -24,11 +24,11 @@ namespace Lab_6
                 passedcount = 0;
             }
 
-            public Participant(string surname, string group, string teacher)
+            public Participant(string surname, string group, string trainer)
             {
                 _surname = surname;
                 _group = group;
-                _teacher = teacher;
+                _trainer = trainer;
                 _result = 0;
             }
 
@@ -50,12 +50,12 @@ namespace Lab_6
                 }
             }
 
-            public string Teacher
+            public string Trainer
             {
                 get
                 {
-                    //if ( _teacher == null) return default;
-                    return _teacher;
+                    //if ( _trainer == null) return default;
+                    return _trainer;
                 }
             }
 
@@ -88,7 +88,7 @@ namespace Lab_6
             {
                 Console.WriteLine($"Фамиия: {Surname}");
                 Console.WriteLine($"Группа: {Group}");
-                Console.WriteLine($"Учитель: {Teacher}");
+                Console.WriteLine($"Учитель: {Trainer}");
                 Console.WriteLine($"Результат: {Result}");
                 Console.WriteLine($"Прошли: {HasPassed}");
             }
