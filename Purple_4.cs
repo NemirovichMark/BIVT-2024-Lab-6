@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -75,12 +75,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_sportsmen == null)
-                        return null;
-
-                    Sportsman[] sportsmen = new Sportsman[_sportsmen.Length];
-                    Array.Copy(_sportsmen, sportsmen, _sportsmen.Length);
-                    return sportsmen;
+                    return _sportsmen;
                 }
             }
 
