@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -49,12 +49,11 @@ namespace Lab_6
                 get
                 {
                     if( _sportsmen == null ) return null;
-                    Sportsman[] Sportsmen = new Sportsman[_sportsmen.Length];
-                    for( int i = 0; i < _sportsmen.Length; i++ )
-                    {
-                        Sportsmen[i] = _sportsmen[i];
-                    }
-                    return Sportsmen;
+                    Sportsman[] sportsmen = new Sportsman[_sportsmen.Length];
+
+                    Array.Copy(sportsmen, _sportsmen, sportsmen.Length);
+                    
+                    return sportsmen;
                 }
             }
             public Group(string name)
