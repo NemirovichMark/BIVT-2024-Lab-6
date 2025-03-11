@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -99,44 +99,54 @@ namespace Lab_6
                 string[] answers = new string[_responses.Length];
                 int validAnswers = 0;
 
-                foreach (Response resp in _responses)
+                for (int i = 0; i < _responses.Length; i++)
                 {
-                    string answer = GetAnswer(resp, question);
-                    if (!string.IsNullOrEmpty(answer))
-                    {
-                        answers[validAnswers++] = answer;
-                    }
+                    string answer = GetAnswer(_responses[i], question);
+                    if (answer == null) continue;
 
+                    answers[validAnswers++] = answer;
                 }
 
                 if (validAnswers == 0)
-                {
                     return null;
-                }
 
+                Array.Resize(ref answers, validAnswers);
 
-                var uniqueAnswers = answers.Distinct().ToArray();
+                string[] distinctValues = answers.Distinct().ToArray();
+                int[] voteCounts = new int[distinctValues.Length];
 
-                var pairs = new (string Answer, int Count)[uniqueAnswers.Length];
-                for (int i = 0; i < uniqueAnswers.Length; i++)
+                for (int i = 0; i < distinctValues.Length; i++)
                 {
-                    pairs[i] = (uniqueAnswers[i], answers.Count(a => a == uniqueAnswers[i]));
+                    int voteCount = 0;
+                    for (int j = 0; j < answers.Length; j++)
+                    {
+                        if (answers[j] == distinctValues[i]) voteCount++;
+                    }
+                    voteCounts[i] = voteCount;
                 }
 
 
-                var sortedPairs = pairs
-                .OrderByDescending(p => !string.IsNullOrEmpty(p.Answer)) // не понимаю, откуда в pairs взялись null'ы
-                .ThenByDescending(p => p.Count)                    // если мы отбрысываем их с помощью validAnswers, но без проверки в сортировке
-                                                                  // (второй проверки тех же самхы данных по сути) код работает некорретно
-                .ThenBy(p => p.Answer)                                  
-                .ToArray();
+                // изменил на сортировку вставками, убрал вторичный критерий
+                for (int i = 1; i < voteCounts.Length; i++)
+                {
+                    int currentCount = voteCounts[i];
+                    string currentValue = distinctValues[i];
+                    int prev = i - 1;
+                    
+                    while (prev >= 0 && voteCounts[prev] < currentCount)
+                    {
+                        voteCounts[prev + 1] = voteCounts[prev];
+                        distinctValues[prev + 1] = distinctValues[prev];
+                        prev--;
+                    }
+                    
+                    voteCounts[prev + 1] = currentCount;
+                    distinctValues[prev + 1] = currentValue;
+                }
 
-                int resultSize = Math.Min(5, sortedPairs.Length);
+                int resultSize = Math.Min(5, distinctValues.Length);
                 string[] result = new string[resultSize];
-                for (int i = 0; i < resultSize; i++)
-                {
-                    result[i] = sortedPairs[i].Answer;
-                }
+                Array.Copy(distinctValues, result, resultSize);
 
                 return result;
             }
