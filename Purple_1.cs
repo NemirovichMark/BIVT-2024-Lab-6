@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +14,7 @@ namespace Lab_6
             private string _surname;
             private double[] _coefs;
             private int[,] _marks;
-            private static int _nomber;
+            private  int _number;
             private double _sum;
             public string Name => _name;
             public string Surname => _surname;
@@ -23,9 +23,9 @@ namespace Lab_6
                 get
                 {
                     if (_coefs == null) return null;
-                    double[] Coefs = new double[_coefs.Length];
+                    double[] coefs = new double[_coefs.Length];
                     for (int i = 0; i < Coefs.Length; i++) Coefs[i] = _coefs[i];
-                    return Coefs;
+                    return coefs;
                 }
             }
             public int[,] Marks
@@ -33,16 +33,16 @@ namespace Lab_6
                 get
                 {
                     if (_marks == null) return null;
-                    int[,] Marks = new int[_marks.GetLength(0), _marks.GetLength(1)];
+                    int[,] marks = new int[_marks.GetLength(0), _marks.GetLength(1)];
                     for (int i = 0; i < Marks.GetLength(0); i++)
                     {
                         for (int j = 0; j < Marks.GetLength(1); j++)
                         {
-                            Marks[i, j] = _marks[i, j];
+                            marks[i, j] = _marks[i, j];
                         }
 
                     }
-                    return Marks;
+                    return marks;
                 }
             }
             public double TotalScore
@@ -79,10 +79,11 @@ namespace Lab_6
                 _coefs = new double[4] { 2.5, 2.5, 2.5, 2.5 };
                 _marks = new int[4, 7];
                 _sum = 0;
+                _number = 0;
             }
             public void SetCriterias(double[] coefs)
             {
-                if (coefs.Length == 4&& coefs!=null)
+                if (coefs.Length == 4 && coefs != null && _coefs != null)
                 {
                     for (int i = 0; i < coefs.Length; i++)
                     {
@@ -92,20 +93,20 @@ namespace Lab_6
             }
             public void Jump(int[] marks)
             {
-                if(_nomber==4)_nomber = 0;
-                if (marks == null || _marks == null || _coefs == null) return;
-                if (marks.Length == 7)
+
+                if (marks.Length == 7 && _number < 4 && marks != null && _marks != null && _coefs != null)
+                    if (marks.Length == 7)
                 {
                     for (int i = 0; i < marks.Length; i++)
                     {
-                        _marks[_nomber, i] = marks[i];
+                        _marks[_number, i] = marks[i];
                     }
-                    _nomber++;
+                    _number++;
                 }
             }
             public static void Sort( Participant[] array)
-            { 
-                if(array==null) return;
+            {
+                if (array == null || array.Length <= 1) return;
                 for (int i = 1; i < array.Length;)
                 {
                     if (i == 0 || array[i].TotalScore <= array[i - 1].TotalScore)
