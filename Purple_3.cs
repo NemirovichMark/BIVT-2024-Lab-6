@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -91,17 +91,17 @@ namespace Lab_6
 
                     for (int i = 1; i < valid.Length;)
                     {
-                        
+
                         if (i == 0 || valid[i - 1].Marks[judge] >= valid[i].Marks[judge])
                         {
-                            i++; 
+                            i++;
                         }
                         else
                         {
                             Participant temp = valid[i - 1];
                             valid[i - 1] = valid[i];
                             valid[i] = temp;
-                            i--; 
+                            i--;
                         }
                     }
 
@@ -129,69 +129,59 @@ namespace Lab_6
 
 
 
-            public static void Sort(Participant[] array)
+            public static void Sort(Participant[] array) // переписал на пузырьковую, тк она стабильна + исправил вторичные критерии
             {
                 if (array == null || array.Length == 0) return;
-                for (int i = 1; i < array.Length;)
+                
+                for (int j = 0; j < array.Length - 1; j++)
                 {
-
-                    Participant current = array[i];
-                    Participant previous = array[i - 1];
-
-                    bool currentIsNull = current._places == null || current._marks == null;
-                    bool prevIsNull = previous._places == null || previous._marks == null;
-
-                    if (prevIsNull && !currentIsNull)
+                    for (int i = 0; i < array.Length - 1 - j; i++)
                     {
-                        (array[i - 1], array[i]) = (current, previous);
-                        if (i > 1) i--; 
-                        continue;
-                    }
+                        Participant current = array[i + 1];
+                        Participant previous = array[i];
 
-                    if (!currentIsNull && !prevIsNull)
-                    {
-                        if (current.Score < previous.Score)
+                        bool currentIsNull = current._places == null || current._marks == null;
+                        bool prevIsNull = previous._places == null || previous._marks == null;
+                        if (prevIsNull && !currentIsNull)
                         {
-                            (array[i - 1], array[i]) = (current, previous);
-                            if (i > 1) i--;
+                            (array[i], array[i + 1]) = (current, previous);
                             continue;
                         }
-                        else if (current.Score == previous.Score)
+                        if (!currentIsNull && !prevIsNull)
                         {
-                            int currentMinPlace = current._places.Min();
-                            int prevMinPlace = previous._places.Min();
-
-                            if (currentMinPlace > prevMinPlace)
+                            if (current.Score < previous.Score)
                             {
-                                (array[i - 1], array[i]) = (current, previous);
-                                if (i > 1) i--;
+                                (array[i], array[i + 1]) = (current, previous);
                                 continue;
                             }
-                            else if (currentMinPlace == prevMinPlace)
+                            else if (current.Score == previous.Score)
                             {
-
-                                double currentSum = current._marks.Sum();
-                                double prevSum = previous._marks.Sum();
-
-                                if (currentSum < prevSum)
+                                int currentMinPlace = current._places.Min();
+                                int prevMinPlace = previous._places.Min();
+                                if (currentMinPlace < prevMinPlace)
                                 {
-                                    (array[i - 1], array[i]) = (current, previous);
-                                    if (i > 1) i--;
+                                    (array[i], array[i + 1]) = (current, previous);
                                     continue;
+                                }
+                                else if (currentMinPlace == prevMinPlace)
+                                {
+                                    double currentSum = current._marks.Sum();
+                                    double prevSum = previous._marks.Sum();
+                                    if (currentSum > prevSum)
+                                    {
+                                        (array[i], array[i + 1]) = (current, previous);
+                                        continue;
+                                    }
                                 }
                             }
                         }
                     }
-
-
-
-                    i++;
                 }
             }
 
 
 
-         public void Print()
+            public void Print()
             {
 
                 Console.Write($"{Name} {Surname}:  ");
