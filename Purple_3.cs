@@ -73,7 +73,7 @@ namespace Lab_6
                 participants_sort = participants.Where(r => r._marks != null && r._places != null).ToArray();
                 for (int j = 0; j < 7; j++)
                 {
-                    participants_sort = participants.OrderByDescending(r => r._marks[j]).ToArray();
+                    participants_sort = participants_sort.OrderByDescending(r => r._marks[j]).ToArray();
                     for (int i = 0; i < participants_sort.Length; i++)
                     {
                         participants_sort[i]._places[j] = i+1;
@@ -105,7 +105,7 @@ namespace Lab_6
                         }
                         else if(res[i].TopPlace(res[i]) == res[i - 1].TopPlace(res[i - 1]))
                         {
-                            if (i == 0 || res[i]._marks.Sum() > res[i - 1]._marks.Sum())
+                            if (i == 0 || res[i]._marks.Sum() < res[i - 1]._marks.Sum())
                             {
                                 i = j;
                                 j++;
@@ -140,7 +140,7 @@ namespace Lab_6
             private int TopPlace(Participant participant)
             {
                 int[] places = participant.Places;
-                return places.Max();
+                return places.Min();
             }
             public void Print()
             {
