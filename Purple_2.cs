@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -18,17 +18,14 @@ namespace Lab_6
             public string Name => _name;
             public string Surname => _surname;
             public int Distance => _distance;
-            public int [] Markers
+            public int [] Marks
             {
                 get
                 {
                     if (_marks == null) return null;
-                    int[] Marks = new int[_marks.Length];
-                    for(int i = 0; i < Marks.Length; i++)
-                    {
-                        Marks[i] = _marks[i];
-                    }
-                    return Marks;
+                    int[] marks = new int[_marks.Length];
+                    Array.Copy(_marks, marks, marks.Length);
+                    return marks;
                 }
             }
             public int Result
@@ -64,14 +61,14 @@ namespace Lab_6
             }
             public void Jump(int distance, int[] marks)
             {
-                if (marks == null) return;
+                if (distance == null || marks == null || marks.Length != 5 || distance < 0 || _marks == null) return;
                 _distance = distance;
                 for (int i = 0; i < marks.Length; i++) _marks[i] = marks[i];
 
             }
             public static void Sort(Participant[] array)
             {
-                if(array == null) return;
+                if (array == null || array.Length <= 1) return;
                 for (int i = 1; i < array.Length;)
                 {
                     if (i == 0 || array[i].Result <= array[i - 1].Result)
