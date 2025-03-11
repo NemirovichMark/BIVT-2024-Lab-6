@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Lab_6
 {
@@ -13,6 +14,7 @@ namespace Lab_6
             private string name;
             private string surname;
             private int[,] marks;
+            private int ind;
 
             public string Name
             {
@@ -38,12 +40,18 @@ namespace Lab_6
             {
                 get
                 {
-                    if (marks == null)
+                    if (marks == null || marks.GetLength(0) == 0 || marks.GetLength(1) == 0)
                     {
                         return null;
                     }
                     int[,] marksCopy = new int[marks.GetLength(0), marks.GetLength(1)];
-                    Array.Copy(marks, marksCopy, marks.Length);
+                    for (int i = 0; i < marks.GetLength(0); i++)
+                    {
+                        for (int j = 0; j < marks.GetLength(1); j++)
+                        {
+                            marksCopy[i, j] = marks[i, j];
+                        }
+                    }
                     return marksCopy;
                 }
             }
@@ -74,89 +82,76 @@ namespace Lab_6
                 this.name = name;
                 this.surname = surname;
                 this.marks = new int[2, 5];
+                this.ind = 0;
             }
 
             public void Jump(int[] result)
             {
-                if (marks == null || result == null || result.Length != marks.GetLength(0))
+                if (marks == null || marks.GetLength(0) == 0 || marks.GetLength(1) == 0 || result == null || result.Length == 0 || ind > 1)
                 {
                     return;
                 }
 
-                int jump = -1;
-
-                bool firstColumnEmpty = true;
-                for (int i = 0; i < marks.GetLength(0); i++)
+                if (ind == 0)
                 {
-                    if (marks[i, 0] != 0)
+                    for (int i = 0; i < 5; i++)
                     {
-                        firstColumnEmpty = false;
-                        break;
+                        marks[0, i] = result[i];
                     }
+                    ind++;
                 }
-
-                if (firstColumnEmpty)
+                else if (ind == 1)
                 {
-                    jump = 0;
-                }
-                else
-                {
-                    bool secondColumnEmpty = true;
-                    for (int i = 0; i < marks.GetLength(0); i++)
+                    for (int i = 0; i < 5; i++)
                     {
-                        if (marks[i, 1] != 0)
-                        {
-                            secondColumnEmpty = false;
-                            break;
-                        }
+                        marks[1, i] = result[i];
                     }
-
-                    if (secondColumnEmpty)
-                    {
-                        jump = 1;
-                    }
-                }
-
-                if (jump != -1)
-                {
-                    for (int i = 0; i < marks.GetLength(0); i++)
-                    {
-                        marks[i, jump] = result[i];
-                    }
+                    ind++;
                 }
             }
 
             public static void Sort(Participant[] array)
             {
 
-                Array.Sort(array, (x, y) => y.TotalScore.CompareTo(x.TotalScore));
+                if (array == null || array.Length == 0) 
+                    return;
+
+                for (int i = 0; i < array.Length - 1; i++)
+                {
+                    for (int j = 0; j < array.Length - i - 1; j++)
+                    {
+                        if (array[j + 1].TotalScore > array[j].TotalScore) 
+                        {
+                            (array[j + 1], array[j]) = (array[j], array[j + 1]);
+                        }
+                    }
+                }
             }
 
             public void Print()
             {
-                Console.Write("Name: ");
-                Console.WriteLine(name);
+                Console.WriteLine($"Участник: {name} {surname}");
+                Console.WriteLine("Оценки за прыжки:");
 
-                Console.Write("Surname: ");
-                Console.WriteLine(surname);
-
-                Console.Write("Marks: ");
-
-                int rows = marks.GetLength(0);
-                int columns = marks.GetLength(1);
-
-                for (int i = 0; i < rows; i++)
+                if (marks != null)
                 {
-                    for (int j = 0; j < columns; j++)
+                    for (int i = 0; i < marks.GetLength(0); i++)
                     {
-                        Console.Write(marks[i, j]);
-                        if (j < columns - 1)
+                        Console.Write($"Прыжок {i + 1}: ");
+                        for (int j = 0; j < marks.GetLength(1); j++)
                         {
-                            Console.Write(" ");
+                            Console.Write($"{marks[i, j]} ");
                         }
+                        Console.WriteLine();
                     }
-                    Console.WriteLine();
                 }
+                else
+                {
+                    Console.WriteLine("Оценки отсутствуют.");
+                }
+
+                Console.WriteLine($"Общий балл: {TotalScore}");
+
             }
         }
     }
