@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace Lab_6
 {
@@ -15,24 +15,21 @@ namespace Lab_6
             public string Name => _name;
             public string Surname => _surname;
 
-            public double[] Markers
+            public double[] Marks
             {
                 get
                 {
                     if (_marks == null) return null;
-                    double[] Marks = new double[_marks.Length];
-                    for (int i = 0; i < Marks.Length; i++)
-                    {
-                        Marks[i] = _marks[i];
-                    }
-                    return Marks;
+                    double[] marks = new double[_marks.Length];
+                    Array.Copy(_marks, marks, marks.Length);
+                    return marks;
                 }
             }
             public int[] Places
             {
                 get
                 {
-                    if (_marks == null) return null;
+                    if (_places == null) return null;
                     int[] Places = new int[_places.Length];
                     for (int i = 0; i < Places.Length; i++)
                     {
@@ -54,7 +51,7 @@ namespace Lab_6
                     return Score;
                 }
             }
-            public int Max
+            private int Max
             {
                 get
                 {
@@ -133,6 +130,8 @@ namespace Lab_6
             }
             public static void Sort(Participant[] array)
             {
+
+                if (array == null || array.Length == 0) return;
                 for (int i = 1; i < array.Length;)
                 {
                     
