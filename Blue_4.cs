@@ -28,8 +28,9 @@ namespace Lab_6
                 {
                     if (scores == null)
                         return null;
-
-                    return (int[])scores.Clone();
+                    int[] copy = new int[scores.Length];
+                    Array.Copy(scores, copy, copy.Length);
+                    return copy;
                 }
             }
 
@@ -37,7 +38,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (scores == null || scores.Length == 0)
+                    if (scores == null)
                         return 0;
 
                     int sum = 0;
@@ -57,20 +58,22 @@ namespace Lab_6
 
             public void PlayMatch(int result)
             {
-                Array.Resize(ref scores, scores.Length + 1);
-                scores[scores.Length - 1] = result;
+                if (scores == null) 
+                    return;
+
+                int[] newScores = new int[scores.Length + 1];
+
+                for (int i = 0; i < scores.Length; i++)
+                {
+                    newScores[i] = scores[i];
+                }
+                newScores[newScores.Length - 1] = result;
+                scores = newScores;
             }
 
             public void Print()
             {
-                Console.Write("Name: ");
-                Console.WriteLine(name);
-
-                for (int i = 0; i < scores.Length; i++)
-                {
-                    Console.Write(scores[i]);
-                    Console.Write(" ");
-                }
+                Console.WriteLine($"{Name}: {TotalScore}");
             }
         }
 
@@ -78,7 +81,7 @@ namespace Lab_6
         {
             private string name;
             private Team[] teams;
-
+            private int ind;
             public string Name
             {
                 get
@@ -100,7 +103,8 @@ namespace Lab_6
             public Group(string name)
             {
                 this.name = name;
-                this.teams = new Team[0];
+                this.teams = new Team[12];
+                ind = 0;
             }
 
             public void Add(Team team)
@@ -120,7 +124,7 @@ namespace Lab_6
 
             public void Add(params Team[] newTeams)
             {
-                if (teams == null)
+                if (teams == null || teams.Length == 0 || teams == null)
                     return;
 
                 for (int i = 0; i < newTeams.Length; i++)
@@ -131,7 +135,7 @@ namespace Lab_6
 
             public void Sort()
             {
-                if (teams == null)
+                if (teams == null || teams.Length == 0)
                     return;
 
                 int n = teams.Length;
@@ -183,9 +187,19 @@ namespace Lab_6
             public void Print()
             {
                 Console.WriteLine($"Группа: {name}");
-                foreach (var team in teams)
+                Console.WriteLine("Команды:");
+
+                if (teams != null && teams.Length > 0)
                 {
-                    team.Print();
+                    for (int i = 0; i < teams.Length; i++)
+                    {
+                        Console.WriteLine($"Команда {i + 1}");
+                        teams[i].Print();
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Нет данных о командах.");
                 }
             }
         }
