@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.Expando;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml.Linq;
 namespace Lab_6
 {
     public class White_2
