@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +44,7 @@ namespace Lab_6
                     return temp;
                 }
             }
-            public double Total { get { return _total; } }
+            public double TotalScore { get { return _total; } }
             public int[,] Marks
             {
                 get
@@ -95,7 +95,7 @@ namespace Lab_6
 
                 for (int i = 1; i < array.Length;)
                 {
-                    if (i == 0 || array[i - 1].Total >= array[i].Total)
+                    if (i == 0 || array[i - 1].TotalScore >= array[i].TotalScore)
                     {
                         i++;
                     }
@@ -112,7 +112,7 @@ namespace Lab_6
 
             public void Print()
             {
-                Console.WriteLine($"Name: {Name}\nSurname: {Surname}\nTotal: {Total}");
+                Console.WriteLine($"Name: {Name}\nSurname: {Surname}\nTotal: {TotalScore}");
 
             }
 
