@@ -113,7 +113,7 @@ namespace Lab_6
                 {
                     for (int j = 0; j < _teams.Length - 1 - i; j++)
                     {
-                        if (_teams[j].TotalScore > _teams[j + 1].TotalScore)
+                        if (_teams[j].TotalScore < _teams[j + 1].TotalScore)
                         {
                             Team newT = _teams[j + 1];
                             _teams[j + 1] = _teams[j];
