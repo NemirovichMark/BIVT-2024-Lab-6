@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +41,17 @@ namespace Lab_6
                 _club = club;
                 _firstJump = 0;
                 _secondJump = 0;
+            }
+            public void Jump(double result)
+            {
+                if (_firstJump == 0)
+                {
+                    _firstJump = result;
+                }
+                else if (_secondJump == 0)
+                {
+                    _secondJump = result;
+                }
             }
 
 
