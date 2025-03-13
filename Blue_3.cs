@@ -90,11 +90,11 @@ namespace Lab_6
                 {
                     for (int j = i; j < array.Length; j++)
                     {
-                        if (array[i].TotalTime > array[j].TotalTime)
+                        if (array[j].TotalTime > array[j + 1].TotalTime)
                         {
-                            Participant temp = array[i];
-                            array[i] = array[j];
-                            array[j] = temp;
+                            Participant temp = array[j];
+                            array[j] = array[j + 1];
+                            array[j + 1] = temp;
                         }
                     }
                 }
