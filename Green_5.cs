@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +23,7 @@ namespace Lab_6
 
             public string Name => _name ?? default;
             public string Surname => _surname ?? default;
-            public int[] Marks => _marks ?? default;
+            public int[] Marks => _marks?.ToArray();
             public double AvgMark
             {
                 get
@@ -99,18 +99,19 @@ namespace Lab_6
 
             public static void SortByAvgMark(Group[] array)
             {
-                int n = array.Length;
-                for (int i = 0; i < n - 1; i++)
+                if (array == null || array.Length == 0) return;
+
+                for (int i = 1; i < array.Length; i++)
                 {
-                    for (int j = 0; j < n - i - 1; j++)
+                    Group key = array[i];
+                    int j = i - 1;
+
+                    while (j >= 0 && array[j].AvgMark < key.AvgMark)
                     {
-                        if (array[j].AvgMark < array[j + 1].AvgMark)
-                        {
-                            Group temp = array[j];
-                            array[j] = array[j + 1];
-                            array[j + 1] = temp;
-                        }
+                        array[j + 1] = array[j];
+                        j = j - 1;
                     }
+                    array[j + 1] = key;
                 }
             }
 
