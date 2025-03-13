@@ -45,7 +45,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_penaltyTime == null) return null;
+                    if (_penaltyTime == null) return 0;
                     int s = 0;
                     for (int i = 0; i < _penaltyTime.Length; i++)
                     {
@@ -59,7 +59,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_penaltyTime == null) return null;
+                    if (_penaltyTime == null) return false;
                     for (int i = 0; i < _penaltyTime.Length; i++)
                     {
                         if (_penaltyTime[i] == 10) return false;
