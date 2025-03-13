@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +14,7 @@ namespace Lab_6
             private string _surname;
             private int[] _marks;
             private bool _isExpelled;
+            private int _examsTaken;
 
             public Student(string name, string surname)
             {
@@ -21,49 +22,24 @@ namespace Lab_6
                 _surname = surname;
                 _marks = new int[3]; 
                 _isExpelled = false;
+                _examsTaken = 0;
             }
 
-            public string Name
-            {
-                get
-                {
-                    if (_name == null) return default;
-                    return _name;
-                }
-            }
-            public string Surname
-            {
-                get
-                {
-                    if (_surname == null) return default;
-                    return _surname;
-                }
-            }
-            public int[] Marks
-            {
-                get
-                {
-                    if (_marks == null) return default;
-                    return _marks;
-                }
-            }
+            public string Name => _name;
+            public string Surname => _surname;
+            public int[] Marks => _marks.ToArray();
 
             public double AvgMark
             {
                 get
                 {
                     if (_marks == null || _marks.Length == 0) return default;
-                    double s = 0;
-                    int count = 0;
-                    foreach (var m in _marks)
+                    double sum = 0;
+                    for (int i = 0; i < _examsTaken; i++) 
                     {
-                        if (m != 0 && count != 0)
-                        {
-                            s += m;
-                            count++;
-                        }
+                        sum += _marks[i];
                     }
-                    return s / _marks.Length;
+                    return _examsTaken == 0 ? 0 : sum / _examsTaken;
                 }
             }
 
@@ -71,37 +47,35 @@ namespace Lab_6
 
             public void Exam(int mark)
             {
-                if(_isExpelled) return;
+                if(IsExpelled || _marks == null || _marks.Length == 0) return;
                 if(mark < 2 || mark > 5) return;
                 if (mark == 2)
                 {
                     _isExpelled = true;
+                    return;
                 }
-                for (int i = 0; i < _marks.Length; i++)
+                if (_examsTaken < _marks.Length)
                 {
-                    if (_marks[i] == 2)
-                    {
-                        _marks[i] = mark;
-                        return;
-                    }
+                    _marks[_examsTaken] = mark;
+                    _examsTaken++; 
                 }
             }
 
             public static void SortByAvgMark(Student[] array)
             {
-                if(array == null || array.Length == 0) return;
-                int n = array.Length;
-                for (int i = 0; i < n - 1; i++)
+                if (array == null || array.Length == 0) return;
+
+                for (int i = 1; i < array.Length; i++)
                 {
-                    for (int j = 0; j < n - i - 1; j++)
+                    Student key = array[i];
+                    int j = i - 1;
+
+                    while (j >= 0 && array[j].AvgMark < key.AvgMark)
                     {
-                        if (array[j].AvgMark < array[j + 1].AvgMark)
-                        {
-                            Student temp = array[j];
-                            array[j] = array[j + 1];
-                            array[j + 1] = temp;
-                        }
+                        array[j + 1] = array[j];
+                        j = j - 1;
                     }
+                    array[j + 1] = key;
                 }
             }
 
