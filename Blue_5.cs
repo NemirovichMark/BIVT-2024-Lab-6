@@ -34,7 +34,7 @@ namespace Lab_6
                 get
                 {
                     if (surname == null)
-                        return string.Empty;
+                        return null;
                     return surname;
                 }
             }
@@ -71,14 +71,7 @@ namespace Lab_6
             }
             public void Print()
             {
-                Console.Write("Name: ");
-                Console.WriteLine(name);
-
-                Console.Write("Surname: ");
-                Console.WriteLine(surname);
-
-                Console.Write("Place: ");
-                Console.WriteLine(place);
+                Console.WriteLine($"Спортсмен: {name} {surname}, Место: {place}");
             }
         }
 
@@ -162,8 +155,6 @@ namespace Lab_6
 
             public void Add(Sportsman sportsman)
             {
-                if (sportsmen == null)
-                    sportsmen = new Sportsman[6];
                 if (count < 6)
                 {
                     sportsmen[count] = sportsman;
