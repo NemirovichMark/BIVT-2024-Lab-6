@@ -24,7 +24,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_Marks.GetLength(0) < 1 || _Marks.GetLength(1) < 1) return null;
+                    if (_Marks == null || _Marks.GetLength(0) < 1 || _Marks.GetLength(1) < 1) return null;
                     int[,] NMarks = new int[_Marks.GetLength(0), _Marks.GetLength(1)];
                     for (int i = 0; i < _Marks.GetLength(0); i++)
                     {

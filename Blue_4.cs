@@ -119,12 +119,12 @@ namespace Lab_6
             public static Group Merge(Group group1, Group group2, int size)
             {
                 Group ngroup = new Group("Финалисты");
-                int i = 0; 
-                int j = 0;
-                int k = 0;
-                while (i < group1.Teams.Length && j < group2.Teams.Length)
+                int i = 0;
+                int j = 0; 
+                int k = 0; 
+
+                while (i < group1.Teams.Length && j < group2.Teams.Length && k < size)
                 {
-                    if (k == size) return ngroup;
                     if (group1.Teams[i].TotalScore >= group2.Teams[j].TotalScore)
                     {
                         ngroup.Add(group1.Teams[i++]);
@@ -133,17 +133,23 @@ namespace Lab_6
                     {
                         ngroup.Add(group2.Teams[j++]);
                     }
+                    k++;
                 }
-                while (i < group1.Teams.Length)
+
+                
+                while (i < group1.Teams.Length && k < size)
                 {
-                    if (k == size) return ngroup;
                     ngroup.Add(group1.Teams[i++]);
+                    k++;
                 }
-                while (j < group2.Teams.Length)
+
+                
+                while (j < group2.Teams.Length && k < size)
                 {
-                    if (k == size) return ngroup;
                     ngroup.Add(group2.Teams[j++]);
+                    k++;
                 }
+
                 return ngroup;
 
             }
