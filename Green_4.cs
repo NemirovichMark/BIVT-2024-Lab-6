@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,12 +24,12 @@ namespace Lab_6
 
             public string Name => _name ?? default;
             public string Surname => _surname ?? default;
-            public double[] Jumps => _res ?? default;
+            public double[] Jumps => _res?.ToArray();
             public double BestJump
             {
                 get
                 {
-                    if (_res == null || _res.Length < 0)
+                    if (_res == null || _res.Length == 0)
                     {
                         return default;
                     }
@@ -44,24 +44,27 @@ namespace Lab_6
                     if (_res[i] == 0)
                     {
                         _res[i] = result;
+                        return;
                     }
                 }
             }
 
             public static void Sort(Participant[] array)
             {
+                if (array == null || array.Length == 0) return;
+
                 int n = array.Length;
-                for (int i = 0; i < n - 1; i++)
+                for (int i = 1; i < n; ++i)
                 {
-                    for (int j = 0; j < n - i - 1; j++)
+                    Participant key = array[i];
+                    int j = i - 1;
+
+                    while (j >= 0 && array[j].BestJump < key.BestJump)
                     {
-                        if (array[j].BestJump < array[j + 1].BestJump)
-                        {
-                            Participant temp = array[j];
-                            array[j] = array[j + 1];
-                            array[j + 1] = temp;
-                        }
+                        array[j + 1] = array[j];
+                        j = j - 1;
                     }
+                    array[j + 1] = key;
                 }
             }
 
