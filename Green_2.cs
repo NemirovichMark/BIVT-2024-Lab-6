@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,35 +23,14 @@ namespace Lab_6
                 _count = 0;
             }
 
-            public string Name
-            {
-                get
-                {
-                    if (_name == null) return default;
-                    return _name;
-                }
-            }
-            public string Surname
-            {
-                get
-                {
-                    if ( _surname == null) return default;
-                    return _surname;
-                }
-            }
-            public int[] Marks
-            {
-                get
-                {
-                    if( _marks == null) return default;
-                    return _marks.ToArray();
-                }
-            }
+            public string Name => _name;
+            public string Surname => _surname;
+            public int[] Marks => _marks;
             public double AvgMark
             {
                 get
                 {
-                    if(_marks.Length == 0 || _marks == null) return default;
+                    if(_count < 4) return 0;
                     double s = 0;
                     foreach (var m in _marks)
                     {
@@ -65,7 +44,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if(_count < _marks.Length) return false;
+                    if(_count == 0) return false;
                     foreach (var m in _marks)
                     {
                         if (m < 4) return false;
