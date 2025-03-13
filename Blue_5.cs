@@ -14,26 +14,25 @@ namespace Lab_6
             private string _surname;
             private int _place;
 
-            public string Name { get => _name; }
-            public string Surname { get => _surname; }
-            public int Place { get => _place; }
-
-            public Sportsman(string name, string surname)
-            {
-                _name = name;
-                _surname = surname;
-                _place = 0;
-            }
+            public string Name { get { return _name; } }
+            public string Surname { get { return _surname; } }
+            public int Place { get { return _place; } }
 
             public void SetPlace(int place)
             {
                 _place = place;
             }
 
-
             public void Print()
             {
                 Console.WriteLine($"{Name} {Surname} {Place}");
+            }
+
+            public Sportsman(string name, string surname)
+            {
+                _name = name;
+                _surname = surname;
+                _place = 0;
             }
         }
 
@@ -43,14 +42,21 @@ namespace Lab_6
             private Sportsman[] _sportsmen;
             private int _k;
 
-            public string Name { get => _name; }
-            public Sportsman[] Sportsmen { get => _sportsmen; }
+            public string Name { get { return _name; } }
+            public Sportsman[] Sportsmen { get { return _sportsmen; } }
 
+            public Team(string name)
+            {
+                _name = name;
+                _sportsmen = new Sportsman[6];
+                _k = 0;
+            }
+            
             public int SummaryScore
             {
                 get
                 {
-                    if (_sportsmen == null || _k == 0) return 0;
+                    if (_sportsmen == null) return 0;
                     int score = 0;
                     foreach (var s in _sportsmen)
                     {
@@ -83,13 +89,6 @@ namespace Lab_6
                 }
             }
 
-            public Team(string name)
-            {
-                _name = name;
-                _sportsmen = new Sportsman[6];
-                _k = 0;
-            }
-
             public void Add(Sportsman sportsman)
             {
                 if (_sportsmen == null || _k >= 6) return;
@@ -110,7 +109,8 @@ namespace Lab_6
                     if (_k >= 6) return;
                     if (_k < 6)
                     {
-                        _sportsmen[_k++] = sportsmen[i];
+                        _sportsmen[_k] = sportsmen[i];
+                        _k++;
                     }
                 }
             }
