@@ -126,19 +126,20 @@ namespace Lab_6
             public static Group Merge(Group group1, Group group2, int size)
             {
                 Group newG = new Group("Финалисты");
+
                 int i = 0;
                 int j = 0;
-                int k = 0;
-                while (i < group1.Teams.Length && j < group2.Teams.Length)
+                while (i < size / 2 && j < size / 2)
                 {
-                    if (k == size) return newG;
-                    if (group1.Teams[i].TotalScore >= group2.Teams[j].TotalScore)
+                    if (group1._teams[i].TotalScore >= group2._teams[j].TotalScore)
                     {
-                       newG.Add(group1.Teams[i++]);
+                        newG.Add(group1._teams[i]);
+                        i++;
                     }
                     else
                     {
-                       newG.Add(group2.Teams[j++]);
+                        merged.Add(group2._teams[j]);
+                        j++;
                     }
                 }
 
