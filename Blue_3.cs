@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Lab_6
 {
-    public class Blue_3
+    public class Blue_3    
     {
         public struct Participant
         {
             // поля
-            private readonly string _name;
-            private readonly string _surname;
-            public readonly int[] _penaltyTime;
+            private string _name;
+            private string _surname;
+            public int[] _penaltyTime;
 
             // конструктор
             public Participant(string name, string surname)
@@ -23,7 +23,7 @@ namespace Lab_6
                 _penaltyTime = new int[10];
                 for(int i = 0; i < 10; i++)
                 {
-                    _penaltyTime[i] = 0;
+                    _penaltyTime[i] = -1;
                 }
             }
 
@@ -45,7 +45,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_penaltyTime == null) return 0;
+                    if (_penaltyTime == null) return null;
                     int s = 0;
                     for (int i = 0; i < _penaltyTime.Length; i++)
                     {
@@ -59,12 +59,12 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_penaltyTime == null) return false;
+                    if (_penaltyTime == null) return null;
                     for (int i = 0; i < _penaltyTime.Length; i++)
                     {
-                        if (_penaltyTime[i] == 10) return true;
+                        if (_penaltyTime[i] == 10) return false;
                     }
-                    return false;
+                    return true;
                 }
             }
 
@@ -75,9 +75,10 @@ namespace Lab_6
 
                 for (int i = 0; i < 10; i++)
                 {
-                    if (_penaltyTime[i] == 0)
+                    if (_penaltyTime[i] == -1)
                     {
                         _penaltyTime[i] = time;
+                        return;
                     }
                 }
             }
