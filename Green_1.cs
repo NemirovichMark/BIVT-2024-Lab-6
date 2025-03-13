@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace Lab_6
 {
     public class Green_1{
@@ -12,21 +9,12 @@ namespace Lab_6
             private string _trainer;
             private double _result; 
             
-            private static readonly double _standard;
-            private static int _passedCount;
-
-            public string Surname => _surname;
-            public string Group => _group;
-            public string Trainer => _trainer;
-            public double Result => _result;
-            public static int PassedTheStandard => _passedCount;
-            public bool HasPassed => _result <= _standard;
-
+            private static readonly double standard;
+            private static int passedcount;
             static Participant(){
-                _standard =100;
-                _passedCount =0;
+                standard=100;
+                passedcount=0;
             }
-            
             public Participant(string surname, string group, string trainer){
                 _surname = surname; 
                 _group = group;
@@ -34,19 +22,26 @@ namespace Lab_6
                 _result = 0;
             }
 
+            public string Surname => _surname;
+            public string Group => _group;
+            public string Trainer => _trainer;
+            public double Result => _result;
+            public static int PassedTheStandard => passedcount;
+            public bool HasPassed => (_result > 0 && _result <= standard);
             public void Run(double result)
                 {
                     if (_result==0)
                     {
                         _result = result;
-                        if (result <= _standard)
+                        if (HasPassed)
                         {
-                            _passedCount++;
+                            passedcount++;
                         }
                     }
                 }
             public void Print(){
                 Console.WriteLine($"{Surname} {Group} {Trainer} {Result} {HasPassed}");
+                Console.WriteLine(PassedTheStandard);
             }
         }
     }

@@ -11,67 +11,88 @@ namespace Lab_6
             private string _name;
             private string _surname;
             private int[] _marks;
-            private bool _isExpelled;
+            private int _countex;
+            private bool _sessionclosed;
 
             public string Name=>_name;
             public string Surname=>_surname;
-            public int[] Marks => _marks;
-            public double AvgMarks
+            public int[] Marks=> (int[])_marks?.Clone();
+            public double AvgMark
             {
                 get
                 {
                     if (_marks == null || _marks.Length == 0) return 0;
-                    int sum = 0;
-                    int count = 0;
-                    foreach (int mark in _marks)
+                    double sum = 0;
+                    for (int i=0; i < _countex; i++)
                     {
-                        if (mark != 0)
-                        {
-                            sum += mark;
-                            count++;
-                        }
+                        sum += _marks[i];
                     }
-                    if (count == 0) return 0;
-                    return (double)sum / count;
+                    return sum / _countex;
                 }
             }
 
-            public bool IsExpelled => _isExpelled;
+            public bool IsExpelled
+            {
+                get
+                {
+                    if (_countex == 0) return false;
+                    for (int i=0; i<_countex; i++)
+                    {
+                        if (_marks[i] <= 2) return true;
+                    }
+                    return false;
+                }
+            }
+
 
             public Student(string name, string surname){
                 _name = name;
                 _surname = surname;
-                _marks = new int[] {2,2,2};
-                _isExpelled=false;
+                _marks = new int[3];
+                _sessionclosed = false;
+                _countex = 0;
             }
 
             public void Exam(int mark)
             {
-                if (mark<0||mark>5) return;
-                if (mark ==2) _isExpelled = true;
-                for (int i = 0; i < _marks.Length; i++)
+                if (_marks.Length == null || _marks.Length == 0) return;
+                if (_countex >= 3) return;
+                if (!_sessionclosed)
                 {
-                    if (_marks[i] == 2)
+                    if (mark > 2)
                     {
-                        _marks[i] = mark;
-                        return;
+                        _marks[_countex] = mark;
+                        _countex++;
+                    }
+                    else
+                    {
+                        _marks[_countex] = mark;
+                        _countex++;
+                        _sessionclosed = true;
                     }
                 }
             }
+
             public static void SortByAvgMark(Student [] array){
-                if (array==null) return;
-                for (int i =0; i<array.Length-1; i++){
-                    for (int j = 0; j<array.Length-i-1; j++){
-                        if (array[j].AvgMarks<array[j+1].AvgMarks){
-                            Student temp = array[j];
-                            array[j]=array[j+1];
-                            array[j+1]=temp;
-                        }
+                if (array == null) return;
+                for (int i = 1, j = 2; i < array.Length;)
+                {
+                    if (i == 0 || array[i].AvgMark <= array[i - 1].AvgMark)
+                    {
+                        i = j;
+                        j++;
+                    }
+                    else
+                    {
+                        Student temp = array[i];
+                        array[i] = array[i - 1];
+                        array[i - 1] = temp;
+                        i--;
                     }
                 }
             }
             public void Print(){
-                System.Console.WriteLine($"{Name} {Surname} {Math.Round(AvgMarks,2)} {IsExpelled}");
+                System.Console.WriteLine($"{Name} {Surname} {AvgMark} {IsExpelled}");
             }
         }
     }

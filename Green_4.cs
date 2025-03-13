@@ -14,16 +14,13 @@ namespace Lab_6
 
             public string Name=>_name;
             public string Surname=>_surname;
-            public double[] Jumps=>_jumps;
+            public double[] Jumps=> (double[])_jumps?.Clone();
             public double BestJump{
                 get{
-                    double best=_jumps[0];
                     if (_jumps != null && _jumps.Length > 0){
-                        for (int i=0;i<_jumps.Length; i++){
-                            if (_jumps[i]>best) best = _jumps[i];
+                        return _jumps.Max();
                         }
-                    }
-                    return best;
+                    return 0;
                 }
             }
 
@@ -43,13 +40,12 @@ namespace Lab_6
                 }
             }
             public static void Sort(Participant[] array){
-                if (array==null) return;
-                    for(int i =0; i<array.Length-1;i++){
-                        for (int j =0; j<array.Length-i-1; j++){
-                            if (array[j].BestJump<array[j+1].BestJump){
-                                Participant temp = array[j];
-                                array[j]=array[j+1];
-                                array[j+1]=temp;
+                for(int i =0; i<array.Length-1;i++){
+                    for (int j =0; j<array.Length-i-1; j++){
+                        if (array[j].BestJump<array[j+1].BestJump){
+                            Participant temp = array[j];
+                            array[j]=array[j+1];
+                            array[j+1]=temp;
                             }
                         }
                 }
