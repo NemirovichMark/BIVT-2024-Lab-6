@@ -18,8 +18,20 @@ namespace Lab_6
             public int Score => Goals > Misses ? 3 : Goals == Misses ? 1 : 0;
             public Match(int goals, int misses)
             {
+                if (goals < 0) {
+                    Console.WriteLine("Goal count can't be negative");
+                    return;
+                }
+                if (misses < 0) {
+                    Console.WriteLine("Miss count can't be negative");
+                    return;
+                }
                 _goals = goals;
                 _misses = misses;
+            }
+            public void Print()
+            {
+                Console.WriteLine($"Забито: {_goals}, Пропущено: {_misses}, Очки: {Score}");
             }
         }
         public struct Team
