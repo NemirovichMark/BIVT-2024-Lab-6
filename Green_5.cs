@@ -13,7 +13,7 @@ namespace Lab_6{
 
             public string Name => _name;
             public string Surname => _surname;
-            public int[] Marks => _marks;
+            public int[] Marks => (int[])_marks?.Clone();
             public double AvgMark{
                 get {
                     if (_marks == null || _marks.Length == 0) return 0;
@@ -78,7 +78,7 @@ namespace Lab_6{
                     else System.Console.WriteLine("Группа переполнена");
                 }
             }
-            public void SortByAvgMark(Group[] groups){
+            public static void SortByAvgMark(Group[] groups){
                 for (int i=0; i<groups.Length-1;i++){
                     for (int j=0; j<groups.Length-i-1; j++){
                         if (groups[j].AvgMark < groups[j+1].AvgMark){

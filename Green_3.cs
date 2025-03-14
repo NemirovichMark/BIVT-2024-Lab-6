@@ -21,7 +21,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_marks == null || _marks.Length == 0) return 0;
+                    if (_marks == null || _countex == 0) return 0;
                     double sum = 0;
                     for (int i=0; i < _countex; i++)
                     {
