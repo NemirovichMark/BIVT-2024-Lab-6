@@ -25,7 +25,20 @@ namespace Lab_6
 
             public string Name => _name;
             public string Surname => _surname;
-            public int[] Marks => _marks;
+            public int[] Marks
+            {
+                get
+                {
+                    if (_marks == null)
+                    {
+                        return default;
+                    }
+                    var a = new int[_marks.Length];
+                    Array.Copy(_marks, a, _marks.Length);
+                    return a;
+                }
+
+            }
             public double AvgMark
             {
                 get
