@@ -116,42 +116,64 @@ namespace Lab_6
                     }
                 }
             }
+            //public static Group Merge(Group group1, Group group2, int size)
+            //{
+            //    Group ngroup = new Group("Финалисты");
+            //    int i = 0;
+            //    int j = 0; 
+            //    int k = 0; 
+
+            //    while (i < group1.Teams.Length && j < group2.Teams.Length && k < size)
+            //    {
+            //        if (group1.Teams[i].TotalScore >= group2.Teams[j].TotalScore)
+            //        {
+            //            ngroup.Add(group1.Teams[i++]);
+            //        }
+            //        else
+            //        {
+            //            ngroup.Add(group2.Teams[j++]);
+            //        }
+            //        k++;
+            //    }
+
+                
+            //    while (i < group1.Teams.Length && k < size)
+            //    {
+            //        ngroup.Add(group1.Teams[i++]);
+            //        k++;
+            //    }
+
+                
+            //    while (j < group2.Teams.Length && k < size)
+            //    {
+            //        ngroup.Add(group2.Teams[j++]);
+            //        k++;
+            //    }
+
+            //    return ngroup;
+
+            //}
             public static Group Merge(Group group1, Group group2, int size)
             {
                 Group ngroup = new Group("Финалисты");
-                int i = 0;
-                int j = 0; 
-                int k = 0; 
-
-                while (i < group1.Teams.Length && j < group2.Teams.Length && k < size)
-                {
-                    if (group1.Teams[i].TotalScore >= group2.Teams[j].TotalScore)
-                    {
-                        ngroup.Add(group1.Teams[i++]);
-                    }
-                    else
-                    {
-                        ngroup.Add(group2.Teams[j++]);
-                    }
-                    k++;
-                }
 
                 
-                while (i < group1.Teams.Length && k < size)
-                {
-                    ngroup.Add(group1.Teams[i++]);
-                    k++;
-                }
+                if (size != 12) return ngroup;
+                group1.Sort();
+                group2.Sort();
 
                 
-                while (j < group2.Teams.Length && k < size)
+                for (int i = 0; i < size/2; i++)
                 {
-                    ngroup.Add(group2.Teams[j++]);
-                    k++;
+                    ngroup.Add(group1.Teams[i]);
                 }
 
+                for (int i = 0; i < size / 2; i++)
+                {
+                    ngroup.Add(group2.Teams[i]);
+                }
+                ngroup.Sort();
                 return ngroup;
-
             }
 
             public void Print()
