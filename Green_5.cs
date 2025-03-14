@@ -28,7 +28,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_marks.Length == 0 || _marks == null) return default;
+                    if (_marks == null || _marks.Length == 0) return default;
                     double s = 0;
                     foreach (var m in _marks)
                     {
