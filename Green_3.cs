@@ -27,7 +27,20 @@ namespace Lab_6
 
             public string Name => _name;
             public string Surname => _surname;
-            public int[] Marks => _marks.ToArray();
+            public int[] Marks
+            {
+                get
+                {
+                    if (_marks == null)
+                    {
+                        return default;
+                    }
+                    var a = new int[_marks.Length];
+                    Array.Copy(_marks, a, _marks.Length);
+                    return a;
+                }
+                
+            }
 
             public double AvgMark
             {
@@ -49,15 +62,14 @@ namespace Lab_6
             {
                 if(IsExpelled || _marks == null || _marks.Length == 0) return;
                 if(mark < 2 || mark > 5) return;
-                if (mark == 2)
-                {
-                    _isExpelled = true;
-                    return;
-                }
                 if (_examsTaken < _marks.Length)
                 {
                     _marks[_examsTaken] = mark;
                     _examsTaken++; 
+                }
+                if (mark == 2)
+                {
+                    _isExpelled = true;
                 }
             }
 
