@@ -21,20 +21,16 @@ public class Blue_1
         public int CountVotes(Response[] responses)
         {
             if (responses == null) return 0;
-            
+            int fooSumma = 0;
             foreach (var res in responses)
             {
-                int fooSumma = 0;
                 if (res.Name == this._firstName && res.Surname == this._lastName)
                 {
                     fooSumma++;
                 }
-
-                this._counter = fooSumma;
-                return fooSumma;
             }
 
-            return this._counter;
+            return fooSumma;
         }
 
         public void Print()

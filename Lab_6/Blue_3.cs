@@ -15,7 +15,7 @@ public class Blue_3
         {
             this._name = name;
             this._lastname = lastname;
-            this._minutes = new int[10];
+            this._minutes = new int[]{};
         }
         
         public readonly int[] PenaltyTimes
@@ -23,7 +23,12 @@ public class Blue_3
             get
             {
                 if (_minutes == null) return new int[]{};
-                return _minutes;
+                int[] arr = new int[this._minutes.Length];
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    arr[i] = this._minutes[i];
+                }
+                return arr;
             }
         }
 
@@ -60,15 +65,15 @@ public class Blue_3
         public void PlayMatch(int time)
         {
             if (this._minutes == null) return;
-
+            
+            int[] arr = new int[this._minutes.Length + 1];
             for (int i = 0; i < this._minutes.Length; i++)
             {
-                if (this._minutes[i] == 0)
-                {
-                    this._minutes[i] = time;
-                    break;
-                }
+                arr[i] = this._minutes[i];
             }
+            arr[this._minutes.Length] = time;
+            this._minutes = arr;
+            
         }
 
         public static void Sort(Participant[] arr)

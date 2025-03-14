@@ -7,6 +7,7 @@ public class Blue_2
         private string _name;
         private string _lastname;
         private int[,] _marks;
+        private int _count;
 
         public readonly string Name => _name;
         public readonly string Surname => _lastname;
@@ -15,8 +16,19 @@ public class Blue_2
         {
             get
             {
-                if (_marks == null) return new int[2, 5];
-                return _marks;
+                if (this._marks == null) return new int[2, 5];
+                
+                int[,] arr = new int[this._marks.GetLength(0), this._marks.GetLength(1)];
+                
+                for (int i = 0; i < this._marks.GetLength(0); i++)
+                {
+                    for (int j = 0; j < this._marks.GetLength(1); j++)
+                    {
+                        arr[i, j] = this._marks[i, j];
+                    }
+                }
+                return arr;
+
             }
         }
         
@@ -25,19 +37,20 @@ public class Blue_2
             this._name = name;
             this._lastname = lastname;
             this._marks = new int[2, 5];
+            this._count = 0;
         }
         
         public int TotalScore {
             get
             {
-                if (_marks == null || (_marks.GetLength(0) == 0 && _marks.GetLength(1) == 0)) return 0;
-
+                if (this._marks == null || (this._marks.GetLength(0) == 0 && this._marks.GetLength(1) == 0)) return 0;
+    
                 int summa = 0;
-                for (int i = 0; i < _marks.GetLength(0); i++)
+                for (int i = 0; i < this._marks.GetLength(0); i++)
                 {
-                    for (int j = 0; j < _marks.GetLength(1); j++)
+                    for (int j = 0; j < this._marks.GetLength(1); j++)
                     {
-                        summa += _marks[i, j];
+                        summa += this._marks[i, j];
                     }
                 }
 
@@ -47,27 +60,14 @@ public class Blue_2
 
         public void Jump(int[] result)
         {
-            if (result == null || this._marks == null) return;
-
-            for (int i = 0; i < this._marks.GetLength(0); i++)
-            {
-                bool isTrue = false;
-                for (int j = 0; j < this._marks.GetLength(1); j++)
-                {
-                    if (this._marks[i, j] != 0) isTrue = true;
-                }
-
-                if (isTrue) continue;
-                else
-                {
-                    for (int j = 0; j < this._marks.GetLength(1); j++)
-                    {
-                        this._marks[i, j] = result[j];
-                    }
-
-                    break;
-                }
+            if (result == null || this._marks == null || this._count > 1) return;
+            
+            for (int j = 0; j < this._marks.GetLength(1); j++) { 
+                if (this._count == 0) this._marks[0, j] = result[j];
+                else if (this._count == 1) this._marks[1, j] = result[j];
             }
+
+            this._count++;
         }
 
         public static void Sort(Participant[] array)

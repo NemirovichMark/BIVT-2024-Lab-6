@@ -83,7 +83,7 @@ public class Blue_5
                 get
                 {
                     if (this._sportsmen == null) return 0;
-                    int foo = int.MaxValue;
+                    int foo = 18;
                     
                     foreach(var item in _sportsmen)
                     {
@@ -96,7 +96,7 @@ public class Blue_5
             public Team(string name)
             {
                 this._name = name;
-                this._sportsmen = new Sportsman[1];
+                this._sportsmen = new Sportsman[6];
                 this._count = 0;
             }
 
@@ -111,7 +111,7 @@ public class Blue_5
             }
             public void Add(Sportsman[] sportsmen)
             {
-                if (this._sportsmen == null) return;
+                if (this._sportsmen == null || sportsmen == null) return;
 
                 for (int i = 0; i < sportsmen.Length; i++)
                 { 
@@ -122,6 +122,7 @@ public class Blue_5
             
             public static void Sort(Team[] teams)
             {
+                if (teams == null) return;
                 for (int i = 0; i < teams.Length; i++)
                 {
                     for (int j = 0; j < teams.Length; j++)
