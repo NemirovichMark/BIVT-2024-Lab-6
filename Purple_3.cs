@@ -21,7 +21,7 @@ namespace Lab_6
                 {
                     if (_marks == null) return null;
                     double[] marks = new double[_marks.Length];
-                    Array.Copy(_marks, marks, marks.Length);
+                    Array.Copy(_marks, marks, _marks.Length);
                     return marks;
                 }
             }
@@ -30,12 +30,9 @@ namespace Lab_6
                 get
                 {
                     if (_places == null) return null;
-                    int[] Places = new int[_places.Length];
-                    for (int i = 0; i < Places.Length; i++)
-                    {
-                        Places[i] = _places[i];
-                    }
-                    return Places;
+                    int[] places = new int[_places.Length];
+                    Array.Copy(_places, places, _places.Length);
+                    return places;
                 }
             }
             public int Score
@@ -43,12 +40,12 @@ namespace Lab_6
                 get
                 {
                     if (_places == null || _places.Length == 0) return 0;
-                    int Score = 0;
+                    int score = 0;
                     for (int i = 0; i < _places.Length; i++)
                     {
-                        Score += _places[i];
+                        score += _places[i];
                     }
-                    return Score;
+                    return score;
                 }
             }
             private int Max
@@ -93,7 +90,7 @@ namespace Lab_6
             public void Evaluate(double result)
             {
 
-                if (_nomber == _marks.Length) return;
+                if (_nomber >= _marks.Length) return;
                 if (_marks == null) return;
                 _marks[_nomber] = result;
 
@@ -101,7 +98,7 @@ namespace Lab_6
             }
             public static void SetPlaces(Participant[] participants)
             {
-
+                if(participants == null||participants.Length==0) return;
 
                 for (int j = 0; j < 7; j++)
                 {
