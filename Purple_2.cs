@@ -15,6 +15,7 @@ namespace Lab_6
             private string _surname;
             private int _distance;
             private int[] _marks;
+            
             public string Name => _name;
             public string Surname => _surname;
             public int Distance => _distance;
@@ -24,7 +25,7 @@ namespace Lab_6
                 {
                     if (_marks == null) return null;
                     int[] marks = new int[_marks.Length];
-                    Array.Copy(_marks, marks, marks.Length);
+                    Array.Copy(_marks, marks, _marks.Length);
                     return marks;
                 }
             }
@@ -32,38 +33,45 @@ namespace Lab_6
             {
                 get
                 {
-
-                    if (_marks == null) return 0;
-                    int k = 0;
-                    int sum = 0;
-                    int min = int.MaxValue;
-                    int max = int.MinValue;
-                    for (int i = 0; i < _marks.Length; i++)
-                    {
-                            sum += _marks[i];
-                            if (min > _marks[i]) min = _marks[i];
-                            if (max < _marks[i]) max = _marks[i];
-                    }
-                    sum = sum - min - max;
-                    if (_distance > 120) return (sum + 60 + 2 * (_distance - 120));
-                    else k = (sum + 120 - 2 * (120 - _distance));
-                    if (k <= 0) return 0;
-                    else return k;
-
+                   return rezult();
                 }
+            }
+            private int rezult()
+            {
+                if (_marks == null) return 0;
+                int k = 0;
+                int sum = 0;
+                int min = int.MaxValue;
+                int max = int.MinValue;
+                for (int i = 0; i < _marks.Length; i++)
+                {
+                    sum += _marks[i];
+                    if (min > _marks[i]) min = _marks[i];
+                    if (max < _marks[i]) max = _marks[i];
+                }
+                sum = sum - min - max;
+                if (_distance > 120) return (sum + 60 + 2 * (_distance - 120));
+                else
+                {
+                    int m = 60 - 2 * (120 - _distance);
+                    if (m <= 0) return sum;
+                    else return(sum+ m);
+                }
+
+                
             }
             public Participant(string name, string surname)
             {
-                _name = name;   
+                _name = name;
                 _surname = surname;
                 _marks = new int[5];
                 _distance = 0;
             }
             public void Jump(int distance, int[] marks)
             {
-                if (distance == null || marks == null || marks.Length != 5 || distance < 0 || _marks == null) return;
+                if  (marks == null || marks.Length != 5 || distance < 0 || _marks == null) return;
                 _distance = distance;
-                for (int i = 0; i < marks.Length; i++) _marks[i] = marks[i];
+                Array.Copy(marks,_marks, _marks.Length);
 
             }
             public static void Sort(Participant[] array)
