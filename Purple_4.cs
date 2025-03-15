@@ -51,7 +51,7 @@ namespace Lab_6
                     if( _sportsmen == null ) return null;
                     Sportsman[] sportsmen = new Sportsman[_sportsmen.Length];
 
-                    Array.Copy(sportsmen, _sportsmen, sportsmen.Length);
+                    Array.Copy( _sportsmen,sportsmen, _sportsmen.Length);
                     
                     return sportsmen;
                 }
@@ -68,46 +68,33 @@ namespace Lab_6
                 else
                 {
                     _sportsmen = new Sportsman[group.Sportsmen.Length];
-                    for(int i = 0;i< _sportsmen.Length;i++ )
-                    {
-                        _sportsmen[i]=group.Sportsmen[i];
-                    }
+                    Array.Copy( group.Sportsmen,_sportsmen, group.Sportsmen.Length);
                 }
             }
             public void Add(Sportsman sportsman)
             {
                 if (_sportsmen == null) return;
-                Sportsman[] add = new Sportsman[_sportsmen.Length+1];
-                for(int i=0;i< _sportsmen.Length; i++)
-                {
-                    add[i]=_sportsmen[i];
-                }
-                add[add.Length-1] = sportsman;
-                _sportsmen= add;
+                Array.Resize(ref _sportsmen, _sportsmen.Length + 1);
+                _sportsmen[_sportsmen.Length-1] = sportsman;
+               
             }
             public void Add(Sportsman[] sportsman)
             {
                 if (_sportsmen == null || sportsman.Length == 0) return;
-                Sportsman[] add = new Sportsman[_sportsmen.Length + sportsman.Length];
-                for (int i = 0; i < _sportsmen.Length; i++)
+               
+                Array.Resize(ref _sportsmen,_sportsmen.Length + sportsman.Length);
+                int a = 0;
+                for(int i = _sportsmen.Length; i < _sportsmen.Length; i++)
                 {
-                    add[i] = _sportsmen[i];
+                    _sportsmen[i] = sportsman[a];
+                    a++;
                 }
-                for(int i = _sportsmen.Length; i < _sportsmen.Length + sportsman.Length; i++)
-                {
-                    add[i] = Sportsmen[i-_sportsmen.Length];
-                }
-                _sportsmen = add;
+                
             }
             public void Add(Group group)
             {
                 if (_sportsmen == null || group.Sportsmen == null) return;
-                Sportsman[] add = new Sportsman[group.Sportsmen.Length];
-                for(int i = 0; i < add.Length; i++)
-                {
-                    add[i] = group.Sportsmen[i];
-                }
-                _sportsmen= add;
+                Add(group.Sportsmen);
             }
             public void Sort()
             {
@@ -129,7 +116,7 @@ namespace Lab_6
             }
             public static Group Merge(Group group1, Group group2)
             {
-                Group Finalists = new Group("Финалисты");
+                Group Finalists = new Group();
                 Finalists._sportsmen = new Sportsman [group1._sportsmen.Length + group2._sportsmen.Length];
                 for(int i = 0; i < group1._sportsmen.Length; i++)
                 {
