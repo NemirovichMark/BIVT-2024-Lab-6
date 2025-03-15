@@ -138,7 +138,7 @@ namespace Lab_6
                     }
                     else
                     {
-                        merged.Add(group2._teams[j]);
+                        newG.Add(group2._teams[j]);
                         j++;
                     }
                 }
