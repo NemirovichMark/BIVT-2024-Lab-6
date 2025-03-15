@@ -61,7 +61,7 @@ namespace Lab_6
 
             public void SetPlace(int place)
             {
-                if (place != 0)
+                if (this.place != 0)
                 {
                     Console.WriteLine("Место установлено ранее");
                     return;
