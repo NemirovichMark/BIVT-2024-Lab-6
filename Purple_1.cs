@@ -24,7 +24,7 @@ namespace Lab_6
                 {
                     if (_coefs == null) return null;
                     double[] coefs = new double[_coefs.Length];
-                    for (int i = 0; i < Coefs.Length; i++) Coefs[i] = _coefs[i];
+                    Array.Copy(_coefs,coefs,_coefs.Length);
                     return coefs;
                 }
             }
@@ -34,14 +34,7 @@ namespace Lab_6
                 {
                     if (_marks == null) return null;
                     int[,] marks = new int[_marks.GetLength(0), _marks.GetLength(1)];
-                    for (int i = 0; i < Marks.GetLength(0); i++)
-                    {
-                        for (int j = 0; j < Marks.GetLength(1); j++)
-                        {
-                            marks[i, j] = _marks[i, j];
-                        }
-
-                    }
+                    Array.Copy(_marks, marks, _marks.Length);
                     return marks;
                 }
             }
@@ -53,9 +46,9 @@ namespace Lab_6
                 }
 
             }
-            public void Sum()
+            private void Sum()
             {
-                double sum = 0;
+                
 
                 for (int i = 0; i < _marks.GetLength(0); i++)
                 {
@@ -63,14 +56,14 @@ namespace Lab_6
                     int max = int.MinValue;
                     for (int j = 0; j < _marks.GetLength(1); j++)
                     {
-                        sum += _marks[i, j] * _coefs[i];
+                        _sum += _marks[i, j] * _coefs[i];
                         if (min > _marks[i, j]) min = _marks[i, j];
                         if (max < _marks[i, j]) max = _marks[i, j];
                     }
-                    sum -= (min + max) * _coefs[i];
+                    _sum -= (min + max) * _coefs[i];
 
                 }
-                _sum = sum;
+                
             }
             public Participant(string name, string surname)
             {
@@ -85,23 +78,25 @@ namespace Lab_6
             {
                 if (coefs.Length == 4 && coefs != null && _coefs != null)
                 {
-                    for (int i = 0; i < coefs.Length; i++)
-                    {
-                        _coefs[i] = coefs[i];
-                    }
+                    Array.Copy(coefs, _coefs, coefs.Length);
                 }
             }
             public void Jump(int[] marks)
             {
 
                 if (marks.Length == 7 && _number < 4 && marks != null && _marks != null && _coefs != null)
-                    if (marks.Length == 7)
+               
                 {
                     for (int i = 0; i < marks.Length; i++)
                     {
                         _marks[_number, i] = marks[i];
                     }
+                    
                     _number++;
+                    if (_number == 4)
+                    {
+                        Sum();
+                    }
                 }
             }
             public static void Sort( Participant[] array)
