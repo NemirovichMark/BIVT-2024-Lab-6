@@ -60,7 +60,15 @@ namespace Lab_6
             private string _name;
             private Response[] _responses;
             public string Name => _name;
-            public Response[] Responses => _responses;
+            public Response[] Responses
+            {
+                get
+                {
+                    if (_responses == null) return null;
+                    else return _responses;
+                }
+                
+            }
             public Research(string name)
             {
                 _name = name;
@@ -71,46 +79,59 @@ namespace Lab_6
             {
                 if (answers == null || answers.Length !=3 || _responses == null) return;
                 var Abb = new Response(answers[0], answers[1], answers[2]);
-                Response[] _responses1 = new Response[_responses.Length + 1];
-                for(int i=0; i < _responses.Length; i++)
-                {
-                    _responses1[i] = _responses[i];
-                }
-                _responses1[_responses1.Length-1] = Abb;
-                Array.Copy( _responses1,_responses, _responses1.Length);
+                Array.Resize(ref _responses, _responses.Length+1);
+                _responses[_responses.Length-1] = Abb;
             }
             public string [] GetTopResponses(int question)
             {
                 if (_responses == null || question > 3 || question < 1 ) return null;
                 string[] kan = new string[_responses.Length];
-                for(int i=0,k=0;i<_responses.Length;i++,k++)
+                
+                for(int i=0,k=0;i<_responses.Length;i++)
                 {
                     string a1 = Geta1(_responses[i], question);
                     if (a1=="") Array.Resize(ref kan, kan.Length - 1);
                     else
                     {
+                        
                         kan[k] = a1;
                         k++;
+                        
                     }
+                    
                 }
+               
                 string[] kan1 = new string[kan.Length];
-                for (int i = 0, k = 0; i < kan.Length; i++, k++)
+                kan1[0] = kan[0];
+                
+                for (int i = 1, k = 1; i < kan.Length; i++)
                 {
-                    for(int j=0; j < kan1.Length; j++)
+                   
+                    for(int j=0; j < k; j++)
                     {
-                        if (kan[i] == kan1[j]) Array.Resize(ref kan1, kan1.Length - 1);
-                        else
-                        {
-                            kan1[k] = kan1[i];
-                            k++;
+                        
+                        if (kan[i] == kan1[j]) 
+                        { 
+                            Array.Resize(ref kan1, kan1.Length - 1);
+                            j = k;
                         }
+                        else if (j == k - 1)
+                        {
+                            kan1[k] = kan[i];
+                            k++;
+                            break;
+                        }
+                        
                     }
                 }
+                
+                
                 int[] mas = new int[kan1.Length];
                 for(int i = 0; i < kan1.Length; i++)
                 {
                     mas[i] = kan.Count(x => x == kan1[i]);
                 }
+               
                 for (int i = 1; i < mas.Length;)
                 {
                     if (i == 0 || mas[i] <= mas[i - 1])
@@ -123,40 +144,20 @@ namespace Lab_6
                         mas[i] = mas[i - 1];
                         mas[i - 1] = temp1;
                         string temp = kan1[i];
-                        kan1[i] = kan[i - 1];
-                        kan[i-1] = temp;
+                        kan1[i] = kan1[i - 1];
+                        kan1[i-1] = temp;
                         i--;
                     }
                 }
-                string[] kan2= new string[5];
-                if (kan1.Length >= 5)
-                {
-                    for(int i = 0; i < 5; i++)
-                    {
-                        kan2[i]=kan1[i];
-                    }
-                }
-                else
-                {
-                    for(int i = 0; i < kan1.Length; i++)
-                    {
-                        kan2[i]=kan1[i];
-                    }
-                }
+                Array.Resize(ref kan1, 5);
+                Array.Resize(ref mas, 5);
+                Console.WriteLine(112);
+                foreach (string x in kan1) Console.WriteLine(x);
+                foreach(int x in mas) Console.WriteLine(x);
+
                 
-                    foreach (string x in kan2)
-                    {
-                        Console.Write(x + " ");
-                        
-                    }
-                    Console.WriteLine();
-                foreach (int x in mas)
-                {
-                    Console.Write(x + " ");
 
-                }
-
-                return kan2;
+                return kan1;
             }
            
             private string Geta1(Response a, int question)
@@ -179,14 +180,9 @@ namespace Lab_6
             }
             public void Print()
             {
-                for(int i=0; i < 3; i++)
+                for(int i=1; i < 4; i++)
                 {
                     string[] answer = GetTopResponses(i);
-                    foreach (string x in answer)
-                    {
-                        Console.Write(answer + " ");
-                    }
-                    Console.WriteLine();
                 }
                 
             }
