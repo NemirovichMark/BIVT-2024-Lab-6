@@ -80,11 +80,11 @@ namespace Lab_6
             }
             public void Add(Sportsman[] sportsman)
             {
-                if (_sportsmen == null || sportsman.Length == 0) return;
-               
+                if (_sportsmen == null || sportsman.Length == 0||sportsman==null) return;
+                int k = _sportsmen.Length;
                 Array.Resize(ref _sportsmen,_sportsmen.Length + sportsman.Length);
                 int a = 0;
-                for(int i = _sportsmen.Length; i < _sportsmen.Length; i++)
+                for(int i = k; i < _sportsmen.Length; i++)
                 {
                     _sportsmen[i] = sportsman[a];
                     a++;
@@ -116,7 +116,7 @@ namespace Lab_6
             }
             public static Group Merge(Group group1, Group group2)
             {
-                Group Finalists = new Group();
+                Group Finalists = new Group("Финалисты");
                 Finalists._sportsmen = new Sportsman [group1._sportsmen.Length + group2._sportsmen.Length];
                 for(int i = 0; i < group1._sportsmen.Length; i++)
                 {
