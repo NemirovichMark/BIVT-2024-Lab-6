@@ -65,15 +65,15 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_marks == null) return 0;
-                    double TotalMark = 0;
+                    if (_marks == null || _marks.Length != 7) return 0;
+                    double Totalmark = 0;
                     for (int i = 0; i < _marks.Length; i++)
                     {
-                        TotalMark += _marks[i];
+                        Totalmark += _marks[i];
 
                     }
 
-                    return TotalMark;
+                    return Totalmark;
                 }
             }
 
@@ -91,7 +91,7 @@ namespace Lab_6
             {
 
                 if (_nomber >= _marks.Length) return;
-                if (_marks == null) return;
+                if (_marks == null || _marks.Length == 0 || result < 0||result>6) return;
                 _marks[_nomber] = result;
 
                 _nomber++;
@@ -121,9 +121,10 @@ namespace Lab_6
                     }
                     for (int i = 0; i < participants.Length; i++)
                     {
-                        participants[i]._places[j] = 10-i;
+                        participants[i]._places[j] = participants.Length - i;
                     }
                 }
+                
             }
             public static void Sort(Participant[] array)
             {
@@ -154,14 +155,14 @@ namespace Lab_6
                         }
                         if (_1 > _2)
                         {
+                            i++;
+                        }
+                        else if (_2 > _1)
+                        {
                             Participant temp1 = array[i];
                             array[i] = array[i - 1];
                             array[i - 1] = temp1;
                             i--;
-                        }
-                        else if (_2 > _1)
-                        {
-                            i++;
                         }
                         else
                         {
