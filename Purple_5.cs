@@ -90,7 +90,7 @@ namespace Lab_6
                 for(int i=0,k=0;i<_responses.Length;i++)
                 {
                     string a1 = Geta1(_responses[i], question);
-                    if (a1=="") Array.Resize(ref kan, kan.Length - 1);
+                    if (a1==""|| a1==null) Array.Resize(ref kan, kan.Length - 1);
                     else
                     {
                         
