@@ -12,28 +12,28 @@ namespace Lab_6
         {
             private string _name;
             private string _surname;
-            private int[] _points;
+            private int[] _penaltyTimes;
 
             public string Name => _name;
             public string Surname => _surname;
-            public int[] Points => _points;
+            public int[] PenaltyTimes => _penaltyTimes;
 
             public Participant(string name, string surname)
             {
                 _name = name;
                 _surname = surname;
-                _points = new int[0];
+                _penaltyTimes = new int[0];
             }
 
             public int TotalTime
             {
                 get
                 {
-                    if (_points == null || _points.Length == 0) return 0;
+                    if (_penaltyTimes == null || _penaltyTimes.Length == 0) return 0;
                     int s = 0;
-                    for (int i = 0; i < _points.Length; i++)
+                    for (int i = 0; i < _penaltyTimes.Length; i++)
                     {
-                        s += _points[i];
+                        s += _penaltyTimes[i];
                     }
                     return s;
                 }
@@ -43,10 +43,10 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_points == null) return false;
-                    for (int i = 0; i < _points.Length; i++)
+                    if (_penaltyTimes == null) return false;
+                    for (int i = 0; i < _penaltyTimes.Length; i++)
                     {
-                        if (_points[i] == 10)
+                        if (_penaltyTimes[i] == 10)
                         {
                             return false;
                         }
@@ -57,11 +57,11 @@ namespace Lab_6
 
             public void PlayMatch(int time)
             {
-                if (_points == null || time == null) return;
-                int[] new_points = new int[_points.Length + 1];
-                Array.Copy(_points, new_points, _points.Length);
-                new_points[_points.Length] = time;
-                _points = new_points;
+                if (_penaltyTimes == null || time == null) return;
+                int[] new_points = new int[_penaltyTimes.Length + 1];
+                Array.Copy(_penaltyTimes, new_points, _penaltyTimes.Length);
+                new_points[_penaltyTimes.Length] = time;
+                _penaltyTimes = new_points;
             }
 
             public static void Sort(Participant[] array)
