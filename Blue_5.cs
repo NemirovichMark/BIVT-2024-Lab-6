@@ -83,7 +83,7 @@ namespace Lab_6
                     int topPlace = 18;
                     foreach (var s in _sportsmen)
                     {
-                        if (s.Place < topPlace) topPlace = s.Place;
+                        if (s.Place < topPlace && s.Place != 0) topPlace = s.Place;
                     }
                     return topPlace;
                 }
