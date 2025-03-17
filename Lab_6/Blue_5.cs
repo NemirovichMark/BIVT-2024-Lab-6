@@ -7,6 +7,7 @@ public class Blue_5
         private string _name;
         private string _lastname;
         private int _place;
+        private bool isTrue;
         
         public readonly string Name => _name;
         public readonly string Surname => _lastname;
@@ -17,12 +18,16 @@ public class Blue_5
             this._name = name;
             this._lastname = lastname;
             this._place = 0;
+            this.isTrue = true;
         }
 
         public void SetPlace(int place)
         {
-            if (place != 0) return;
-            this._place = place;
+            if (isTrue)
+            {
+                this._place = place;
+                this.isTrue = false;
+            }
         }
 
         public void Print()
@@ -37,23 +42,9 @@ public class Blue_5
             private int _count;
             
             public readonly string Name => _name;
+            public readonly Sportsman[] Sportsmen => this._sportsmen;
 
-            public readonly Sportsman[] Sportsmen
-            {
-                get
-                {
-                    Sportsman[] result = new Sportsman[this._sportsmen.Length];
-
-                    for (int i = 0; i < this._sportsmen.Length; i++)
-                    {
-                        result[i] = this._sportsmen[i];
-  
-                    } 
-                    return result;
-                }
-            }
-
-            public readonly int SummaryScore
+            public int SummaryScore
             {
                 get
                 {
@@ -78,17 +69,17 @@ public class Blue_5
                 }
             }
             
-            public readonly int TopPlace
+            public int TopPlace
             {
                 get
                 {
                     if (this._sportsmen == null) return 0;
                     int foo = 18;
                     
-                    foreach(var item in _sportsmen)
-                    {
-                        foo = Math.Min(item.Place, foo);
+                    for (int i = 0; i < this._count; i++) {
+                        if (this._sportsmen[i].Place < foo) foo = this._sportsmen[i].Place;
                     }
+                    
                     return foo;
                 }
             }
@@ -105,7 +96,7 @@ public class Blue_5
                 if (this._sportsmen == null) return;
                 if (this._count < 6)
                 {
-                    this._sportsmen[this._count + 1] = sportsman;
+                    this._sportsmen[this._count] = sportsman;
                     this._count++;   
                 }
             }
@@ -123,16 +114,15 @@ public class Blue_5
             public static void Sort(Team[] teams)
             {
                 if (teams == null) return;
-                for (int i = 0; i < teams.Length; i++)
+                for (int i = 0; i < teams.Length - 1; i++)
                 {
-                    for (int j = 0; j < teams.Length; j++)
+                    for (int j = 0; j < teams.Length - i - 1; j++)
                     {
-                        if (i == j) continue;
-                        if ((teams[j - 1].SummaryScore < teams[j].SummaryScore) || (teams[j - 1].SummaryScore == teams[j].SummaryScore && teams[j - 1].TopPlace < teams[j].TopPlace))
+                        if ((teams[j].SummaryScore < teams[j + 1].SummaryScore) || (teams[j].SummaryScore == teams[j + 1].SummaryScore && teams[j].TopPlace < teams[j + 1].TopPlace))
                         { 
-                            Team temp = teams[j];
-                            teams[j] = teams[j - 1];
-                            teams[j - 1] = temp;
+                            Team temp = teams[j + 1];
+                            teams[j + 1] = teams[j];
+                            teams[j] = temp;
                         }
                     }
                 }

@@ -16,7 +16,7 @@ public class Blue_2
         {
             get
             {
-                if (this._marks == null) return new int[2, 5];
+                if (this._marks == null) return null;
                 
                 int[,] arr = new int[this._marks.GetLength(0), this._marks.GetLength(1)];
                 
@@ -73,15 +73,15 @@ public class Blue_2
         public static void Sort(Participant[] array)
         {
             if (array == null) return;
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Length - 1; i++)
             {
-                for (int j = i + 1; j < array.Length; j++)
+                for (int j = 0; j < array.Length - i - 1; j++)
                 {
-                    if (array[j].TotalScore > array[j - 1].TotalScore)
+                    if (array[j + 1].TotalScore > array[j].TotalScore)
                     {
-                        Participant temp = array[j - 1];
-                        array[j - 1] = array[j];
-                        array[j] = temp;
+                        Participant temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
                     }
                 }
             }

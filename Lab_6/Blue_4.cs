@@ -44,27 +44,19 @@ public class Blue_4
         public Team(string name)
         {
             this._name = name;
-            this._counts = new int[] {};
+            this._counts = new int[0];
         }
 
         public void PlayMatch(int result)
         {
             if (this._counts == null) return;
-
-            int[] arr = new int[this._counts.Length + 1];
-
-            for (int i = 0; i < this._counts.Length + 1; i++)
-            {
-                arr[i] = this._counts[i];
-            }
-            arr[this._counts.Length] = result;
-            
-            this._counts = arr;
+            Array.Resize(ref this._counts, this._counts.Length + 1);
+            this._counts[this._counts.Length - 1] = result;
         }
 
         public void Print()
         {
-            Console.WriteLine(this.Name);
+            Console.WriteLine(this.Name, this.TotalScore);
         }
     }
 
@@ -75,36 +67,7 @@ public class Blue_4
         private int _count;
         
         public readonly string Name => _name;
-        public readonly Team[] Teams {
-            get
-            {
-                if (this._teams == null) return new Team[]{};
-                Team[] arr = new Team[this._teams.Length];
-
-                for (int i = 0; i < this._teams.Length; i++)
-                {
-                    arr[i] = this._teams[i];
-                }
-
-                return arr;
-            }
-        }
-
-        public Team[] Score
-        {
-            get
-            {
-                if (_teams == null) return new Team[]{};
-                Team[] result = new Team[this._teams.Length];
-
-                for (int i = 0; i < this._teams.Length; i++)
-                {
-                    result[i] = _teams[i];
-                }
-
-                return result;
-            }
-        }
+        public readonly Team[] Teams => this._teams;
 
         public Group(string name)
         {
@@ -126,11 +89,11 @@ public class Blue_4
 
         public void Add(Team[] teams)
         {
-            if (this._teams == null || teams == null || teams.Length == 0) return;
+            if (this._teams == null || teams == null) return;
             
             Team[] arr = new Team[this._teams.Length + teams.Length];
             
-            for (int i = 0; i < Math.Min(teams.Length, 12); i++)
+            for (int i = 0; i < 12; i++)
             {
                 Add(teams[i]);
             }
@@ -139,15 +102,15 @@ public class Blue_4
         public void Sort()
         {
             if (this._teams == null) return;
-            for (int i = 0; i < this._teams.Length; i++)
+            for (int i = 0; i < this._teams.Length - 1; i++)
             {
-                for (int j = i + 1; j < this._teams.Length; j++)
+                for (int j = 0; j < this._teams.Length - i - 1; j++)
                 {
-                    if (this._teams[j].TotalScore > this._teams[j - 1].TotalScore)
+                    if (this._teams[j + 1].TotalScore > this._teams[j].TotalScore)
                     {
-                        Team temp = this._teams[j];
-                        this._teams[j] = this._teams[j - 1];
-                        this._teams[j - 1] = temp;
+                        Team temp = this._teams[j + 1];
+                        this._teams[j + 1] = this._teams[j];
+                        this._teams[j] = temp;
                     }
                 }
             }
@@ -155,11 +118,15 @@ public class Blue_4
 
         public static Group Merge(Group group1, Group group2, int size)
         {
+            if (group1.Teams == null || group2.Teams == null || size <= 0) return new Group();
             Group group = new Group("Финалисты");
+            group1.Sort();
+            group2.Sort();
+            
             int foo1 = 0;
             int foo2 = 0;
 
-            while (foo1 < size / 2 || foo2 < size / 2)
+            while (foo1 < size / 2 && foo2 < size / 2)
             {
                 if (group1.Teams[foo1].TotalScore >= group2.Teams[foo2].TotalScore)
                 {
@@ -171,18 +138,20 @@ public class Blue_4
                     group.Add(group2.Teams[foo2]);
                     foo2++;
                 }
+            }
+            
+            while (foo1 < size / 2)
+            {
+                group.Add(group1.Teams[foo1]);
+                foo1++;
+                    
+            }
 
-                if (foo1 == size / 2)
-                {
-                    group.Add(group2.Teams[foo2]);
-                    foo2++;
-                }
-
-                if (foo2 == size / 2)
-                {
-                    group.Add(group1.Teams[foo1]);
-                    foo1++;
-                }
+            while (foo2 < size / 2)
+            {
+                group.Add(group2.Teams[foo2]);
+                foo2++;
+                    
             }
             
             return group;
