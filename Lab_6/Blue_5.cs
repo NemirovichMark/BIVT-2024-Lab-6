@@ -118,7 +118,7 @@ public class Blue_5
                 {
                     for (int j = 0; j < teams.Length - i - 1; j++)
                     {
-                        if ((teams[j].SummaryScore < teams[j + 1].SummaryScore) || (teams[j].SummaryScore == teams[j + 1].SummaryScore && teams[j].TopPlace < teams[j + 1].TopPlace))
+                        if ((teams[j].SummaryScore < teams[j + 1].SummaryScore) || (teams[j].SummaryScore == teams[j + 1].SummaryScore && teams[j].TopPlace > teams[j + 1].TopPlace))
                         { 
                             Team temp = teams[j + 1];
                             teams[j + 1] = teams[j];

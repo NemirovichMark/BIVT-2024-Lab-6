@@ -49,7 +49,7 @@ public class Blue_3
             }
         }
 
-        public bool isExpelled
+        public bool IsExpelled
         {
             get
             {

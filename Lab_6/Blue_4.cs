@@ -13,7 +13,7 @@ public class Blue_4
         {
             get
             {
-                if (this._counts == null) return new int[] { };
+                if (this._counts == null) return null;
                 int[] arr = new int[this._counts.Length];
 
                 for (int i = 0; i < this._counts.Length; i++)
