@@ -48,12 +48,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if( _sportsmen == null ) return null;
-                    Sportsman[] sportsmen = new Sportsman[_sportsmen.Length];
-
-                    Array.Copy( _sportsmen,sportsmen, _sportsmen.Length);
-                    
-                    return sportsmen;
+                    return _sportsmen;
                 }
             }
             public Group(string name)
