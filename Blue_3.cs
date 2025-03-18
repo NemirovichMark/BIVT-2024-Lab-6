@@ -12,7 +12,7 @@ namespace Lab_6
         {
             private string _name;
             private string _surname;
-            private int[] _penaltyTimes;
+            private int[] _penaltytimes;
 
             public string Name => _name;
             public string Surname => _surname;
@@ -20,7 +20,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_penaltytimes == null) return null;
+                    if (_penaltytimes == null) return 0;
                     int[] _newpenaltytimes = new int[_penaltytimes.Length];
                     Array.Copy(_penaltytimes, _newpenaltytimes, _newpenaltytimes.Length);
                     return _newpenaltytimes;
@@ -31,18 +31,18 @@ namespace Lab_6
             {
                 _name = name;
                 _surname = surname;
-                _penaltyTimes = new int[0];
+                _penaltytimes = new int[0];
             }
 
             public int TotalTime
             {
                 get
                 {
-                    if (_penaltyTimes == nulld) return 0;
+                    if (_penaltytimes == nulld) return 0;
                     int s = 0;
-                    for (int i = 0; i < _penaltyTimes.Length; i++)
+                    for (int i = 0; i < _penaltytimes.Length; i++)
                     {
-                        s += _penaltyTimes[i];
+                        s += _penaltytimes[i];
                     }
                     return s;
                 }
@@ -52,10 +52,10 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_penaltyTimes == null) return false;
-                    for (int i = 0; i < _penaltyTimes.Length; i++)
+                    if (_penaltytimes == null) return false;
+                    for (int i = 0; i < _penaltytimes.Length; i++)
                     {
-                        if (_penaltyTimes[i] == 10)
+                        if (_penaltytimes[i] == 10)
                         {
                             return false;
                         }
