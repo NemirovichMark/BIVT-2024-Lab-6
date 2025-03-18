@@ -61,7 +61,7 @@ namespace Lab_6
                     return Max;
                 }
             }
-            public double TotalMark
+            private double TotalMark
             {
                 get
                 {
@@ -98,33 +98,62 @@ namespace Lab_6
             }
             public static void SetPlaces(Participant[] participants)
             {
-                if(participants == null||participants.Length==0) return;
-
+                if (participants == null || participants.Length == 0) return;
+                Participant[] participants1 = new Participant[participants.Length];
+                int k = 0;
+                for (int i = 0; i < participants.Length; i++)
+                {
+                    if (participants[i]._places == null || participants[i]._marks == null)
+                    {
+                        Array.Resize(ref participants1, participants1.Length - 1);
+                    }
+                    else
+                    {
+                        participants1[k] = participants[i];
+                        k++;
+                    }
+                }
                 for (int j = 0; j < 7; j++)
                 {
 
 
-                    for (int i = 1; i < participants.Length;)
+                    for (int i = 1; i < participants1.Length;)
                     {
-                        if (i == 0 || participants[i]._marks[j] >= participants[i - 1]._marks[j])
+                        if (i == 0 || participants1[i]._marks[j] >= participants1[i - 1]._marks[j])
                         {
                             i++;
                         }
                         else
                         {
 
-                            Participant temp1 = participants[i];
-                            participants[i] = participants[i - 1];
-                            participants[i - 1] = temp1;
+                            Participant temp1 = participants1[i];
+                            participants1[i] = participants1[i - 1];
+                            participants1[i - 1] = temp1;
                             i--;
                         }
                     }
-                    for (int i = 0; i < participants.Length; i++)
+                    for (int i = 0; i < participants1.Length; i++)
                     {
-                        participants[i]._places[j] = participants.Length - i;
+                        participants1[i]._places[j] = participants1.Length - i;
                     }
                 }
-                
+                Participant[] participants2 = new Participant[participants.Length];
+                int l = 0;
+                for (int i = 0; i < participants.Length; i++)
+                {
+                    if (participants[i]._places == null || participants[i]._marks == null)
+                    {
+                        participants2[l]=participants[i];
+                        l++;
+                    }
+                }
+                int m = 0;
+                for(int i = l; i < participants2.Length; i++)
+                {
+                    participants2[i] = participants1[m];
+                    m++;
+                }
+                Array.Copy(participants2,participants,participants2.Length);
             }
             public static void Sort(Participant[] array)
             {
