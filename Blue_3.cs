@@ -16,7 +16,16 @@ namespace Lab_6
 
             public string Name => _name;
             public string Surname => _surname;
-            public int[] PenaltyTimes => _penaltyTimes;
+            public int[] PenaltyTimes
+            {
+                get
+                {
+                    if (_penaltytimes == null) return null;
+                    int[] _newpenaltytimes = new int[_penaltytimes.Length];
+                    Array.Copy(_penaltytimes, _newpenaltytimes, _newpenaltytimes.Length);
+                    return _newpenaltytimes;
+                }
+            }
 
             public Participant(string name, string surname)
             {
@@ -29,7 +38,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_penaltyTimes == null || _penaltyTimes.Length == 0) return 0;
+                    if (_penaltyTimes == nulld) return 0;
                     int s = 0;
                     for (int i = 0; i < _penaltyTimes.Length; i++)
                     {
@@ -57,15 +66,14 @@ namespace Lab_6
 
             public void PlayMatch(int time)
             {
-                if (_penaltyTimes == null || time == null) return;
-                int[] new_points = new int[_penaltyTimes.Length + 1];
-                Array.Copy(_penaltyTimes, new_points, _penaltyTimes.Length);
-                new_points[_penaltyTimes.Length] = time;
-                _penaltyTimes = new_points;
+                if (_penaltytimes == null) return;
+                Array.Resize(ref _penaltytimes, _penaltytimes.Length + 1);
+                _penaltytimes[_penaltytimes.Length - 1] = time;
             }
 
             public static void Sort(Participant[] array)
             {
+                if (array == null) return;
                 for (int i = 0; i < array.Length - 1; i++)
                 {
                     for (int j = 0; j < array.Length - 1 - i; j++)
