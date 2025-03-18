@@ -119,7 +119,7 @@ namespace Lab_6
 
                     for (int i = 1; i < participants1.Length;)
                     {
-                        if (i == 0 || participants1[i]._marks[j] >= participants1[i - 1]._marks[j])
+                        if (i == 0 || participants1[i]._marks[j] <= participants1[i - 1]._marks[j])
                         {
                             i++;
                         }
@@ -134,24 +134,25 @@ namespace Lab_6
                     }
                     for (int i = 0; i < participants1.Length; i++)
                     {
-                        participants1[i]._places[j] = participants1.Length - i;
+                        participants1[i]._places[j] = 1+i;
                     }
                 }
                 Participant[] participants2 = new Participant[participants.Length];
-                int l = 0;
+                
+               
+                int m = participants1.Length;
+                for(int i = 0; i < participants1.Length; i++)
+                {
+                    participants2[i] = participants1[i];
+                    
+                }
                 for (int i = 0; i < participants.Length; i++)
                 {
                     if (participants[i]._places == null || participants[i]._marks == null)
                     {
-                        participants2[l]=participants[i];
-                        l++;
+                        participants2[m] = participants[i];
+                        m++;
                     }
-                }
-                int m = 0;
-                for(int i = l; i < participants2.Length; i++)
-                {
-                    participants2[i] = participants1[m];
-                    m++;
                 }
                 Array.Copy(participants2,participants,participants2.Length);
             }
