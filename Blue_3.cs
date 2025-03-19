@@ -38,7 +38,7 @@ namespace Lab_6
             {
                 get
                 {
-                    if (_penaltytimes == nulld) return 0;
+                    if (_penaltytimes == null) return 0;
                     int s = 0;
                     for (int i = 0; i < _penaltytimes.Length; i++)
                     {
