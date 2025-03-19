@@ -170,19 +170,8 @@ namespace Lab_6
                     }
                     else if (array[i].Score == array[i - 1].Score)
                     {
-                        int _1 = 0;
-                        int _2 = 0;
-                        for (int j = 0; j < 7; j++)
-                        {
-                            if (array[i]._places[j] > array[i - 1]._places[j])
-                            {
-                                _1++;
-                            }
-                            else if (array[i]._places[j] < array[i - 1]._places[j])
-                            {
-                                _2++;
-                            }
-                        }
+                        int _1 = array[i].Max;
+                        int _2 = array[i - 1].Max;
                         if (_1 > _2)
                         {
                             i++;
