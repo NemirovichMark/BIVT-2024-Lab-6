@@ -163,7 +163,7 @@ namespace Lab_6
                 for (int i = 1; i < array.Length;)
                 {
                     
-                    if (i == 0 || array[i].Score >= array[i - 1].Score)
+                    if (i == 0 || array[i].Score > array[i - 1].Score)
                     {
                         i++;
                         
@@ -171,6 +171,7 @@ namespace Lab_6
                     else if (array[i].Score == array[i - 1].Score)
                     {
                         int _1 = array[i].Max;
+                        
                         int _2 = array[i - 1].Max;
                         if (_1 > _2)
                         {
