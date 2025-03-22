@@ -158,43 +158,58 @@ namespace Lab_6
             }
             public static void Sort(Participant[] array)
             {
-
                 if (array == null || array.Length == 0) return;
-                for (int i = 1; i < array.Length;)
+
+                Participant[] array1=new Participant[array.Length];
+                int k = 0;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i]._places == null ||array[i]._marks == null)
+                    {
+                        Array.Resize(ref array1, array1.Length - 1);
+                    }
+                    else
+                    {
+                        array1[k] = array[i];
+                        k++;
+                    }
+                }
+                
+                for (int i = 1; i < array1.Length;)
                 {
                     
-                    if (i == 0 || array[i].Score > array[i - 1].Score)
+                    if (i == 0 || array1[i].Score > array1[i - 1].Score)
                     {
                         i++;
                         
                     }
-                    else if (array[i].Score == array[i - 1].Score)
+                    else if (array1[i].Score == array1[i - 1].Score)
                     {
-                        int _1 = array[i].Max;
+                        int _1 = array1[i].Max;
                         
-                        int _2 = array[i - 1].Max;
+                        int _2 = array1[i - 1].Max;
                         if (_1 > _2)
                         {
                             i++;
                         }
                         else if (_2 > _1)
                         {
-                            Participant temp1 = array[i];
-                            array[i] = array[i - 1];
-                            array[i - 1] = temp1;
+                            Participant temp1 = array1[i];
+                            array1[i] = array1[i - 1];
+                            array1[i - 1] = temp1;
                             i--;
                         }
                         else
                         {
-                            if (array[i].TotalMark < array[i - 1].TotalMark)
+                            if (array1[i].TotalMark < array1[i - 1].TotalMark)
                             {
                                 i++;
                             }
                             else
                             {
-                                Participant temp1 = array[i];
-                                array[i] = array[i - 1];
-                                array[i - 1] = temp1;
+                                Participant temp1 = array1[i];
+                                array1[i] = array1[i - 1];
+                                array1[i - 1] = temp1;
                                 i--;
                             }
                         }
@@ -202,14 +217,32 @@ namespace Lab_6
 
                     else
                     {
-                        Participant temp1 = array[i];
-                        array[i] = array[i - 1];
-                        array[i - 1] = temp1;
+                        Participant temp1 = array1[i];
+                        array1[i] = array1[i - 1];
+                        array1[i - 1] = temp1;
                         i--;
                         
                     }
                     
                 }
+                Participant[] array2 = new Participant[array.Length];
+
+
+                int m = array1.Length;
+                for (int i = 0; i < array1.Length; i++)
+                {
+                    array2[i] = array1[i];
+
+                }
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i]._places == null || array[i]._marks == null)
+                    {
+                        array2[m] = array[i];
+                        m++;
+                    }
+                }
+                Array.Copy(array2, array, array2.Length);
             }
             public void Print()
             {
